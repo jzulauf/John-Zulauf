@@ -1,0 +1,29 @@
+\section{Strlen performance test}
+\label{group__strlen__test}\index{Strlen performance test@{Strlen performance test}}
+The performance and optimzation test for strlen. Uses the framework provided by {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} and {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})}. 
+Status
+
+The testing and optimization has been completed
+
+Results
+
+\begin{CompactItemize}
+\item 
+Winner: {\bf lx\_\-strlen\_\-5a\_\-r2()} {\rm (p.\,\pageref{strlen_2def__test_8h_a5})} 1.2x better overall\item 
+Honorable mention: {\bf i486p\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a3})} 1.18x better by just adding the prefetch\end{CompactItemize}
+Candidates
+
+\begin{CompactItemize}
+\item 
+{\bf i386\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a1})}\item 
+{\bf i486\_\-inline\_\-strlen()}\item 
+{\bf i486p\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a3})}\item 
+{\bf i486\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a4})}\item 
+{\bf lx\_\-strlen\_\-5a\_\-r2()} {\rm (p.\,\pageref{strlen_2def__test_8h_a5})}\item 
+{\bf lx\_\-strlen\_\-5a\_\-r()} {\rm (p.\,\pageref{strlen_2def__test_8h_a6})}\item 
+{\bf lx\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a7})}\item 
+{\bf lxus\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a8})}\item 
+{\bf lxu\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a9})}\end{CompactItemize}
+Notes Reference is made to the 'Darwin \char`\"{}magic\char`\"{} algorithm.' By this we are referring to the dword zero find algorithm which uses the 0xfefefeff \char`\"{}magic\char`\"{} number. This is similar to (and mathematically equivalent to) the i486 implementation but is implemented in fewer instructions and fewer conditional jumps.
+
+Note also that as the Darwin code was PPC assembly, thus only the algorithm and not the implementation is reflected in the implementation here. 

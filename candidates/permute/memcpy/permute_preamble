@@ -1,0 +1,152 @@
+#!/usr/bin/perl
+
+#
+# Copyright (c) 2006, Advanced Micro Devices, Inc.
+# All rights reserved.
+# 
+# Redistribution and use in source and binary forms, with or without 
+# modification, are permitted provided that the following conditions are 
+# met:
+# 
+#    * Redistributions of source code must retain the above copyright 
+#      notice, this list of conditions and the following disclaimer.
+#    * Neither the name of Advanced Micro Devices, Inc. nor the names
+#      of its contributors may be used to endorse or promote products
+#      derived from this software without specific prior written
+#      permission.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+# "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+# A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT 
+# OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, 
+# SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT 
+# LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, 
+# DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY 
+# THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE 
+# OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+#
+
+sub permute {
+	my ( $in, $work, $lol ) = @_;
+	my $el;
+	print "len:",scalar(@$in),"\n" if $debug;
+	for ($el = 0; $el < scalar(@$in); $el++ ) {
+		my $pwork = [ @$work ];
+		push @$pwork, $in->[$el];
+		print "perm:",(join ":", @$pwork) if $debug;
+		print "\n" if $debug;
+		if ( scalar(@$in)  == 1 ) {
+			# add the leaf to the list
+			print "adding:",(join ":", @$pwork),"\n" if $debug;
+			push @$lol, $pwork;
+		} else {
+			my $dl;
+			my $copy_in  = [ ];
+			for ($dl = 0; $dl < scalar(@$in); $dl++ ) {
+				push @$copy_in, $in->[$dl] unless
+					$dl == $el;
+			}
+			print "copy:",(join ":",@$copy_in),"\n" if $debug;
+
+			permute($copy_in,$pwork,$lol);
+		}
+	}
+}
+
+$list = [ 0, 1, 2, 3, 4, 5, 6 ];
+$work = [];
+$perms = [];
+permute($list,$work,$perms);
+	
+	
+$i=0;
+
+$line[0] = "pushl   %esi";
+$line[1] = "movl    %edi, %edx";
+$line[2] = "movl    <BASE:12>(%esp), %ecx";
+$line[3] = "movl    <BASE:4>(%esp), %edi";
+$line[4] = "movl    <BASE:8>(%esp), %esi";
+$line[5] = "cld";
+$line[6] = "cmpl    \$7, %ecx";
+
+$dep{6} =  2;
+$dep{3} =  1;
+$dep{4} =  0;
+
+$basefile = "base.s";
+open BASE, "< $basefile" || die "Cannot open $basefile";
+@basecontent = <BASE>;
+#print join "", @basecontent;
+close BASE;
+
+$protofile = "permuted_proto.h";
+$deffile = "permuted_def.h";
+open PROTO, "> $protofile" || die "Cannot open $protofile";
+open DEF, "> $deffile" || die "Cannot open $deffile";
+
+$proto = "void * PERMUTE_NAME(void *dst, const void *src, size_t count);\n";
+$def = "PERMUTE_NAME, \"PERMUTE_NAME\",\n";
+
+foreach $p ( @$perms ) {
+	my $base = 0;
+	$out = "";
+	$check = {};
+	$invalid = 0;
+	foreach $l (@$p) {
+		#print ":$l:\n";
+		if ( exists $dep{$l} ) {
+			#print "checking:$dep{$l}:";
+			#print "exists\n" if exists $check->{$dep{$l}};
+			$invalid = 1 unless exists $check->{$dep{$l}};
+		}
+		$inst = $line[$l];
+		$inst =~ /pushl/ && do { $base += 4 };
+		$inst =~ /(<BASE:(\d+)>)/ && do {
+			$off = $base + $2;
+			$inst =~ s/$1/$off/
+		};
+		$out = $out . "\n\t" . $inst;
+		$check->{$l} = 1;
+	}
+
+	#$debug = 1;
+	if ( $debug ) {
+		if ( $invalid ) {
+			print "#INVALID:", (join ":", @$p), "\n";
+		} else {
+			print "#PERMUTATION:",(join ":", @$p), "\n";
+			print "$out\n\n";
+		}
+	}
+	next if $invalid;
+
+	$name = "P_" . (join "", @$p );
+	$permfile = $name . ".S";
+
+	# write the definition and declaration lines
+	my $adef = $def;
+	$adef =~ s/PERMUTE_NAME/$name/g;
+	print "def:$adef" if $debug;
+	print DEF $adef;
+	my $aproto = $proto;
+	$aproto =~ s/PERMUTE_NAME/$name/g;
+	print PROTO $aproto;
+
+	# Create the permuted source
+	@abasecontent = @basecontent;
+	map {
+		s/PERMUTE_NAME/$name/g;
+		s/PERMUTE_CODE/$out/;
+		$_;
+	} @abasecontent;
+	
+	open PERM, "> $permfile" || die "Cannot open $permfile";
+	print PERM (join "",@abasecontent);
+	close PERM;
+
+}
+
+close DECL;
+close PROTO;

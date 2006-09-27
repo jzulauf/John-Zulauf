@@ -1,0 +1,205 @@
+\section{T\_\-test\_\-buffer Struct Reference}
+\label{structT__test__buffer}\index{T_test_buffer@{T\_\-test\_\-buffer}}
+The data and callbacks for a given test buffer. 
+
+
+{\tt \#include $<$test\_\-utils.h$>$}
+
+\subsection*{Public Attributes}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf app}
+\item 
+size\_\-t {\bf type}
+\item 
+size\_\-t {\bf scale}
+\item 
+size\_\-t {\bf pad}
+\item 
+size\_\-t {\bf min\_\-stride}
+\item 
+size\_\-t {\bf max\_\-stride}
+\item 
+size\_\-t {\bf max\_\-align}
+\item 
+size\_\-t {\bf size}
+\item 
+char $\ast$ {\bf alloc}
+\item 
+size\_\-t {\bf buf\_\-size}
+\item 
+char $\ast$ {\bf buf}
+\item 
+const char $\ast$ {\bf pat}
+\item 
+{\bf T\_\-deck} $\ast$ {\bf count\_\-deck}
+\item 
+{\bf T\_\-deck} $\ast$ {\bf align\_\-deck}
+\item 
+size\_\-t {\bf last\_\-count}
+\item 
+size\_\-t {\bf toc\_\-size}
+\item 
+{\bf T\_\-test\_\-sample} $\ast$ {\bf toc}
+\item 
+{\bf T\_\-test\_\-toc\_\-type} {\bf toc\_\-type}
+\item 
+size\_\-t {\bf toc\_\-num}
+\item 
+size\_\-t {\bf toc\_\-current}
+\item 
+{\bf T\_\-test\_\-cb\_\-samp} {\bf f\_\-wrap}
+\item 
+void $\ast$ {\bf data\_\-wrap}
+\item 
+{\bf T\_\-test\_\-cb\_\-samp} {\bf f\_\-count}
+\item 
+void $\ast$ {\bf data\_\-count}
+\item 
+{\bf T\_\-test\_\-cb\_\-fill} {\bf f\_\-fill}
+\item 
+void $\ast$ {\bf data\_\-fill}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+The data and callbacks for a given test buffer.
+
+
+
+\subsection{Member Data Documentation}
+\index{T_test_buffer@{T\_\-test\_\-buffer}!align_deck@{align\_\-deck}}
+\index{align_deck@{align\_\-deck}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-deck}$\ast$ T\_\-test\_\-buffer::align\_\-deck}\label{structT__test__buffer_m13}
+
+
+The valid count deck for randomization \index{T_test_buffer@{T\_\-test\_\-buffer}!alloc@{alloc}}
+\index{alloc@{alloc}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ T\_\-test\_\-buffer::alloc}\label{structT__test__buffer_m8}
+
+
+the malloc'd memory for the buffer \index{T_test_buffer@{T\_\-test\_\-buffer}!app@{app}}
+\index{app@{app}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-app}$\ast$ T\_\-test\_\-buffer::app}\label{structT__test__buffer_m0}
+
+
+pointer to the application state the test\_\-buffer needs this information probably a bit too much, but don't know how to avoid it \index{T_test_buffer@{T\_\-test\_\-buffer}!buf@{buf}}
+\index{buf@{buf}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ T\_\-test\_\-buffer::buf}\label{structT__test__buffer_m10}
+
+
+the first full cacheline of alloc \index{T_test_buffer@{T\_\-test\_\-buffer}!buf_size@{buf\_\-size}}
+\index{buf_size@{buf\_\-size}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::buf\_\-size}\label{structT__test__buffer_m9}
+
+
+cacheline aligned size buffer \index{T_test_buffer@{T\_\-test\_\-buffer}!count_deck@{count\_\-deck}}
+\index{count_deck@{count\_\-deck}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-deck}$\ast$ T\_\-test\_\-buffer::count\_\-deck}\label{structT__test__buffer_m12}
+
+
+The valid count deck for randomization \index{T_test_buffer@{T\_\-test\_\-buffer}!data_count@{data\_\-count}}
+\index{data_count@{data\_\-count}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ T\_\-test\_\-buffer::data\_\-count}\label{structT__test__buffer_m23}
+
+
+Data passed to f\_\-count \index{T_test_buffer@{T\_\-test\_\-buffer}!data_fill@{data\_\-fill}}
+\index{data_fill@{data\_\-fill}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ T\_\-test\_\-buffer::data\_\-fill}\label{structT__test__buffer_m25}
+
+
+Data passed to f\_\-fill \index{T_test_buffer@{T\_\-test\_\-buffer}!data_wrap@{data\_\-wrap}}
+\index{data_wrap@{data\_\-wrap}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ T\_\-test\_\-buffer::data\_\-wrap}\label{structT__test__buffer_m21}
+
+
+Data passed to f\_\-wrap \index{T_test_buffer@{T\_\-test\_\-buffer}!f_count@{f\_\-count}}
+\index{f_count@{f\_\-count}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-cb\_\-samp} T\_\-test\_\-buffer::f\_\-count}\label{structT__test__buffer_m22}
+
+
+Buffer Count change function \index{T_test_buffer@{T\_\-test\_\-buffer}!f_fill@{f\_\-fill}}
+\index{f_fill@{f\_\-fill}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-cb\_\-fill} T\_\-test\_\-buffer::f\_\-fill}\label{structT__test__buffer_m24}
+
+
+Buffer fill function \index{T_test_buffer@{T\_\-test\_\-buffer}!f_wrap@{f\_\-wrap}}
+\index{f_wrap@{f\_\-wrap}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-cb\_\-samp} T\_\-test\_\-buffer::f\_\-wrap}\label{structT__test__buffer_m20}
+
+
+Buffer Wrap function \index{T_test_buffer@{T\_\-test\_\-buffer}!last_count@{last\_\-count}}
+\index{last_count@{last\_\-count}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::last\_\-count}\label{structT__test__buffer_m14}
+
+
+the count used for the last fill \index{T_test_buffer@{T\_\-test\_\-buffer}!max_align@{max\_\-align}}
+\index{max_align@{max\_\-align}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::max\_\-align}\label{structT__test__buffer_m6}
+
+
+the largest the alignment offset can be \index{T_test_buffer@{T\_\-test\_\-buffer}!max_stride@{max\_\-stride}}
+\index{max_stride@{max\_\-stride}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::max\_\-stride}\label{structT__test__buffer_m5}
+
+
+the largest a sample can be \index{T_test_buffer@{T\_\-test\_\-buffer}!min_stride@{min\_\-stride}}
+\index{min_stride@{min\_\-stride}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::min\_\-stride}\label{structT__test__buffer_m4}
+
+
+the smallest sample can be \index{T_test_buffer@{T\_\-test\_\-buffer}!pad@{pad}}
+\index{pad@{pad}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::pad}\label{structT__test__buffer_m3}
+
+
+additional fixed pad \index{T_test_buffer@{T\_\-test\_\-buffer}!pat@{pat}}
+\index{pat@{pat}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ T\_\-test\_\-buffer::pat}\label{structT__test__buffer_m11}
+
+
+Fill pattern for for buffer \index{T_test_buffer@{T\_\-test\_\-buffer}!scale@{scale}}
+\index{scale@{scale}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::scale}\label{structT__test__buffer_m2}
+
+
+size of sample vs. count \index{T_test_buffer@{T\_\-test\_\-buffer}!size@{size}}
+\index{size@{size}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::size}\label{structT__test__buffer_m7}
+
+
+size allocated for buffer \index{T_test_buffer@{T\_\-test\_\-buffer}!toc@{toc}}
+\index{toc@{toc}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-sample}$\ast$ T\_\-test\_\-buffer::toc}\label{structT__test__buffer_m16}
+
+
+the table of contents to the samples \index{T_test_buffer@{T\_\-test\_\-buffer}!toc_current@{toc\_\-current}}
+\index{toc_current@{toc\_\-current}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::toc\_\-current}\label{structT__test__buffer_m19}
+
+
+next sample in toc to return \index{T_test_buffer@{T\_\-test\_\-buffer}!toc_num@{toc\_\-num}}
+\index{toc_num@{toc\_\-num}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::toc\_\-num}\label{structT__test__buffer_m18}
+
+
+number of filled entries in the toc \index{T_test_buffer@{T\_\-test\_\-buffer}!toc_size@{toc\_\-size}}
+\index{toc_size@{toc\_\-size}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::toc\_\-size}\label{structT__test__buffer_m15}
+
+
+number of samples in the toc \index{T_test_buffer@{T\_\-test\_\-buffer}!toc_type@{toc\_\-type}}
+\index{toc_type@{toc\_\-type}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-toc\_\-type} T\_\-test\_\-buffer::toc\_\-type}\label{structT__test__buffer_m17}
+
+
+enum CONSTANT count or VARIABLE \index{T_test_buffer@{T\_\-test\_\-buffer}!type@{type}}
+\index{type@{type}!T_test_buffer@{T\_\-test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-buffer::type}\label{structT__test__buffer_m1}
+
+
+type (index) of the buffer) 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/{\bf test\_\-utils.h}\end{CompactItemize}

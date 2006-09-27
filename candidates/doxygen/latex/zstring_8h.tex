@@ -1,0 +1,148 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/zstring.h File Reference}
+\label{zstring_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/zstring.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/zstring.h}}
+types and definitions for {\bf \char`\"{}zstring\_\-\char`\"{} Simple string API} {\rm (p.\,\pageref{group__zstring})} 
+
+
+{\tt \#include $<$sys/types.h$>$}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf S\_\-zstring}
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef {\bf S\_\-zstring} {\bf T\_\-zstring}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-zstring} $\ast$ {\bf zstring\_\-create} (const char $\ast$s)
+\item 
+void {\bf zstring\_\-destroy} ({\bf T\_\-zstring} $\ast$z)
+\item 
+void {\bf zstring\_\-set} ({\bf T\_\-zstring} $\ast$z, const char $\ast$s)
+\item 
+void {\bf zstring\_\-cat} ({\bf T\_\-zstring} $\ast$z, const char $\ast$s)
+\item 
+const char $\ast$ {\bf zstring\_\-get} ({\bf T\_\-zstring} $\ast$z)
+\item 
+size\_\-t {\bf zstring\_\-alloc} ({\bf T\_\-zstring} $\ast$z, size\_\-t len)
+\item 
+void {\bf zstring\_\-pad} ({\bf T\_\-zstring} $\ast$z, int c, size\_\-t len)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+types and definitions for {\bf \char`\"{}zstring\_\-\char`\"{} Simple string API} {\rm (p.\,\pageref{group__zstring})}
+
+
+
+
+
+\subsection{Typedef Documentation}
+\index{zstring.h@{zstring.h}!T_zstring@{T\_\-zstring}}
+\index{T_zstring@{T\_\-zstring}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-zstring}  T\_\-zstring}\label{zstring_8h_a0}
+
+
+The contents of a T\_\-zstring:: 
+
+\subsection{Function Documentation}
+\index{zstring.h@{zstring.h}!zstring_alloc@{zstring\_\-alloc}}
+\index{zstring_alloc@{zstring\_\-alloc}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t zstring\_\-alloc ({\bf T\_\-zstring} $\ast$ {\em z}, size\_\-t {\em len})}\label{zstring_8h_a6}
+
+
+ensure that the string buffer is at least len+1  \begin{Desc}
+\item[Note: ]\par
+{\bf zstring\_\-set()} {\rm (p.\,\pageref{zstring_8h_a3})} is free to resize the buffer if  it is much larger strlen, which will invalidate the {\bf zstring\_\-alloc()} {\rm (p.\,\pageref{zstring_8h_a6})} \end{Desc}
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+z}]the T\_\-zstring to add to \item[{\em 
+len}]the minimum required length, or 0 to get the current length \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the max strlen which will fit into the currently allocated str buffer \end{Desc}
+\index{zstring.h@{zstring.h}!zstring_cat@{zstring\_\-cat}}
+\index{zstring_cat@{zstring\_\-cat}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void zstring\_\-cat ({\bf T\_\-zstring} $\ast$ {\em z}, const char $\ast$ {\em s\_\-arg})}\label{zstring_8h_a4}
+
+
+concatenate the passed string to the T\_\-zstring\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+z}]the T\_\-zstring to add to \item[{\em 
+s\_\-arg}]the string to add, or NULL for \char`\"{}\char`\"{} \end{description}
+\end{Desc}
+\index{zstring.h@{zstring.h}!zstring_create@{zstring\_\-create}}
+\index{zstring_create@{zstring\_\-create}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-zstring}$\ast$ zstring\_\-create (const char $\ast$ {\em s})}\label{zstring_8h_a1}
+
+
+Creator for T\_\-zstring\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+s}]initial string value, NULL for empty string \char`\"{}\char`\"{} \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the created T\_\-zstring \end{Desc}
+\index{zstring.h@{zstring.h}!zstring_destroy@{zstring\_\-destroy}}
+\index{zstring_destroy@{zstring\_\-destroy}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void zstring\_\-destroy ({\bf T\_\-zstring} $\ast$ {\em z})}\label{zstring_8h_a2}
+
+
+Destroyer for T\_\-zstring\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+z}]the T\_\-zstring to destroy \end{description}
+\end{Desc}
+\index{zstring.h@{zstring.h}!zstring_get@{zstring\_\-get}}
+\index{zstring_get@{zstring\_\-get}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ zstring\_\-get ({\bf T\_\-zstring} $\ast$ {\em z})}\label{zstring_8h_a5}
+
+
+The accessor for the string value\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+z}]the T\_\-zstring to access \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the string value \end{Desc}
+\index{zstring.h@{zstring.h}!zstring_pad@{zstring\_\-pad}}
+\index{zstring_pad@{zstring\_\-pad}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void zstring\_\-pad ({\bf T\_\-zstring} $\ast$ {\em z}, int {\em c}, size\_\-t {\em len})}\label{zstring_8h_a7}
+
+
+pad the string with the given number of the passed character \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+z}]the T\_\-zstring to pad \item[{\em 
+c}]the pad character (cast to unsigned char) \item[{\em 
+len}]the number of c characters to append to z \end{description}
+\end{Desc}
+\index{zstring.h@{zstring.h}!zstring_set@{zstring\_\-set}}
+\index{zstring_set@{zstring\_\-set}!zstring.h@{zstring.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void zstring\_\-set ({\bf T\_\-zstring} $\ast$ {\em z}, const char $\ast$ {\em s\_\-arg})}\label{zstring_8h_a3}
+
+
+Set the T\_\-zstring to a copy of the passed string \begin{Desc}
+\item[Note: ]\par
+resets buffer length if $>$ 2x strlen, invalidating the last {\bf zstring\_\-alloc()} {\rm (p.\,\pageref{zstring_8h_a6})} \end{Desc}
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+z}]the T\_\-zstring to set \item[{\em 
+s\_\-arg}]the string to copy, or NULL for \char`\"{}\char`\"{} \end{description}
+\end{Desc}

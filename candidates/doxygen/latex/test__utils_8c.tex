@@ -1,0 +1,101 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/test\_\-utils.c File Reference}
+\label{test__utils_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/test_utils.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/test\_\-utils.c}}
+Implements a the test framework including application state and buffer managment. 
+
+
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$limits.h$>$}\par
+{\tt \#include \char`\"{}opts\_\-utils.h\char`\"{}}\par
+{\tt \#include \char`\"{}test\_\-utils.h\char`\"{}}\par
+{\tt \#include \char`\"{}bucket\_\-stats.h\char`\"{}}\par
+{\tt \#include \char`\"{}fake\_\-lib.h\char`\"{}}\par
+{\tt \#include \char`\"{}loop\_\-test.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\index{TEST_DEFAULT_START@{TEST\_\-DEFAULT\_\-START}!test_utils.c@{test\_\-utils.c}}\index{test_utils.c@{test\_\-utils.c}!TEST_DEFAULT_START@{TEST\_\-DEFAULT\_\-START}}
+\#define {\bf TEST\_\-DEFAULT\_\-START}\ 0\label{test__utils_8c_a7}
+
+\begin{CompactList}\small\item\em default start count\item\end{CompactList}\item 
+\index{TEST_DEFAULT_INCR@{TEST\_\-DEFAULT\_\-INCR}!test_utils.c@{test\_\-utils.c}}\index{test_utils.c@{test\_\-utils.c}!TEST_DEFAULT_INCR@{TEST\_\-DEFAULT\_\-INCR}}
+\#define {\bf TEST\_\-DEFAULT\_\-INCR}\ 1\label{test__utils_8c_a8}
+
+\begin{CompactList}\small\item\em default count increment\item\end{CompactList}\item 
+\#define {\bf TEST\_\-DEFAULT\_\-END}\ 33
+\item 
+\index{TEST_DEFAULT_NUM_TRY@{TEST\_\-DEFAULT\_\-NUM\_\-TRY}!test_utils.c@{test\_\-utils.c}}\index{test_utils.c@{test\_\-utils.c}!TEST_DEFAULT_NUM_TRY@{TEST\_\-DEFAULT\_\-NUM\_\-TRY}}
+\#define {\bf TEST\_\-DEFAULT\_\-NUM\_\-TRY}\ 10000\label{test__utils_8c_a10}
+
+\begin{CompactList}\small\item\em default number of times to run each test for each count\item\end{CompactList}\item 
+\#define {\bf TEST\_\-APP\_\-DATA\_\-ULONG}(a, t, r, c, f)
+\item 
+\#define {\bf TEST\_\-APP\_\-DATA\_\-ZSTR}(a, t, r, c, f)
+\item 
+\index{TEST_WARN@{TEST\_\-WARN}!test_utils.c@{test\_\-utils.c}}\index{test_utils.c@{test\_\-utils.c}!TEST_WARN@{TEST\_\-WARN}}
+\#define {\bf TEST\_\-WARN}(fmt, val)\ fprintf(stderr,\char`\"{}WARN: \char`\"{} fmt,val)\label{test__utils_8c_a13}
+
+\begin{CompactList}\small\item\em print a warning to stderr\item\end{CompactList}\item 
+\#define {\bf TEST\_\-FATAL}(fmt, val)
+\begin{CompactList}\small\item\em print an error msg to stderr\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf test\_\-init} (const char $\ast$progname, const char $\ast$progversion, {\bf T\_\-test\_\-type} type)
+\begin{CompactList}\small\item\em Initializes the app state structure and command line (opts table).\item\end{CompactList}\item 
+void {\bf test\_\-create\_\-buffers} ({\bf T\_\-test\_\-app} $\ast$app, size\_\-t scale, size\_\-t extra)
+\begin{CompactList}\small\item\em Allocates the default set of buffers {\bf NOTE}: init buffers computes and allocates the buffers and the TOC but {\bf doesn't} fill them. It {\bf does} look at the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} settings and the test\_\-type to initialize the count and wrap call backs.\item\end{CompactList}\item 
+int {\bf test\_\-action\_\-oneshot} (void $\ast$ptr\_\-to\_\-test\_\-app)
+\begin{CompactList}\small\item\em Callback for {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})} and the --oneshot flag.\item\end{CompactList}\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf test\_\-app\_\-create} (const char $\ast$name, const char $\ast$vers, {\bf T\_\-test\_\-type} type)
+\begin{CompactList}\small\item\em Allocate the test application state structure and set the default values.\item\end{CompactList}\item 
+int {\bf test\_\-app\_\-opts\_\-cb\_\-format} (void $\ast$data)
+\item 
+void {\bf test\_\-app\_\-default\_\-opts} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Add the common test commandline options to the opts table used by {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})}.\item\end{CompactList}\item 
+void {\bf test\_\-app\_\-print\_\-options} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Outputs test option information.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-app\_\-fill\_\-data} ({\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col)
+\item 
+void {\bf test\_\-app\_\-validate\_\-options} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Make sure the user inputs are \char`\"{}sane\char`\"{}.\item\end{CompactList}\item 
+{\bf T\_\-deck} $\ast$ {\bf test\_\-app\_\-count\_\-deck\_\-create} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Create a deck to adjust count in buffer sequences. Card data stores a valid count value.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-compute\_\-cl\_\-stride} (size\_\-t size, size\_\-t align)
+\begin{CompactList}\small\item\em Compute a cacheline aligned stride given a size and an alignment.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-compute\_\-buffer\_\-size} (size\_\-t min, size\_\-t max)
+\begin{CompactList}\small\item\em computes the buffer size from the strides and limits\item\end{CompactList}\item 
+char $\ast$ {\bf test\_\-compute\_\-next\_\-cl} (char $\ast$addr)
+\begin{CompactList}\small\item\em computes the next cacheline aligned address. If address is cacheline aligned, it is returned unaltered\item\end{CompactList}\item 
+void {\bf test\_\-pat\_\-fill} (char $\ast$buff, size\_\-t n, const char $\ast$pat)
+\begin{CompactList}\small\item\em Fill a char buffer with a repeating pattern.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-buffer\_\-get\_\-align} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\begin{CompactList}\small\item\em Return the next alignment value for the buffer. If alignment randomization is enabled, this will vary, otherwise it will be constant.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-toc\_\-const} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count)
+\begin{CompactList}\small\item\em Fills a toc for a given count and account for cacheline and align effects.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-toc\_\-rand} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t current\_\-count)
+\begin{CompactList}\small\item\em Fills a toc for a given count and account for cacheline and align effects.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-fill\_\-from\_\-toc} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\begin{CompactList}\small\item\em Fill a buffer with based on the toc entries and the fill callback. Since both the \_\-const and \_\-rand toc initialization routines set all sample fields this can be used in either case.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-cb\_\-fill\_\-zstr} ({\bf T\_\-test\_\-buffer} $\ast$b, {\bf T\_\-test\_\-sample} $\ast$s, void $\ast$data)
+\begin{CompactList}\small\item\em Standard callback to fill one sample with a zstring.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-cb\_\-fill\_\-mem} ({\bf T\_\-test\_\-buffer} $\ast$b, {\bf T\_\-test\_\-sample} $\ast$s, void $\ast$data)
+\begin{CompactList}\small\item\em Standard callback to fill one sample with a pattern (not NULL terminated).\item\end{CompactList}\item 
+{\bf T\_\-test\_\-buffer} $\ast$ {\bf test\_\-buffer\_\-create} (size\_\-t type, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t scale, size\_\-t extra\_\-pad)
+\begin{CompactList}\small\item\em Create a single test buffer.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-flush} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\item 
+void {\bf test\_\-buffer\_\-count\_\-change} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count, void $\ast$data)
+\begin{CompactList}\small\item\em Default action to take on a buffer \char`\"{}count change\char`\"{} event, can be overriden by setting {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})}.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-wrap} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count, void $\ast$data)
+\begin{CompactList}\small\item\em Default action to take on a buffer \char`\"{}wrap\char`\"{} event. Can be overridden by setting {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})}.\item\end{CompactList}\item 
+{\bf T\_\-test\_\-sample} $\ast$ {\bf test\_\-buffer\_\-next} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count)
+\begin{CompactList}\small\item\em Get the next sample from the buffer, handling the count change and buffer wrap cases.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a the test framework including application state and buffer managment.
+
+
+

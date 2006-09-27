@@ -1,0 +1,17 @@
+0x0083f3c0 <memcpy+0>:  mov    0xc(%esp),%ecx
+0x0083f3c4 <memcpy+4>:  mov    %edi,%eax
+0x0083f3c6 <memcpy+6>:  mov    0x4(%esp),%edi
+0x0083f3ca <memcpy+10>: mov    %esi,%edx
+0x0083f3cc <memcpy+12>: mov    0x8(%esp),%esi
+0x0083f3d0 <memcpy+16>: cld
+0x0083f3d1 <memcpy+17>: shr    %ecx
+0x0083f3d3 <memcpy+19>: jae    0x83f3d6 <memcpy+22>
+0x0083f3d5 <memcpy+21>: movsb  %ds:(%esi),%es:(%edi)
+0x0083f3d6 <memcpy+22>: shr    %ecx
+0x0083f3d8 <memcpy+24>: jae    0x83f3dc <memcpy+28>
+0x0083f3da <memcpy+26>: movsw  %ds:(%esi),%es:(%edi)
+0x0083f3dc <memcpy+28>: repz movsl %ds:(%esi),%es:(%edi)
+0x0083f3de <memcpy+30>: mov    %eax,%edi
+0x0083f3e0 <memcpy+32>: mov    %edx,%esi
+0x0083f3e2 <memcpy+34>: mov    0x4(%esp),%eax
+

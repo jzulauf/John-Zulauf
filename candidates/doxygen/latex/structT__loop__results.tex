@@ -1,0 +1,63 @@
+\section{T\_\-loop\_\-results Struct Reference}
+\label{structT__loop__results}\index{T_loop_results@{T\_\-loop\_\-results}}
+stores the table of results for counts and tests. The results are organized into lines ({\bf T\_\-loop\_\-result\_\-line} {\rm (p.\,\pageref{structT__loop__result__line})}::) for each valid count in the range defined by size, start, and incr. Additionally, the run field controls whether a given test is run at all. 
+
+
+\subsection*{Public Attributes}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf size}
+\item 
+size\_\-t {\bf start}
+\item 
+size\_\-t {\bf incr}
+\item 
+{\bf T\_\-stats\_\-record} $\ast$ {\bf loop\_\-overhead}
+\item 
+{\bf T\_\-loop\_\-result\_\-line} $\ast$ {\bf lines}
+\item 
+char {\bf run} [NUM\_\-TEST]
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+stores the table of results for counts and tests. The results are organized into lines ({\bf T\_\-loop\_\-result\_\-line} {\rm (p.\,\pageref{structT__loop__result__line})}::) for each valid count in the range defined by size, start, and incr. Additionally, the run field controls whether a given test is run at all.
+
+
+
+\subsection{Member Data Documentation}
+\index{T_loop_results@{T\_\-loop\_\-results}!incr@{incr}}
+\index{incr@{incr}!T_loop_results@{T\_\-loop\_\-results}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-loop\_\-results::incr}\label{structT__loop__results_m2}
+
+
+count number increment \index{T_loop_results@{T\_\-loop\_\-results}!lines@{lines}}
+\index{lines@{lines}!T_loop_results@{T\_\-loop\_\-results}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-loop\_\-result\_\-line}$\ast$ T\_\-loop\_\-results::lines}\label{structT__loop__results_m4}
+
+
+the results line for each count \index{T_loop_results@{T\_\-loop\_\-results}!loop_overhead@{loop\_\-overhead}}
+\index{loop_overhead@{loop\_\-overhead}!T_loop_results@{T\_\-loop\_\-results}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-stats\_\-record}$\ast$ T\_\-loop\_\-results::loop\_\-overhead}\label{structT__loop__results_m3}
+
+
+the data for empty loop time \index{T_loop_results@{T\_\-loop\_\-results}!run@{run}}
+\index{run@{run}!T_loop_results@{T\_\-loop\_\-results}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char T\_\-loop\_\-results::run[NUM\_\-TEST]}\label{structT__loop__results_m5}
+
+
+run this test \index{T_loop_results@{T\_\-loop\_\-results}!size@{size}}
+\index{size@{size}!T_loop_results@{T\_\-loop\_\-results}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-loop\_\-results::size}\label{structT__loop__results_m0}
+
+
+number of results lines \index{T_loop_results@{T\_\-loop\_\-results}!start@{start}}
+\index{start@{start}!T_loop_results@{T\_\-loop\_\-results}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-loop\_\-results::start}\label{structT__loop__results_m1}
+
+
+starting count number 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/{\bf loop\_\-test.c}\end{CompactItemize}

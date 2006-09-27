@@ -1,0 +1,88 @@
+\section{\char`\"{}fake\_\-\char`\"{} Fake Libc}
+\label{group__fake__lib}\index{"fake_" Fake Libc@{""fake\_\-"" Fake Libc}}
+Implements a subset of libc. This is usefull when one needs to use an INDEPENDENT implementation to either to test the system implementation which may be changing in the course of this testing of function when the system implementation is being worked on. 
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf fake\_\-strlen} (const char $\ast$c)
+\begin{CompactList}\small\item\em Counts the number of bytes in a NULL terminated string (excluding the NULL).\item\end{CompactList}\item 
+void $\ast$ {\bf fake\_\-memset} (void $\ast$s, int c, size\_\-t n)
+\begin{CompactList}\small\item\em fill memory with a constant byte\item\end{CompactList}\item 
+void {\bf fake\_\-bzero} (void $\ast$s, size\_\-t n)
+\begin{CompactList}\small\item\em sets the first n bytes of the byte area starting at s to zero.\item\end{CompactList}\item 
+int {\bf fake\_\-memcmp} (const char $\ast$a, const char $\ast$b, size\_\-t n)
+\begin{CompactList}\small\item\em function compares the first n bytes of the memory areas 'a' and 'b'. It returns an integer less than, equal to, or greater than zero if 'a' is found, respectively, to be less than, to match, or be greater than 'b'.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a subset of libc. This is usefull when one needs to use an INDEPENDENT implementation to either to test the system implementation which may be changing in the course of this testing of function when the system implementation is being worked on.
+
+
+
+\subsection{Function Documentation}
+\index{fake_lib@{fake\_\-lib}!fake_bzero@{fake\_\-bzero}}
+\index{fake_bzero@{fake\_\-bzero}!fake_lib@{fake\_\-lib}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void fake\_\-bzero (void $\ast$ {\em s}, size\_\-t {\em n})}\label{group__fake__lib_a2}
+
+
+sets the first n bytes of the byte area starting at s to zero.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+s}]the memory to fill \item[{\em 
+n}]the number of bytes to fill \end{description}
+\end{Desc}
+\index{fake_lib@{fake\_\-lib}!fake_memcmp@{fake\_\-memcmp}}
+\index{fake_memcmp@{fake\_\-memcmp}!fake_lib@{fake\_\-lib}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int fake\_\-memcmp (const char $\ast$ {\em a}, const char $\ast$ {\em b}, size\_\-t {\em n})}\label{group__fake__lib_a3}
+
+
+function compares the first n bytes of the memory areas 'a' and 'b'. It returns an integer less than, equal to, or greater than zero if 'a' is found, respectively, to be less than, to match, or be greater than 'b'.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+a}]first buffer to compare \item[{\em 
+b}]second buffer to compare \item[{\em 
+n}]number of bytes to compare \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+-1 if a $<$ b , 0 if a == b, and 1 if a $>$ b \end{Desc}
+\index{fake_lib@{fake\_\-lib}!fake_memset@{fake\_\-memset}}
+\index{fake_memset@{fake\_\-memset}!fake_lib@{fake\_\-lib}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ fake\_\-memset (void $\ast$ {\em s}, int {\em c}, size\_\-t {\em n})}\label{group__fake__lib_a1}
+
+
+fill memory with a constant byte
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+s}]the memory to fill \item[{\em 
+c}]the byte to fill it with \item[{\em 
+n}]the number of bytes to fill \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the pointer to memory area s \end{Desc}
+\index{fake_lib@{fake\_\-lib}!fake_strlen@{fake\_\-strlen}}
+\index{fake_strlen@{fake\_\-strlen}!fake_lib@{fake\_\-lib}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t fake\_\-strlen (const char $\ast$ {\em c})}\label{group__fake__lib_a0}
+
+
+Counts the number of bytes in a NULL terminated string (excluding the NULL).
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the string to count \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the length of the string \end{Desc}

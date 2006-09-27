@@ -1,0 +1,44 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/opts\_\-utils.c File Reference}
+\label{opts__utils_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/opts_utils.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/opts\_\-utils.c}}
+Implements a callback based command line options handler wrapping getopt\_\-long. 
+
+
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}opts\_\-utils.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf opts\_\-init} (const char $\ast$progname, const char $\ast$progversion)
+\begin{CompactList}\small\item\em initialize the {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})} subsystem. Call this before calling\item\end{CompactList}\item 
+void {\bf opts\_\-def} (char short\_\-name, char $\ast$long\_\-name, char $\ast$description, char $\ast$arg\_\-name, {\bf T\_\-opts\_\-action} action, void $\ast$data)
+\begin{CompactList}\small\item\em add the given option to the opts\_\-table\item\end{CompactList}\item 
+\index{opts_default_opts@{opts\_\-default\_\-opts}!opts_utils.c@{opts\_\-utils.c}}\index{opts_utils.c@{opts\_\-utils.c}!opts_default_opts@{opts\_\-default\_\-opts}}
+void {\bf opts\_\-default\_\-opts} ()\label{opts__utils_8c_a2}
+
+\begin{CompactList}\small\item\em add the default opts to opts\_\-table\item\end{CompactList}\item 
+int {\bf opts\_\-getopt} (int argc, char $\ast$const $\ast$argv)
+\begin{CompactList}\small\item\em parse the known options, calling their callback actions, and returning on unknown options with the identical semantics of getopt\item\end{CompactList}\item 
+\index{opts_usage@{opts\_\-usage}!opts_utils.c@{opts\_\-utils.c}}\index{opts_utils.c@{opts\_\-utils.c}!opts_usage@{opts\_\-usage}}
+void {\bf opts\_\-usage} (void)\label{opts__utils_8c_a4}
+
+\begin{CompactList}\small\item\em output the usage message and exit\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-clear} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to zero a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-incr} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to increment a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-set} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to set to 1 a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-strtol} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to set long value to the supplied argument if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-usage} (void $\ast$ignored)
+\begin{CompactList}\small\item\em callback action display the usage message if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-version} (void $\ast$ignored)
+\begin{CompactList}\small\item\em callback action display the usage version message if a flag is present\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a callback based command line options handler wrapping getopt\_\-long.
+
+
+

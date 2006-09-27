@@ -1,0 +1,116 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/deck.h File Reference}
+\label{deck_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/deck.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/deck.h}}
+Type and function declarations for {\bf \char`\"{}deck\_\-\char`\"{} Deck of cards API} {\rm (p.\,\pageref{group__deck})}. 
+
+
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-deck}
+\begin{CompactList}\small\item\em A deck of cards including \char`\"{}dealt\char`\"{} state and seed tracking.\item\end{CompactList}\item 
+struct {\bf T\_\-deck\_\-card}
+\begin{CompactList}\small\item\em A single card in the {\bf T\_\-deck} {\rm (p.\,\pageref{structT__deck})}.\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-deck} $\ast$ {\bf deck\_\-create} (size\_\-t size, unsigned int seed, void $\ast$data, size\_\-t dsize)
+\begin{CompactList}\small\item\em Allocates an deck of cards and initializes them with ordinal and data.\item\end{CompactList}\item 
+void {\bf deck\_\-destroy} ({\bf T\_\-deck} $\ast$d)
+\begin{CompactList}\small\item\em Deletes the deck a {\bf all} {\bf cards} {\bf in} {\bf it}. Does not delete data referenced by the cards.\item\end{CompactList}\item 
+void {\bf deck\_\-shuffle} ({\bf T\_\-deck} $\ast$d)
+\begin{CompactList}\small\item\em shuffles the given {\bf T\_\-deck} {\rm (p.\,\pageref{structT__deck})} d, and resets dealt field. Does not modify the card ordinal or data fields.\item\end{CompactList}\item 
+{\bf T\_\-deck\_\-card} $\ast$ {\bf deck\_\-deal} ({\bf T\_\-deck} $\ast$d, int blackjack)
+\begin{CompactList}\small\item\em returns the next card in the deck, advances the dealt field, automatically reshuffling, as needed unless \char`\"{}blackjack\char`\"{} mode is set\item\end{CompactList}\item 
+{\bf T\_\-deck\_\-card} $\ast$ {\bf deck\_\-peek} ({\bf T\_\-deck} $\ast$d, int blackjack)
+\begin{CompactList}\small\item\em returns the next card in the deck without advancing \char`\"{}dealt\char`\"{}. Allows the caller peek at the next card without actually dealing it. This can result in the deck shuffling unless blackjack is set, or NULL if blackjack is set and the deck is out of cards.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Type and function declarations for {\bf \char`\"{}deck\_\-\char`\"{} Deck of cards API} {\rm (p.\,\pageref{group__deck})}.
+
+
+
+
+
+\subsection{Function Documentation}
+\index{deck.h@{deck.h}!deck_create@{deck\_\-create}}
+\index{deck_create@{deck\_\-create}!deck.h@{deck.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-deck}$\ast$ deck\_\-create (size\_\-t {\em size}, unsigned int {\em seed}, void $\ast$ {\em data}, size\_\-t {\em dsize})}\label{deck_8h_a0}
+
+
+Allocates an deck of cards and initializes them with ordinal and data.
+
+The ord (ordinal) field of each card is set to a zero based index of the  card in the deck of card array. This value can freely be changed to suit the needs of the calling program, and is initialized as a convenience.
+
+If parameter {\bf data} is non-null, the data field of each card is set to data + ordinal $\ast$ dsize. Thus, each card points to consectutive entries in an array of data elements of size dsize. Again this data can be freely modified after create to suit the needs of the calling program\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+size}]number of cards in the deck created \item[{\em 
+seed}]the seed to use for this deck \item[{\em 
+data}]array of data to map to {\bf T\_\-deck\_\-card::data} {\rm (p.\,\pageref{structT__deck__card_m1})}, NULL indicates none \item[{\em 
+dsize}]the stride of the data array (if non-NULL) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the created deck \end{Desc}
+\index{deck.h@{deck.h}!deck_deal@{deck\_\-deal}}
+\index{deck_deal@{deck\_\-deal}!deck.h@{deck.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-deck\_\-card}$\ast$ deck\_\-deal ({\bf T\_\-deck} $\ast$ {\em d}, int {\em blackjack})}\label{deck_8h_a3}
+
+
+returns the next card in the deck, advances the dealt field, automatically reshuffling, as needed unless \char`\"{}blackjack\char`\"{} mode is set
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+d}]the deck to deal \item[{\em 
+blackjack}]don't shuffle at end of deck, instead return NULL \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the card on the top of the deck or NULL if blackjack and out of cards. \end{Desc}
+\index{deck.h@{deck.h}!deck_destroy@{deck\_\-destroy}}
+\index{deck_destroy@{deck\_\-destroy}!deck.h@{deck.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void deck\_\-destroy ({\bf T\_\-deck} $\ast$ {\em d})}\label{deck_8h_a1}
+
+
+Deletes the deck a {\bf all} {\bf cards} {\bf in} {\bf it}. Does not delete data referenced by the cards.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+d}]the deck delete \end{description}
+\end{Desc}
+\index{deck.h@{deck.h}!deck_peek@{deck\_\-peek}}
+\index{deck_peek@{deck\_\-peek}!deck.h@{deck.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-deck\_\-card}$\ast$ deck\_\-peek ({\bf T\_\-deck} $\ast$ {\em d}, int {\em blackjack})}\label{deck_8h_a4}
+
+
+returns the next card in the deck without advancing \char`\"{}dealt\char`\"{}. Allows the caller peek at the next card without actually dealing it. This can result in the deck shuffling unless blackjack is set, or NULL if blackjack is set and the deck is out of cards.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+d}]the deck to deal \item[{\em 
+blackjack}]don't shuffle at end of deck, instead return NULL \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the card on the top of the deck \end{Desc}
+\index{deck.h@{deck.h}!deck_shuffle@{deck\_\-shuffle}}
+\index{deck_shuffle@{deck\_\-shuffle}!deck.h@{deck.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void deck\_\-shuffle ({\bf T\_\-deck} $\ast$ {\em d})}\label{deck_8h_a2}
+
+
+shuffles the given {\bf T\_\-deck} {\rm (p.\,\pageref{structT__deck})} d, and resets dealt field. Does not modify the card ordinal or data fields.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+d}]the deck to shuffle \end{description}
+\end{Desc}

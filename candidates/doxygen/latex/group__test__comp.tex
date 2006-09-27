@@ -1,0 +1,81 @@
+\section{Utility routines (cache, stride, alignment, and fill)}
+\label{group__test__comp}\index{Utility routines (cache, stride, alignment, and fill)@{Utility routines (cache, stride, alignment, and fill)}}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf test\_\-compute\_\-cl\_\-stride} (size\_\-t size, size\_\-t align)
+\begin{CompactList}\small\item\em Compute a cacheline aligned stride given a size and an alignment.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-compute\_\-buffer\_\-size} (size\_\-t min, size\_\-t max)
+\begin{CompactList}\small\item\em computes the buffer size from the strides and limits\item\end{CompactList}\item 
+char $\ast$ {\bf test\_\-compute\_\-next\_\-cl} (char $\ast$addr)
+\begin{CompactList}\small\item\em computes the next cacheline aligned address. If address is cacheline aligned, it is returned unaltered\item\end{CompactList}\item 
+void {\bf test\_\-pat\_\-fill} (char $\ast$buff, size\_\-t n, const char $\ast$pat)
+\begin{CompactList}\small\item\em Fill a char buffer with a repeating pattern.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{test_comp@{test\_\-comp}!test_compute_buffer_size@{test\_\-compute\_\-buffer\_\-size}}
+\index{test_compute_buffer_size@{test\_\-compute\_\-buffer\_\-size}!test_comp@{test\_\-comp}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-compute\_\-buffer\_\-size (size\_\-t {\em min}, size\_\-t {\em max})}\label{group__test__comp_a1}
+
+
+computes the buffer size from the strides and limits
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+min}]the minimum sample size \item[{\em 
+max}]the maximum sample size \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the size of the buffer to create \end{Desc}
+\index{test_comp@{test\_\-comp}!test_compute_cl_stride@{test\_\-compute\_\-cl\_\-stride}}
+\index{test_compute_cl_stride@{test\_\-compute\_\-cl\_\-stride}!test_comp@{test\_\-comp}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-compute\_\-cl\_\-stride (size\_\-t {\em size}, size\_\-t {\em align})}\label{group__test__comp_a0}
+
+
+Compute a cacheline aligned stride given a size and an alignment.
+
+Note: the role of TEST\_\-MAX\_\-PREFETCH, is to ensure that extra prefetches at the end of an optimized routine do {\bf not} affect the results of the next sample or test.\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+size}]the size of the sample \item[{\em 
+align}]the the alignment off set the sample \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+cacheline aligned stride. \end{Desc}
+\index{test_comp@{test\_\-comp}!test_compute_next_cl@{test\_\-compute\_\-next\_\-cl}}
+\index{test_compute_next_cl@{test\_\-compute\_\-next\_\-cl}!test_comp@{test\_\-comp}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ test\_\-compute\_\-next\_\-cl (char $\ast$ {\em addr})}\label{group__test__comp_a2}
+
+
+computes the next cacheline aligned address. If address is cacheline aligned, it is returned unaltered
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+addr}]address to align \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+cacheline aligned address \end{Desc}
+\index{test_comp@{test\_\-comp}!test_pat_fill@{test\_\-pat\_\-fill}}
+\index{test_pat_fill@{test\_\-pat\_\-fill}!test_comp@{test\_\-comp}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-pat\_\-fill (char $\ast$ {\em buff}, size\_\-t {\em n}, const char $\ast$ {\em pat})}\label{group__test__comp_a3}
+
+
+Fill a char buffer with a repeating pattern.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+buff}]char buffer of at least n bytes \item[{\em 
+n}]number bytes to fill \item[{\em 
+pat}]pattern to fill the buffer with (a NULL terminated string) \end{description}
+\end{Desc}

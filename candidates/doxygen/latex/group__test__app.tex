@@ -1,0 +1,188 @@
+\section{Test application state management}
+\label{group__test__app}\index{Test application state management@{Test application state management}}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\index{TEST_DEFAULT_START@{TEST\_\-DEFAULT\_\-START}!test_app@{test\_\-app}}\index{test_app@{test\_\-app}!TEST_DEFAULT_START@{TEST\_\-DEFAULT\_\-START}}
+\#define {\bf TEST\_\-DEFAULT\_\-START}\ 0\label{group__test__app_a7}
+
+\begin{CompactList}\small\item\em default start count\item\end{CompactList}\item 
+\index{TEST_DEFAULT_INCR@{TEST\_\-DEFAULT\_\-INCR}!test_app@{test\_\-app}}\index{test_app@{test\_\-app}!TEST_DEFAULT_INCR@{TEST\_\-DEFAULT\_\-INCR}}
+\#define {\bf TEST\_\-DEFAULT\_\-INCR}\ 1\label{group__test__app_a8}
+
+\begin{CompactList}\small\item\em default count increment\item\end{CompactList}\item 
+\#define {\bf TEST\_\-DEFAULT\_\-END}\ 33
+\item 
+\index{TEST_DEFAULT_NUM_TRY@{TEST\_\-DEFAULT\_\-NUM\_\-TRY}!test_app@{test\_\-app}}\index{test_app@{test\_\-app}!TEST_DEFAULT_NUM_TRY@{TEST\_\-DEFAULT\_\-NUM\_\-TRY}}
+\#define {\bf TEST\_\-DEFAULT\_\-NUM\_\-TRY}\ 10000\label{group__test__app_a10}
+
+\begin{CompactList}\small\item\em default number of times to run each test for each count\item\end{CompactList}\item 
+\#define {\bf TEST\_\-APP\_\-DATA\_\-ULONG}(a, t, r, c, f)
+\item 
+\#define {\bf TEST\_\-APP\_\-DATA\_\-ZSTR}(a, t, r, c, f)
+\item 
+\index{TEST_WARN@{TEST\_\-WARN}!test_app@{test\_\-app}}\index{test_app@{test\_\-app}!TEST_WARN@{TEST\_\-WARN}}
+\#define {\bf TEST\_\-WARN}(fmt, val)\ fprintf(stderr,\char`\"{}WARN: \char`\"{} fmt,val)\label{group__test__app_a13}
+
+\begin{CompactList}\small\item\em print a warning to stderr\item\end{CompactList}\item 
+\#define {\bf TEST\_\-FATAL}(fmt, val)
+\begin{CompactList}\small\item\em print an error msg to stderr\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf test\_\-app\_\-create} (const char $\ast$name, const char $\ast$vers, {\bf T\_\-test\_\-type} type)
+\begin{CompactList}\small\item\em Allocate the test application state structure and set the default values.\item\end{CompactList}\item 
+int {\bf test\_\-app\_\-opts\_\-cb\_\-format} (void $\ast$data)
+\item 
+void {\bf test\_\-app\_\-default\_\-opts} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Add the common test commandline options to the opts table used by {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})}.\item\end{CompactList}\item 
+void {\bf test\_\-app\_\-print\_\-options} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Outputs test option information.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-app\_\-fill\_\-data} ({\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col)
+\item 
+void {\bf test\_\-app\_\-validate\_\-options} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Make sure the user inputs are \char`\"{}sane\char`\"{}.\item\end{CompactList}\item 
+{\bf T\_\-deck} $\ast$ {\bf test\_\-app\_\-count\_\-deck\_\-create} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Create a deck to adjust count in buffer sequences. Card data stores a valid count value.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{test_app@{test\_\-app}!TEST_APP_DATA_ULONG@{TEST\_\-APP\_\-DATA\_\-ULONG}}
+\index{TEST_APP_DATA_ULONG@{TEST\_\-APP\_\-DATA\_\-ULONG}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-APP\_\-DATA\_\-ULONG(a, t, r, c, f)}\label{group__test__app_a11}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{                               \
+        table_set_cell_zstr(t,r,c,#f);                          \
+        table_set_cell_u32(t,r,(c+1),(unsigned long)(a->f));    \
+        r++;                                                    \
+}\end{verbatim}\normalsize 
+put a long value into the data column of the table \index{test_app@{test\_\-app}!TEST_APP_DATA_ZSTR@{TEST\_\-APP\_\-DATA\_\-ZSTR}}
+\index{TEST_APP_DATA_ZSTR@{TEST\_\-APP\_\-DATA\_\-ZSTR}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-APP\_\-DATA\_\-ZSTR(a, t, r, c, f)}\label{group__test__app_a12}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{                               \
+        table_set_cell_zstr(t,r,c,#f);                          \
+        table_set_cell_zstr(t,r,(c+1),a->f);    \
+        r++;                                                    \
+}\end{verbatim}\normalsize 
+put a string value into the data column of the table \index{test_app@{test\_\-app}!TEST_DEFAULT_END@{TEST\_\-DEFAULT\_\-END}}
+\index{TEST_DEFAULT_END@{TEST\_\-DEFAULT\_\-END}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-DEFAULT\_\-END\ 33}\label{group__test__app_a9}
+
+
+brief default end count \index{test_app@{test\_\-app}!TEST_FATAL@{TEST\_\-FATAL}}
+\index{TEST_FATAL@{TEST\_\-FATAL}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-FATAL(fmt, val)}\label{group__test__app_a14}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{       \
+        fprintf(stderr,"FATAL: " fmt,val); exit(42); \
+}\end{verbatim}\normalsize 
+print an error msg to stderr
+
+
+
+\subsection{Function Documentation}
+\index{test_app@{test\_\-app}!test_app_count_deck_create@{test\_\-app\_\-count\_\-deck\_\-create}}
+\index{test_app_count_deck_create@{test\_\-app\_\-count\_\-deck\_\-create}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-deck}$\ast$ test\_\-app\_\-count\_\-deck\_\-create ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__test__app_a6}
+
+
+Create a deck to adjust count in buffer sequences. Card data stores a valid count value.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+a pointer to the marked deck \end{Desc}
+\index{test_app@{test\_\-app}!test_app_create@{test\_\-app\_\-create}}
+\index{test_app_create@{test\_\-app\_\-create}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-app}$\ast$ test\_\-app\_\-create (const char $\ast$ {\em name}, const char $\ast$ {\em vers}, {\bf T\_\-test\_\-type} {\em type})}\label{group__test__app_a0}
+
+
+Allocate the test application state structure and set the default values.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]the program name to display \item[{\em 
+vers}]the program version to display \item[{\em 
+type}]the type of operation being tested \end{description}
+\end{Desc}
+\begin{Desc}
+\item[See also: ]\par
+test\_\-init\_\-buffers() return the application state structure \end{Desc}
+\index{test_app@{test\_\-app}!test_app_default_opts@{test\_\-app\_\-default\_\-opts}}
+\index{test_app_default_opts@{test\_\-app\_\-default\_\-opts}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-app\_\-default\_\-opts ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__test__app_a2}
+
+
+Add the common test commandline options to the opts table used by {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})}.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \end{description}
+\end{Desc}
+\index{test_app@{test\_\-app}!test_app_fill_data@{test\_\-app\_\-fill\_\-data}}
+\index{test_app_fill_data@{test\_\-app\_\-fill\_\-data}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-app\_\-fill\_\-data ({\bf T\_\-test\_\-app} $\ast$ {\em app}, {\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col})}\label{group__test__app_a4}
+
+
+Output the test spplication state information \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \item[{\em 
+t}]the table to fill \item[{\em 
+row}]the starting row for the data  \item[{\em 
+col}]the starting column for the data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the row following the last data value \end{Desc}
+\index{test_app@{test\_\-app}!test_app_opts_cb_format@{test\_\-app\_\-opts\_\-cb\_\-format}}
+\index{test_app_opts_cb_format@{test\_\-app\_\-opts\_\-cb\_\-format}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int test\_\-app\_\-opts\_\-cb\_\-format (void $\ast$ {\em data})}\label{group__test__app_a1}
+
+
+option handling callback for the format flag \index{test_app@{test\_\-app}!test_app_print_options@{test\_\-app\_\-print\_\-options}}
+\index{test_app_print_options@{test\_\-app\_\-print\_\-options}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-app\_\-print\_\-options ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__test__app_a3}
+
+
+Outputs test option information.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \end{description}
+\end{Desc}
+\index{test_app@{test\_\-app}!test_app_validate_options@{test\_\-app\_\-validate\_\-options}}
+\index{test_app_validate_options@{test\_\-app\_\-validate\_\-options}!test_app@{test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-app\_\-validate\_\-options ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__test__app_a5}
+
+
+Make sure the user inputs are \char`\"{}sane\char`\"{}.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \end{description}
+\end{Desc}

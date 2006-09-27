@@ -1,0 +1,181 @@
+./add_n.S
+	GMP multi-limb (arbitrary precision) add
+./addmul_1.S
+	GMP multi-limb (arbitrary precision) mult-add
+./bits/atomic.h
+	atomic operation for 486/586
+./bits/string.h
+	inline defs for i386:
+		memcopy/memove/memset/memchr/memrchr
+		strlen/strcpy/strncpy/strcat/strncat/
+		strcmp/strncmp/strchr/__strchrnul
+		strcspn/strspn
+		strpbrk/strstr
+	override for 486:
+	  << most of the hand coded routines should tell us something
+	     about general scheduling on LX vs. i486/i586/i686 that
+	     these were written for -- which should be handy both for
+	     hand-optimization for LX, et. al. and the eventual gcc-
+	     backend
+		__memcpy_by4 (for const n%4 == 0 )
+		__memcpy_by2 (for const n%2 == 0 )
+		__memcpy_g (generic n)
+			<< same stuff for mempcpy >>
+		memmove (using repmovsb!!!) no prefetch
+		memcmp
+		__memset_ccn_by4 (rep;stosl on __i686__)
+		__memset_ccn_by2 (rep;stosl; stosw on __i686__ )
+			<< "and much, much more memset" >>
+		memchr/memrchr (using repne; scasb on __i686__ )
+		strlen (doesn't seem different from i386?!)
+		__strcpy_g ( same comment)
+			<< stpcpy as well >>
+		__strncpy_by4
+		__strncpy_by2
+		__strncpy_byn
+			these are selected based on the srclen
+		__strncpy_gg
+		__strcat_c
+			uses repne; scasb on __i686__
+		__strcat_g
+			byte-by-byte non-prefetched loops
+		__strncat_g
+			uses repne; scasb on __i686 for "find the end of src"
+			uses leal instead of incl for bumping the src/dst ptrs
+		__strcmp_gg
+			this is the general case. If the length is a constant
+			and small, this turn into an 'if' tree
+		__strncmp_g
+		<< and many many more >>
+
+		<< too much detail here >>
+			
+
+
+
+
+./bzero.S
+	aliases of memset and bzero for 486/586 (huh?)
+./dl-hash.h
+	ELF ABI hash function optimization highly cpu_model sensitive per
+	comments in i686 version. Optimized version is for i686 (i.e. P-II,
+	"slower than 'C' version" for i586.
+./ffs.c 
+	ffs -- find first set bit in a word
+		implementation differs slightly i386 vs. i686
+./fpu/s_fdim.S
+	compute positive difference (double)
+		implementation signfic. reordered i386 vs. i686
+./fpu/s_fdimf.S
+	compute positive difference (float)
+		implementation signfic. reordered i386 vs. i686
+./fpu/s_fdiml.S
+	compute positive difference (long double)
+		implementation signfic. reordered i386 vs. i686
+./fpu/s_fmax.S
+./fpu/s_fmaxf.S
+./fpu/s_fmaxl.S
+	Compute maximum of two numbers, regarding NaN as missing argument.
+	double, float, long double versions
+		implementation uses different instructions i386 vs. i686
+		no jmps in i686 version
+./fpu/s_fmin.S
+./fpu/s_fminf.S
+./fpu/s_fminl.S
+	Compute minimum of two numbers, regarding NaN as missing argument.
+	double, float, long double versions
+		implementation uses different instructions i386 vs. i686
+		no jmps in i686 version
+./hp-timing.c (i686 only)
+./hp-timing.h
+	High precision, low overhead timing functions.
+	" use the timestamp counter in i586 and up "
+		used extensively internally.
+./htonl.S
+	Change byte order in word -- uses bswap in i486 and above
+./lshift.S
+	GMP multi-limb (arbitrary precision) lshift
+		i586 version uses implicit prefetch logic common to 586 opts.
+./memcmp.S
+	memcmp assembly
+		i686 version is unrolled substantially.  would need to test
+		for performance difference to see if either is optimal
+		for LX
+./memcopy.h
+	defines (WORD|BYTE)_COPY_(FWD|BWD) used by generic copy and move
+	i586 overrides WORD_COPY_(FWD|BWD) (likely slower)
+./memcpy.S
+	memcpy
+		i586 -- implict prefetch using alternating reg (slower for LX)
+		i686 -- shrl;jmp; movs ... (benchmarked slower for LX)
+
+./memmove.S
+	i686 only: optimized for 686 -- no prefetch, implements memcpy for
+	forward copies, and comparable (with "set direction flag) for
+	backwords.
+./mempcpy.S
+	mempcopy returns the pointer to the byte following the last byte
+	copied. (essentially affects return value only)
+	i586 implements mempcpy by include memcpy.S with mempcpy defines
+	i686 reimplements memcpy with mempcpy return semantics
+
+./memset.S
+	i586 uses dest prefetch and cacheline alignment and movl unroll
+	i686 uses byte, word, dword progressing with rep/stosl, no prefetch
+	but appears to use cacheline alignment logic.
+./mul_1.S
+	GMP multi-limb (arbitrary precision) multiply
+	i586 optimized version -- no MMX, implicit prefetch
+./rshift.S
+	GMP multi-limb (arbitrary precision) rshift
+	i586 -- optimized version -- no MMX, implicit prefetch
+./stpcpy.S
+	version of strcpy that returns address of \0 in dest
+	i586 includes i586 strcpy.S with #defines to alter return semantics
+	i386 version unrolls copy and byte-by-copyies with test and stp return
+./strcat.S
+	i486 version:
+		<no prefetch>
+		does byte by byte search for end-of-string until dword aligned
+		does xor trick search to look for zero bytes dword-by-dword
+		'cat' is done with a similar approach bytes-then-words
+./strchr.S
+	i386 version bytes-then-dwords approach
+		then uses a 16-byte unrolled loop
+		no prefetch
+	i586 version bytes-then-dwords
+		uses a very different 16 byte unrolled approach
+		no prefetch
+./strcmp.S
+	i686 only -- overrides sysdeps/generic/strcmp.c
+		look like the optimization is entirely scheduling related
+		no prefetch
+		nothing trickier that byte-by-byte compare.
+		seems like bytes-aligned_dword-remainder_bytes comparison
+		would be faster, hmmmm
+./strcpy.S
+	i586 -- This hand-code has a combination of bytewise and dword-wise
+		uses a "magic word" test 
+./string-inlines.c
+	i386 -- wraps most of the generic
+	i486 -- slightly modifies the alias/wrapping... need to dig into this
+./strlen.S
+	i486 --	uses a "magic word" testing word-by-word testing after byte by
+	i586 -- a different spin on the same basic algorithm
+
+./strtok.S
+	i386 -- uses a 256 entry table created unrolled
+	i686 -- use rep stosl to create table (0'd)
+./strtok_r.S
+	implement strtok_r.S by including the strtok.S using #defines
+./sub_n.S
+	GMP multi-limb (arbitrary precision) subtract
+
+./submul_1.S
+	GMP multi-limb (arbitrary precision) multiply and subtract
+
+./tst-stack-align.h
+	This is a diagnostic macro used for ??? No reason to optimize
+
+Note on GMP -- apparently the GMP code in glibc is out of date -- potential
+good karma for moving it up to date.

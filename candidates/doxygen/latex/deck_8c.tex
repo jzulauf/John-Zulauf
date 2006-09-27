@@ -1,0 +1,28 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/deck.c File Reference}
+\label{deck_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/deck.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/deck.c}}
+Implements a deck of cards randomizer. 
+
+
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include \char`\"{}deck.h\char`\"{}}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-deck} $\ast$ {\bf deck\_\-create} (size\_\-t size, unsigned int seed, void $\ast$data, size\_\-t dsize)
+\begin{CompactList}\small\item\em Allocates an deck of cards and initializes them with ordinal and data.\item\end{CompactList}\item 
+void {\bf deck\_\-destroy} ({\bf T\_\-deck} $\ast$d)
+\begin{CompactList}\small\item\em Deletes the deck a {\bf all} {\bf cards} {\bf in} {\bf it}. Does not delete data referenced by the cards.\item\end{CompactList}\item 
+void {\bf deck\_\-shuffle} ({\bf T\_\-deck} $\ast$d)
+\begin{CompactList}\small\item\em shuffles the given {\bf T\_\-deck} {\rm (p.\,\pageref{structT__deck})} d, and resets dealt field. Does not modify the card ordinal or data fields.\item\end{CompactList}\item 
+{\bf T\_\-deck\_\-card} $\ast$ {\bf deck\_\-deal} ({\bf T\_\-deck} $\ast$d, int blackjack)
+\begin{CompactList}\small\item\em returns the next card in the deck, advances the dealt field, automatically reshuffling, as needed unless \char`\"{}blackjack\char`\"{} mode is set\item\end{CompactList}\item 
+{\bf T\_\-deck\_\-card} $\ast$ {\bf deck\_\-peek} ({\bf T\_\-deck} $\ast$d, int blackjack)
+\begin{CompactList}\small\item\em returns the next card in the deck without advancing \char`\"{}dealt\char`\"{}. Allows the caller peek at the next card without actually dealing it. This can result in the deck shuffling unless blackjack is set, or NULL if blackjack is set and the deck is out of cards.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a deck of cards randomizer.
+
+
+

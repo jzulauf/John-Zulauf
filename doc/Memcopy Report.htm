@@ -1,0 +1,1120 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Memcopy%20Report_files/filelist.xml">
+<title>Report on Glibc Memcopy Optimization</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>John Zulauf</o:Author>
+  <o:Keywords>optimization memcpy glibc libc geode lx norwich</o:Keywords>
+  <o:LastAuthor>John Zulauf</o:LastAuthor>
+  <o:Revision>14</o:Revision>
+  <o:TotalTime>247</o:TotalTime>
+  <o:Created>2006-01-23T23:32:00Z</o:Created>
+  <o:LastSaved>2006-01-24T03:40:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1307</o:Words>
+  <o:Characters>7453</o:Characters>
+  <o:Category>optimization</o:Category>
+  <o:Manager>Dan Maslowski</o:Manager>
+  <o:Company>AMD</o:Company>
+  <o:Lines>62</o:Lines>
+  <o:Paragraphs>17</o:Paragraphs>
+  <o:CharactersWithSpaces>8743</o:CharactersWithSpaces>
+  <o:Version>10.2625</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Normal</w:View>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:ApplyBreakingRules/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"MS Mincho";
+	panose-1:2 2 6 9 4 2 5 8 3 4;
+	mso-font-alt:"\FF2D\FF33 \660E\671D";
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610612033 1757936891 16 0 131231 0;}
+@font-face
+	{font-family:"\@MS Mincho";
+	mso-font-charset:128;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1610612033 1757936891 16 0 131231 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"MS Mincho";
+	mso-bidi-language:HE;}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;
+	mso-bidi-language:HE;}
+h2
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	mso-bidi-language:HE;
+	font-style:italic;}
+h3
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:3;
+	font-size:13.0pt;
+	font-family:Arial;
+	mso-bidi-language:HE;}
+p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText
+	{mso-style-noshow:yes;
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"MS Mincho";
+	mso-bidi-language:HE;}
+span.MsoFootnoteReference
+	{mso-style-noshow:yes;
+	vertical-align:super;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"MS Mincho";
+	mso-bidi-language:HE;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:201023067;
+	mso-list-template-ids:608488754;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l1
+	{mso-list-id:903878980;
+	mso-list-template-ids:429173654;}
+@list l1:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l2
+	{mso-list-id:1082795933;
+	mso-list-template-ids:-842376708;}
+@list l2:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l3
+	{mso-list-id:1084491726;
+	mso-list-type:hybrid;
+	mso-list-template-ids:374610546 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l3:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1347749696;
+	mso-list-type:hybrid;
+	mso-list-template-ids:839294082 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l4:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:"Courier New";}
+@list l4:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l5
+	{mso-list-id:1398161053;
+	mso-list-template-ids:-1976420216;}
+@list l5:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6
+	{mso-list-id:1418096657;
+	mso-list-template-ids:763816256;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l7
+	{mso-list-id:2076737220;
+	mso-list-template-ids:-735917656;}
+@list l7:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l7:level2
+	{mso-level-number-format:bullet;
+	mso-level-text:o;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-bidi-font-family:"Times New Roman";}
+@list l8
+	{mso-list-id:2141219179;
+	mso-list-type:hybrid;
+	mso-list-template-ids:589986690 67698689 67698691 67698693 67698689 67698691 67698693 67698689 67698691 67698693;}
+@list l8:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Symbol;}
+@list l8:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l8:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+table.MsoTableGrid
+	{mso-style-name:"Table Grid";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	border:solid windowtext 1.0pt;
+	mso-border-alt:solid windowtext .5pt;
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-border-insideh:.5pt solid windowtext;
+	mso-border-insidev:.5pt solid windowtext;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]-->
+</head>
+
+<body lang=EN-US link=blue vlink=purple style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1><span class=SpellE>Glibc</span> <span class=SpellE>Memcpy</span> <span
+class=SpellE>Optimiziation</span> for Geode LX</h1>
+
+<h1>Overview</h1>
+
+<h2>Introduction</h2>
+
+<p class=MsoNormal>This document will cover <span class=SpellE>glibc</span> <span
+class=SpellE>memcpy</span> optimization investigations for the Geode LX
+(Castle) / 5536 platform. Algorithms tuned for Geode LX will be tested against
+the i486 and i586 <span class=SpellE>memcpy</span> implementations. The
+methodology and results will be presented </p>
+
+<h3>Optimization and Power</h3>
+
+<p class=MsoNormal>The effort to optimize for the Geode LX is derived from
+higher level group objectives:</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l8 level1 lfo3;tab-stops:list .5in'>Boot2fun:
+     </li>
+</ul>
+
+<p class=MsoNormal style='margin-left:.5in'><span class=GramE>reducing</span>
+the time for our customers from receiving a development kit for LX<span
+style='mso-spacerun:yes'>  </span>to creating targeted and optimized solutions
+for their platforms and customers (i.e. the time from when they first boot a
+Geode to when it’s doing something cool, interesting or “fun.”</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l8 level1 lfo3;tab-stops:list .5in'>Power
+     Management: </li>
+</ul>
+
+<p class=MsoNormal style='margin-left:.5in'>This is a sub-goal of boot2fun but
+is specifically targeted in the goals of our software optimization.</p>
+
+<p class=MsoNormal style='margin-left:.5in'><o:p>&nbsp;</o:p></p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l8 level1 lfo3;tab-stops:list .5in'>Expanded
+     Geode LX opportunities</li>
+</ul>
+
+<p class=MsoNormal style='margin-left:.5in'>By optimizing LX performance, LX
+increase the value proposition both in absolute performance (vs. higher
+cost/power solutions) or performance/$.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>The power impact specific optimizations falls into two high
+level categories, direct and indirect power savings.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo7;tab-stops:list .5in'>Direct
+     Power Savings</li>
+</ul>
+
+<p class=MsoNormal style='margin-left:.5in'>The optimization of the algorithm
+results in fewer instructions executed and lower dynamic power (i.e. CMOS state
+change power).<span style='mso-spacerun:yes'>  </span>This sort of optimization
+is typically related to a specific, complex, and application-specific
+algorithm.</p>
+
+<p class=MsoNormal style='margin-left:.5in'><o:p>&nbsp;</o:p></p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo7;tab-stops:list .5in'>Indirect
+     Power Savings</li>
+</ul>
+
+<p class=MsoNormal style='margin-left:.5in'>Here power is saved not by running
+fewer instructions but by improving the effective CPI of the processor,
+allowing for more time in deeper power managed states, or allowing for a lower-clocking/lower-voltage
+parts use.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>The <span class=SpellE>memcpy</span> routine falls into this
+latter category. The standard POSIX <span class=SpellE>memcpy</span> copies a
+string of bytes from one location in memory to another, with the assumption
+that the regions do not overlap (Overlapping regions are handled by <span
+class=SpellE>memove</span>.) In Linux this is implemented by <span
+class=SpellE>glibc</span> with a variety of compile time and runtime
+implementations linked or inserted by the compiler (the complexity of this is
+beyond the scope of this documents)</p>
+
+<h2>Goals</h2>
+
+<p class=MsoNormal>These goals for this study are:</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo7;tab-stops:list .5in'>Identify
+     the potential for performance increases by optimization in a specific
+     narrow context – <span class=SpellE>memcpy</span> performance in isolation
+     <span class=SpellE>glibc</span> implementation vs. LX targeted</li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo7;tab-stops:list .5in'>Measure
+     the performance impact on “out of cache” copies.</li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo7;tab-stops:list .5in'>Test
+     both “in situ” (on the platform) and “en vitro” (in the simulation) to
+     obtain the highest optimization</li>
+ <li class=MsoNormal style='mso-list:l4 level1 lfo7;tab-stops:list .5in'>Identify
+     the complexity of insertion of the LX optimizations into glib</li>
+</ul>
+
+<h1>Methodology</h1>
+
+<h2>Perforce Location</h2>
+
+<p class=MsoNormal>All software and documentation can be accessed on
+perforce1.amd.com at path <a
+href="http://perforce1.amd.com:8081/depotTreeBrowser.cgi?FSPC=//developers/johnz/projects/glibc/memcpy&amp;HIDEDEL=YES"
+title="p4web link">//developers/<span class=SpellE>johnz/projects/glibc/memcpy</span>/</a>
+(click link for p4web access).<o:p></o:p></p>
+
+<h2>Algorithmic Approach</h2>
+
+<p class=MsoNormal>The algorithms were based on the initial code <span
+class=SpellE>fragement</span> from Steve <span class=SpellE>Kommrusch</span>:</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<pre><span style='mso-spacerun:yes'>        </span><span class=SpellE><span
+class=GramE>mov</span></span> <span class=SpellE>esi</span>, offset data0_read</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>mov</span></span> <span class=SpellE>edi</span>, offset data0_write</pre><pre><span style='mso-spacerun:yes'>        </span>; Copy 80,000 bytes of memory using rep <span
+class=SpellE>movsd</span> loops</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>mov</span></span> <span class=SpellE>ebx</span>, 625</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>mov</span></span> <span class=SpellE>eax,esi</span></pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=GramE>add</span> <span class=SpellE>eax</span>, 192</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>mov</span></span> <span class=SpellE>ecx</span>, 32</pre><pre><span style='mso-spacerun:yes'>     </span>loop1:</pre><pre><span style='mso-spacerun:yes'>        </span>; <span
+class=SpellE>Prefetch</span> lines we'll need a couple loops later</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=GramE>lea</span> <span class=SpellE>eax</span>,[eax+32]</pre><pre><span style='mso-spacerun:yes'>        </span>PREFETCHT0_EAX</pre><pre><span style='mso-spacerun:yes'>     </span><span style='mso-spacerun:yes'>   </span><span
+class=GramE>lea</span> <span class=SpellE>eax</span>,[eax+32]</pre><pre><span style='mso-spacerun:yes'>        </span>PREFETCHT0_EAX</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>mov</span></span> <span class=SpellE>cl</span>, 32</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=GramE>lea</span> <span class=SpellE>eax</span>,[eax+32]</pre><pre><span style='mso-spacerun:yes'>        </span>PREFETCHT0_EAX</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=GramE>;;</span> Move 128 bytes</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=GramE>rep</span> <span class=SpellE>movsd</span></pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=GramE>lea</span> <span class=SpellE>eax</span>,[eax+32]</pre><pre><span style='mso-spacerun:yes'>        </span>PREFETCHT0_EAX</pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>dec</span></span> <span class=SpellE>ebx</span></pre><pre><span style='mso-spacerun:yes'>        </span><span
+class=SpellE><span class=GramE>jnz</span></span> loop1</pre>
+
+<p class=MsoNormal style='tab-stops:.5in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal style='tab-stops:.5in'>The core of this approach is
+unrolling the single <span class=SpellE>repmov</span> into several which span
+integer <span class=SpellE>cachelines</span>, which are <span class=SpellE>prefetched</span>
+prior to the <span class=SpellE>repmovs</span>.<span style='mso-spacerun:yes'> 
+</span><span class=SpellE>RedCapFX</span> (Geode GX optimization “tiger” team)
+identified 2<span class=GramE>,3</span>, and 4 <span class=SpellE>cacheline</span>
+unrolling as the optimal.</p>
+
+<p class=MsoNormal style='tab-stops:.5in'>Additional optimization was do to
+minimize the call stack overhead (stack frame, local variable stack space, and
+register preservation), and the overhead for <span class=GramE>the<span
+style='mso-spacerun:yes'>  </span>“</span>number of bytes less than N <span
+class=SpellE>cachelines</span>” case.</p>
+
+<p class=MsoNormal style='tab-stops:.5in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal style='tab-stops:.5in'>Note that no effort is made to avoid <span
+class=SpellE>overfetching</span>, as <span class=SpellE>prefetch</span> can
+cause neither page faults, nor page permission violations.</p>
+
+<p class=MsoNormal style='tab-stops:.5in'><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal style='tab-stops:.5in'>Three algorithmic variations survived
+this weeding, all of which eschew the use of the “LEA” instruction above.</p>
+
+<ul style='margin-top:0in' type=disc>
+ <li class=MsoNormal style='mso-list:l3 level1 lfo12;tab-stops:list .5in'>Lx64
+     – <span class=SpellE>lx_memcpy_noleal.s</span></li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='mso-list:l3 level2 lfo12;tab-stops:list 1.0in'>Two
+      <span class=SpellE>cacheline</span> unroll with a two <span class=SpellE>cacheline</span>
+      <span class=SpellE>prefetch</span></li>
+ </ul>
+ <li class=MsoNormal style='mso-list:l3 level1 lfo12;tab-stops:list .5in'>Lx64si0
+     lx_memcpy_si0.s</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='mso-list:l3 level2 lfo12;tab-stops:list 1.0in'>This
+      is a Lx64 derivative based on inputs from Steve Thompson in Silicon
+      Engineering reviewing the code and the <span class=SpellE>Verilog</span></li>
+  <li class=MsoNormal style='mso-list:l3 level2 lfo12;tab-stops:list 1.0in'>Notably
+      this <span class=SpellE>prefetches</span> only 1 <span class=SpellE>cacheline</span>
+      ahead and doesn’t <span class=SpellE>prefetch</span> the initial source
+      address.<span style='mso-spacerun:yes'>  </span>This reflects the
+      internal limit of the LX of 3 outstanding <span class=SpellE>prefetch</span>
+      transactions.</li>
+ </ul>
+ <li class=MsoNormal style='mso-list:l3 level1 lfo12;tab-stops:list .5in'>Lx128
+     – lx_memcpy_noleal_128.s</li>
+ <ul style='margin-top:0in' type=circle>
+  <li class=MsoNormal style='mso-list:l3 level2 lfo12;tab-stops:list 1.0in'>A
+      four <span class=SpellE>cachline</span> unroll of Lx64 above.</li>
+ </ul>
+</ul>
+
+<p class=MsoNormal style='tab-stops:.5in'><o:p>&nbsp;</o:p></p>
+
+<h1><span style='mso-spacerun:yes'> </span>Build Process</h1>
+
+<p class=MsoNormal style='tab-stops:.5in'>All programs are created with “make”.<span
+style='mso-spacerun:yes'>  </span>The default make target “all” creates both <span
+class=SpellE>utest</span> and <span class=SpellE>ptest</span> (see below).<span
+style='mso-spacerun:yes'>  </span>The clean “target” restores the directory to
+the pristine state.<span style='mso-spacerun:yes'>  </span>Note that no include
+file rules are included in the <span class=SpellE>Makefile</span>.</p>
+
+<h2 style='tab-stops:.5in'>Unit Testing</h2>
+
+<p class=MsoNormal>Each algorithm was tested using <span class=SpellE><i>utest</i></span>
+(<span class=SpellE>utest.c</span>) for correctness in implementing the <span
+class=SpellE>memcpy</span> function. This unit testing was critical in the
+development of the replacement algorithms as it unveiled defects impact
+performance both positively and negatively.<span style='mso-spacerun:yes'> 
+</span>At each refinement of the optimized routines <span class=SpellE><i>utest</i></span>
+was re-run to verify correctness.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>When successful <span class=SpellE><i>utest</i></span> exits
+with a return code of 0 (POSIX stand for success). If errors are discovered,
+(less than perfectly) useful messages are written to standard error and <span
+class=SpellE><i>utest</i></span> exits with a non-zero return code.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Correctness testing within <span class=SpellE><i>utest</i></span>
+functions by testing copies of various sizes in the middle of an oversized
+buffer.<span style='mso-spacerun:yes'>  </span>The buffers are set up as
+follows. Each buffer, source and destination is triple the size of the copy. Prior
+to the copy, <span class=GramE>a reference source and reference destination
+buffer</span> which reflect the correct result are also created.<span
+style='mso-spacerun:yes'>  </span>Each buffer (or section) is filled with
+distinct patterns of non-overlapping character sets.<span
+style='mso-spacerun:yes'>  </span>The source is filled with numbers outside the
+section to be copied, and letters within the section to be copied.<span
+style='mso-spacerun:yes'>  </span>The reference source buffer is filled with
+the identical contents, such that the source buffer can be tested for
+corruption following a <span class=SpellE>memcpy</span>.<span
+style='mso-spacerun:yes'>  </span>The destination buffer is filled with the
+shifted number keys (in repeating pattern.<span style='mso-spacerun:yes'> 
+</span>The reference destination buffer is filled with shifted number keys
+outside the section to received data and, letters within the section to be
+copied in the same pattern as the source buffer. <span
+style='mso-spacerun:yes'> </span>For each <span class=SpellE>memcpy</span>
+algorithm, the buffers were filled, copied and compared to the reference
+versions. The <span class=SpellE>glibc</span> <span class=SpellE>memcpy</span>
+routine was also tested as a control. The fill-copy-compare sequence is
+repeated over a range of sizes.<o:p></o:p></p>
+
+<h2 style='tab-stops:.5in'>Performance testing</h2>
+
+<p class=MsoNormal>Each algorithm was test using <span class=SpellE><i>ptest</i></span>
+(<span class=SpellE>ptest.c</span>). </p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<pre><span class=GramE>./</span><span class=SpellE>ptest</span> -h<o:p></o:p></pre><pre>Usage: <span
+class=SpellE>ptest</span> -s start -e end -<span class=SpellE>i</span> increment -t tries</pre>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>The program <span class=SpellE>ptest</span> uses the timer
+stamp counter (<span class=SpellE>rdtsc</span>) instruction to accurately
+measure the amount of clock ticks a <span class=SpellE>memcpy</span> function requires.
+This measurement can be done over a range of copy sizes dictated <span
+class=GramE>by <span style='mso-spacerun:yes'> </span>the</span> “-s”, “-e”
+(inclusive), and “-<span class=SpellE>i</span>” flag – each of which is
+optional. For each size, the timed <span class=SpellE>memcpy</span> is
+performed based on the “-t” value (optional).<span style='mso-spacerun:yes'> 
+</span>Statistics are collected for each copy size and algorithm used.<span
+style='mso-spacerun:yes'>  </span>For reference the i486 <span class=SpellE>glibc</span>
+<span class=SpellE>memcpy</span> and the i586 <span class=SpellE>glibc</span> <span
+class=SpellE>memcpy</span> are include in the timing tests as the “control” as
+above.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>The copy of <span class=SpellE>uncached</span> source and
+destination data is assured by using source and destination buffers each larger
+than the combined caches of the Geode LX, and by advancing the start pointers
+for each copy through this much larger buffer in a modulo way. Additional the
+start pointers are calculated to start on <span class=SpellE>cacheline</span>
+boundaries, however this behavior maybe altered by means <span class=GramE>of a
+#</span>define.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>The statistics gathered are in reported in two distinct
+parts.<span style='mso-spacerun:yes'>  </span>Detailed statistic based on a
+simple bucket sort of the results. These include hits per bucket, average per
+bucket, modes. Overall statistics report the minimum clock ticks take for a
+given size and algorithm and represent and attempt a simple algorithm measure
+of goodness.<span style='mso-spacerun:yes'>  </span>These overall <span
+class=GramE>number</span> are not uniformly repeatable and thus substantial additional
+post process of the detailed statistics is need.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=MsoNormal>Testing was performed using “<span class=SpellE>do_test_series</span>”
+over the follow ranges:</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<table class=MsoTableGrid border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none;mso-border-alt:solid windowtext .5pt;
+ mso-yfti-tbllook:480;mso-padding-alt:0in 5.4pt 0in 5.4pt;mso-border-insideh:
+ .5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0'>
+  <td width=54 valign=top style='width:40.8pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1><span style='font-size:12.0pt;font-family:"Times New Roman";mso-font-kerning:
+  0pt;font-weight:normal'>Range<o:p></o:p></span></h1>
+  </td>
+  <td width=54 valign=top style='width:40.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1><span style='font-size:12.0pt;font-family:"Times New Roman";mso-font-kerning:
+  0pt;font-weight:normal'>Start<o:p></o:p></span></h1>
+  </td>
+  <td width=62 valign=top style='width:.65in;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1><span style='font-size:12.0pt;font-family:"Times New Roman";mso-font-kerning:
+  0pt;font-weight:normal'>End<o:p></o:p></span></h1>
+  </td>
+  <td width=58 valign=top style='width:43.8pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1><span class=SpellE><span style='font-size:12.0pt;font-family:"Times New Roman";
+  mso-font-kerning:0pt;font-weight:normal'>Incr</span></span><span
+  style='font-size:12.0pt;font-family:"Times New Roman";mso-font-kerning:0pt;
+  font-weight:normal'><o:p></o:p></span></h1>
+  </td>
+  <td width=60 valign=top style='width:45.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1><span style='font-size:12.0pt;font-family:"Times New Roman";mso-font-kerning:
+  0pt;font-weight:normal'>Tries<o:p></o:p></span></h1>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1'>
+  <td width=54 valign=top style='width:40.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>Small<o:p></o:p></span></h1>
+  </td>
+  <td width=54 style='width:40.8pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>0 <o:p></o:p></span></h1>
+  </td>
+  <td width=62 style='width:.65in;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'><span
+  style='mso-spacerun:yes'> </span>513 <o:p></o:p></span></h1>
+  </td>
+  <td width=58 style='width:43.8pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'><span
+  style='mso-spacerun:yes'> </span>1 <o:p></o:p></span></h1>
+  </td>
+  <td width=60 style='width:45.0pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'><span
+  style='mso-spacerun:yes'> </span>20000 <o:p></o:p></span></h1>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2'>
+  <td width=54 valign=top style='width:40.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>Med<o:p></o:p></span></h1>
+  </td>
+  <td width=54 style='width:40.8pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>1024 <o:p></o:p></span></h1>
+  </td>
+  <td width=62 style='width:.65in;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'><span
+  style='mso-spacerun:yes'> </span>16384 <o:p></o:p></span></h1>
+  </td>
+  <td width=58 style='width:43.8pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'><span
+  style='mso-spacerun:yes'> </span>1024 <o:p></o:p></span></h1>
+  </td>
+  <td width=60 style='width:45.0pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'><span
+  style='mso-spacerun:yes'> </span>20000<o:p></o:p></span></h1>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes'>
+  <td width=54 valign=top style='width:40.8pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>Large<o:p></o:p></span></h1>
+  </td>
+  <td width=54 style='width:40.8pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>32768<o:p></o:p></span></h1>
+  </td>
+  <td width=62 style='width:.65in;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>131072<o:p></o:p></span></h1>
+  </td>
+  <td width=58 style='width:43.8pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>8192<o:p></o:p></span></h1>
+  </td>
+  <td width=60 style='width:45.0pt;border-top:none;border-left:none;border-bottom:
+  solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;mso-border-top-alt:
+  solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt'>
+  <h1 align=right style='text-align:right'><span style='font-size:12.0pt;
+  font-family:"Times New Roman";mso-font-kerning:0pt;font-weight:normal'>3000 <o:p></o:p></span></h1>
+  </td>
+ </tr>
+</table>
+
+<h1 style='tab-stops:.5in'>Initial Results</h1>
+
+<p class=MsoNormal>These initial results are based on the overall statistics
+and thus should not be taken as a <span class=GramE>final</span> word on the
+effectiveness of the optimization.</p>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+<table class=MsoNormalTable border=1 cellspacing=0 cellpadding=0 width=464
+ style='width:347.9pt;margin-left:4.65pt;border-collapse:collapse;border:none;
+ mso-border-alt:solid windowtext .5pt;mso-padding-alt:0in 5.4pt 0in 5.4pt;
+ mso-border-insideh:.5pt solid windowtext;mso-border-insidev:.5pt solid windowtext'>
+ <tr style='mso-yfti-irow:0;height:12.75pt'>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'><o:p>&nbsp;</o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span class=SpellE><span style='font-size:10.0pt;
+  font-family:Arial'>memcpy</span></span><span style='font-size:10.0pt;
+  font-family:Arial'><o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>libc586<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>lx64<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>lx64si0<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>lx128<o:p></o:p></span></p>
+  </td>
+  <td width=80 nowrap valign=bottom style='width:59.9pt;border:solid windowtext 1.0pt;
+  border-left:none;mso-border-left-alt:solid windowtext .5pt;mso-border-alt:
+  solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>Improvement<a
+  style='mso-footnote-id:ftn1' href="#_ftn1" name="_ftnref1" title=""><span
+  class=MsoFootnoteReference><span style='mso-special-character:footnote'><![if !supportFootnotes]><span
+  class=MsoFootnoteReference><span style='font-size:10.0pt;font-family:Arial;
+  mso-fareast-font-family:"MS Mincho";mso-ansi-language:EN-US;mso-fareast-language:
+  JA;mso-bidi-language:HE'>[1]</span></span><![endif]></span></span></a> <o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:1;height:12.75pt'>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>small<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.4547242244264415">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.455<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.43856745799481317">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.439<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.65827749986616568">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.658<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.65724149799475318">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.657<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.59430514120299038">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.594<o:p></o:p></span></p>
+  </td>
+  <td width=80 nowrap valign=bottom style='width:59.9pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.4453628434327494" x:fmla="=(E2-B2)/B2">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>44.54%<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:2;height:12.75pt'>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>medium<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.57220631139838785">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.572<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.57387090913189831">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.574<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.7432326884121474">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.743<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.77107645099003563">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.771<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.7325345875953525">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.733<o:p></o:p></span></p>
+  </td>
+  <td width=80 nowrap valign=bottom style='width:59.9pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.34754971350392572">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>34.75%<o:p></o:p></span></p>
+  </td>
+ </tr>
+ <tr style='mso-yfti-irow:3;mso-yfti-lastrow:yes;height:12.75pt'>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border:solid windowtext 1.0pt;
+  border-top:none;mso-border-top-alt:solid windowtext .5pt;mso-border-alt:solid windowtext .5pt;
+  padding:0in 5.4pt 0in 5.4pt;height:12.75pt'>
+  <p class=MsoNormal><span style='font-size:10.0pt;font-family:Arial'>large<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.51400435368566655">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.514<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.51416854804605461">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.514<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.65008342460794022">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.650<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.69680875985686719">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.697<o:p></o:p></span></p>
+  </td>
+  <td width=64 nowrap valign=bottom style='width:48.0pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.64232309878902361">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>0.642<o:p></o:p></span></p>
+  </td>
+  <td width=80 nowrap valign=bottom style='width:59.9pt;border-top:none;
+  border-left:none;border-bottom:solid windowtext 1.0pt;border-right:solid windowtext 1.0pt;
+  mso-border-top-alt:solid windowtext .5pt;mso-border-left-alt:solid windowtext .5pt;
+  mso-border-alt:solid windowtext .5pt;padding:0in 5.4pt 0in 5.4pt;height:12.75pt'
+  x:num="0.35564758325567136">
+  <p class=MsoNormal align=right style='text-align:right'><span
+  style='font-size:10.0pt;font-family:Arial'>35.56%<o:p></o:p></span></p>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
+<div style='mso-element:footnote-list'><![if !supportFootnotes]><br clear=all>
+
+<hr align=left size=1 width="33%">
+
+<![endif]>
+
+<div style='mso-element:footnote' id=ftn1>
+
+<p class=MsoFootnoteText><a style='mso-footnote-id:ftn1' href="#_ftnref1"
+name="_ftn1" title=""><span class=MsoFootnoteReference><span style='mso-special-character:
+footnote'><![if !supportFootnotes]><span class=MsoFootnoteReference><span
+style='font-size:10.0pt;font-family:"Times New Roman";mso-fareast-font-family:
+"MS Mincho";mso-ansi-language:EN-US;mso-fareast-language:JA;mso-bidi-language:
+HE'>[1]</span></span><![endif]></span></span></a> <span style='font-family:
+Arial'>lx64si0 vs. <span class=SpellE>memcpy</span></span></p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

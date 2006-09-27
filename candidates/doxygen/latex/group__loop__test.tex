@@ -1,0 +1,412 @@
+\section{\char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting}
+\label{group__loop__test}\index{"loop_" Standard loops for testing and reporting@{""loop\_\-"" Standard loops for testing and reporting}}
+These loops work use the information in {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})}:: and in file: def\_\-test.h to execute the outer and inner loops and generate the output. 
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-loop\_\-result\_\-line}
+\begin{CompactList}\small\item\em stores one line of statistics and results for all tests\item\end{CompactList}\item 
+struct {\bf T\_\-loop\_\-results}
+\begin{CompactList}\small\item\em stores the table of results for counts and tests. The results are organized into lines ({\bf T\_\-loop\_\-result\_\-line} {\rm (p.\,\pageref{structT__loop__result__line})}::) for each valid count in the range defined by size, start, and incr. Additionally, the run field controls whether a given test is run at all.\item\end{CompactList}\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf LOOP\_\-START\_\-TEST}(tick)
+\item 
+\#define {\bf LOOP\_\-END\_\-TEST}(tick)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf loop\_\-get\_\-num\_\-test} ()
+\begin{CompactList}\small\item\em return the value of NUM\_\-TEST, so we don't have to make def\_\-tests global\item\end{CompactList}\item 
+const char $\ast$ {\bf loop\_\-get\_\-testname} (size\_\-t test)
+\begin{CompactList}\small\item\em return the test names , so we don't have to make def\_\-tests global\item\end{CompactList}\item 
+{\bf T\_\-loop\_\-results} $\ast$ {\bf loop\_\-results\_\-create} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em allocates and initialize a {\bf T\_\-loop\_\-results} {\rm (p.\,\pageref{structT__loop__results})}:: structure. The {\bf T\_\-loop\_\-results::lines} {\rm (p.\,\pageref{structT__loop__results_m4})} are initialized to for each valid count in the supplied {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})}::, and the T\_\-loop\_\-result::run flags are set based on the {\bf T\_\-test\_\-app::testmask} {\rm (p.\,\pageref{structT__test__app_m13})}\item\end{CompactList}\item 
+void {\bf loop\_\-results\_\-destroy} ({\bf T\_\-loop\_\-results} $\ast$lr)
+\begin{CompactList}\small\item\em deallocate a loop\_\-results structure\item\end{CompactList}\item 
+void {\bf loop\_\-results\_\-record} ({\bf T\_\-loop\_\-results} $\ast$lr, size\_\-t count, size\_\-t test, {\bf T\_\-tick} data)
+\begin{CompactList}\small\item\em record a data point in the appropriate T\_\-loop\_\-result::lines entry based on the count and test indices. Notices that the line index must be solved backwards from the count and the T\_\-loop\_\-result::start etc. as their is not a line for every count, but only for every {\bf valid} count.\item\end{CompactList}\item 
+void {\bf loop\_\-inner} (size\_\-t ord, size\_\-t test, {\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em run the inner loop of the testing for a given function and count if ! app-$>$rand, the count will be constant, but should still be derived from the count in {\bf DEF\_\-NEXT}. {\bf DEF\_\-RUN} should {\bf only} call the function under test with any parameter set up or pointer math handled in {\bf DEF\_\-NEXT}. Notice that DEF\_\-NEXT begins a block, thus extra variables needed for this can be define in DEF\_\-NEXT and referenced in DEF\_\-RUN without impacting the timestamp.\item\end{CompactList}\item 
+void {\bf loop\_\-results\_\-compute} ({\bf T\_\-loop\_\-results} $\ast$lr)
+\begin{CompactList}\small\item\em compute the statistical results for this loop. This should be called prior to {\bf loop\_\-results\_\-report()} {\rm (p.\,\pageref{group__loop__test_a19})}\item\end{CompactList}\item 
+double {\bf loop\_\-results\_\-get\_\-raw} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-comp} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-comp\_\-diff} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-comp\_\-pct} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-diff} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-normalized} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-speed} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+size\_\-t {\bf loop\_\-results\_\-fill\_\-table} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$tbl, size\_\-t row\_\-base, size\_\-t col\_\-base, char type)
+\item 
+double {\bf loop\_\-results\_\-count\_\-total} ({\bf T\_\-loop\_\-results} $\ast$lr)
+\item 
+double {\bf loop\_\-results\_\-raw\_\-total} ({\bf T\_\-loop\_\-results} $\ast$lr, size\_\-t test)
+\item 
+size\_\-t {\bf loop\_\-results\_\-fill\_\-data} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$tbl, size\_\-t row\_\-data, size\_\-t col\_\-data)
+\item 
+void {\bf loop\_\-results\_\-report} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em print the statistical results for this loop. This should not be called until after {\bf loop\_\-results\_\-compute()} {\rm (p.\,\pageref{group__loop__test_a7})}\item\end{CompactList}\item 
+void {\bf loop\_\-test} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Set up and run the inner loop for the test, and then report the results.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+These loops work use the information in {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})}:: and in file: def\_\-test.h to execute the outer and inner loops and generate the output.
+
+
+
+\subsection{Define Documentation}
+\index{loop_test@{loop\_\-test}!LOOP_END_TEST@{LOOP\_\-END\_\-TEST}}
+\index{LOOP_END_TEST@{LOOP\_\-END\_\-TEST}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOP\_\-END\_\-TEST(tick)}\label{group__loop__test_a22}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}do {    \
+                asm (   \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                        "nop; nop; nop; nop; nop; nop; nop; nop; nop; nop;"     \
+                );      \
+                rdtscll(tick);  \
+} while (0)\end{verbatim}\normalsize 
+End the test. The no ops are because Rdtsc on Geode serializes, and shouldn't, but we want to make sure that we don't see the impact of this \index{loop_test@{loop\_\-test}!LOOP_START_TEST@{LOOP\_\-START\_\-TEST}}
+\index{LOOP_START_TEST@{LOOP\_\-START\_\-TEST}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define LOOP\_\-START\_\-TEST(tick)}\label{group__loop__test_a21}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}do {    \
+                rdtscll(tick);  \
+} while (0)\end{verbatim}\normalsize 
+Set an mfence and start the test. On Geode GX/LX rdtsc also fences, but this may be fixed on other platforms 
+
+\subsection{Function Documentation}
+\index{loop_test@{loop\_\-test}!loop_get_num_test@{loop\_\-get\_\-num\_\-test}}
+\index{loop_get_num_test@{loop\_\-get\_\-num\_\-test}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t loop\_\-get\_\-num\_\-test ()}\label{group__loop__test_a1}
+
+
+return the value of NUM\_\-TEST, so we don't have to make def\_\-tests global
+
+\begin{Desc}
+\item[Returns: ]\par
+NUM\_\-TEST \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_get_testname@{loop\_\-get\_\-testname}}
+\index{loop_get_testname@{loop\_\-get\_\-testname}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ loop\_\-get\_\-testname (size\_\-t {\em test})}\label{group__loop__test_a2}
+
+
+return the test names , so we don't have to make def\_\-tests global
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the test name or NULL if {\bf test} is invalid \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_inner@{loop\_\-inner}}
+\index{loop_inner@{loop\_\-inner}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void loop\_\-inner (size\_\-t {\em ord}, size\_\-t {\em test}, {\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__loop__test_a6}
+
+
+run the inner loop of the testing for a given function and count if ! app-$>$rand, the count will be constant, but should still be derived from the count in {\bf DEF\_\-NEXT}. {\bf DEF\_\-RUN} should {\bf only} call the function under test with any parameter set up or pointer math handled in {\bf DEF\_\-NEXT}. Notice that DEF\_\-NEXT begins a block, thus extra variables needed for this can be define in DEF\_\-NEXT and referenced in DEF\_\-RUN without impacting the timestamp.
+
+TODO: compute an empty {\bf rdtscll()} {\rm (p.\,\pageref{rdtsc_8h_a1})} pair time to subtract from the test time\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+ord}]the ordinal number of the test, lr-$>$lines[ord] give the \char`\"{}count\char`\"{} \item[{\em 
+test}]the test index into the def\_\-tests array \item[{\em 
+lr}]the loop results struct \item[{\em 
+app}]the application state \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_compute@{loop\_\-results\_\-compute}}
+\index{loop_results_compute@{loop\_\-results\_\-compute}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void loop\_\-results\_\-compute ({\bf T\_\-loop\_\-results} $\ast$ {\em lr})}\label{group__loop__test_a7}
+
+
+compute the statistical results for this loop. This should be called prior to {\bf loop\_\-results\_\-report()} {\rm (p.\,\pageref{group__loop__test_a19})}
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_count_total@{loop\_\-results\_\-count\_\-total}}
+\index{loop_results_count_total@{loop\_\-results\_\-count\_\-total}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-count\_\-total ({\bf T\_\-loop\_\-results} $\ast$ {\em lr})}\label{group__loop__test_a16}
+
+
+The sum of the count values for the test series \begin{Desc}
+\item[Note: ]\par
+this is double as size\_\-t could overflow (unlikely) \end{Desc}
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the total of the tested counts \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_create@{loop\_\-results\_\-create}}
+\index{loop_results_create@{loop\_\-results\_\-create}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-loop\_\-results}$\ast$ loop\_\-results\_\-create ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__loop__test_a3}
+
+
+allocates and initialize a {\bf T\_\-loop\_\-results} {\rm (p.\,\pageref{structT__loop__results})}:: structure. The {\bf T\_\-loop\_\-results::lines} {\rm (p.\,\pageref{structT__loop__results_m4})} are initialized to for each valid count in the supplied {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})}::, and the T\_\-loop\_\-result::run flags are set based on the {\bf T\_\-test\_\-app::testmask} {\rm (p.\,\pageref{structT__test__app_m13})}
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_destroy@{loop\_\-results\_\-destroy}}
+\index{loop_results_destroy@{loop\_\-results\_\-destroy}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void loop\_\-results\_\-destroy ({\bf T\_\-loop\_\-results} $\ast$ {\em lr})}\label{group__loop__test_a4}
+
+
+deallocate a loop\_\-results structure
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop\_\-results structure to destroy \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_fill_data@{loop\_\-results\_\-fill\_\-data}}
+\index{loop_results_fill_data@{loop\_\-results\_\-fill\_\-data}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t loop\_\-results\_\-fill\_\-data ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, {\bf T\_\-table} $\ast$ {\em tbl}, size\_\-t {\em row\_\-data}, size\_\-t {\em col\_\-data})}\label{group__loop__test_a18}
+
+
+Add summary data to the report table \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+tbl}]the table to use \item[{\em 
+row\_\-data}]the row orgin for the summary output \item[{\em 
+col\_\-data}]the column orgin for the summary output \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the row following the last entry \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_fill_table@{loop\_\-results\_\-fill\_\-table}}
+\index{loop_results_fill_table@{loop\_\-results\_\-fill\_\-table}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t loop\_\-results\_\-fill\_\-table ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, {\bf T\_\-table} $\ast$ {\em tbl}, size\_\-t {\em row\_\-base}, size\_\-t {\em col\_\-base}, char {\em type})}\label{group__loop__test_a15}
+
+
+Fills out one output result at the given location and type \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+tbl}]the table to use \item[{\em 
+row\_\-base}]the row orgin for the output result \item[{\em 
+col\_\-base}]the column orgin for the output result \item[{\em 
+type}]the type of output result to produce \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_comp@{loop\_\-results\_\-get\_\-comp}}
+\index{loop_results_get_comp@{loop\_\-results\_\-get\_\-comp}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-comp ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a9}
+
+
+get the comparative data for this count and test \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the comparative value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_comp_diff@{loop\_\-results\_\-get\_\-comp\_\-diff}}
+\index{loop_results_get_comp_diff@{loop\_\-results\_\-get\_\-comp\_\-diff}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-comp\_\-diff ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a10}
+
+
+get the comparative data for this count and test in ticks \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the comparative value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_comp_pct@{loop\_\-results\_\-get\_\-comp\_\-pct}}
+\index{loop_results_get_comp_pct@{loop\_\-results\_\-get\_\-comp\_\-pct}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-comp\_\-pct ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a11}
+
+
+get the comparative data for this count and test in percent \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the comparative value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_diff@{loop\_\-results\_\-get\_\-diff}}
+\index{loop_results_get_diff@{loop\_\-results\_\-get\_\-diff}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-diff ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a12}
+
+
+get the diff data for this count and test \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the difference value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_normalized@{loop\_\-results\_\-get\_\-normalized}}
+\index{loop_results_get_normalized@{loop\_\-results\_\-get\_\-normalized}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-normalized ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a13}
+
+
+get the normalized data for this count and test \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the normalized value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_raw@{loop\_\-results\_\-get\_\-raw}}
+\index{loop_results_get_raw@{loop\_\-results\_\-get\_\-raw}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-raw ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a8}
+
+
+get the raw data for this count and test \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the raw value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_get_speed@{loop\_\-results\_\-get\_\-speed}}
+\index{loop_results_get_speed@{loop\_\-results\_\-get\_\-speed}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-get\_\-speed ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em count}, size\_\-t {\em test})}\label{group__loop__test_a14}
+
+
+get the bandwith speed data for this count and test \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \item[{\em 
+count}]the virtual count (line number) @ \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the speed value \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_raw_total@{loop\_\-results\_\-raw\_\-total}}
+\index{loop_results_raw_total@{loop\_\-results\_\-raw\_\-total}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double loop\_\-results\_\-raw\_\-total ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, size\_\-t {\em test})}\label{group__loop__test_a17}
+
+
+The sum of the raw values for a given test \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+test}]the test number \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the total of the raw values \end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_record@{loop\_\-results\_\-record}}
+\index{loop_results_record@{loop\_\-results\_\-record}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void loop\_\-results\_\-record ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, size\_\-t {\em count}, size\_\-t {\em test}, {\bf T\_\-tick} {\em data})}\label{group__loop__test_a5}
+
+
+record a data point in the appropriate T\_\-loop\_\-result::lines entry based on the count and test indices. Notices that the line index must be solved backwards from the count and the T\_\-loop\_\-result::start etc. as their is not a line for every count, but only for every {\bf valid} count.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results struct \item[{\em 
+count}]the count number for this data point \item[{\em 
+test}]the test number for this data point \item[{\em 
+data}]the value to record \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_results_report@{loop\_\-results\_\-report}}
+\index{loop_results_report@{loop\_\-results\_\-report}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void loop\_\-results\_\-report ({\bf T\_\-loop\_\-results} $\ast$ {\em lr}, {\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__loop__test_a19}
+
+
+print the statistical results for this loop. This should not be called until after {\bf loop\_\-results\_\-compute()} {\rm (p.\,\pageref{group__loop__test_a7})}
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+lr}]the loop results structure \item[{\em 
+app}]the application state \end{description}
+\end{Desc}
+\index{loop_test@{loop\_\-test}!loop_test@{loop\_\-test}}
+\index{loop_test@{loop\_\-test}!loop_test@{loop\_\-test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void loop\_\-test ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{group__loop__test_a20}
+
+
+Set up and run the inner loop for the test, and then report the results.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state \end{description}
+\end{Desc}

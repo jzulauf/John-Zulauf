@@ -1,0 +1,194 @@
+\section{Test buffer creation and management functions}
+\label{group__test__buffer}\index{Test buffer creation and management functions@{Test buffer creation and management functions}}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf test\_\-buffer\_\-get\_\-align} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\begin{CompactList}\small\item\em Return the next alignment value for the buffer. If alignment randomization is enabled, this will vary, otherwise it will be constant.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-toc\_\-const} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count)
+\begin{CompactList}\small\item\em Fills a toc for a given count and account for cacheline and align effects.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-toc\_\-rand} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t current\_\-count)
+\begin{CompactList}\small\item\em Fills a toc for a given count and account for cacheline and align effects.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-fill\_\-from\_\-toc} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\begin{CompactList}\small\item\em Fill a buffer with based on the toc entries and the fill callback. Since both the \_\-const and \_\-rand toc initialization routines set all sample fields this can be used in either case.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-cb\_\-fill\_\-zstr} ({\bf T\_\-test\_\-buffer} $\ast$b, {\bf T\_\-test\_\-sample} $\ast$s, void $\ast$data)
+\begin{CompactList}\small\item\em Standard callback to fill one sample with a zstring.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-cb\_\-fill\_\-mem} ({\bf T\_\-test\_\-buffer} $\ast$b, {\bf T\_\-test\_\-sample} $\ast$s, void $\ast$data)
+\begin{CompactList}\small\item\em Standard callback to fill one sample with a pattern (not NULL terminated).\item\end{CompactList}\item 
+{\bf T\_\-test\_\-buffer} $\ast$ {\bf test\_\-buffer\_\-create} (size\_\-t type, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t scale, size\_\-t extra\_\-pad)
+\begin{CompactList}\small\item\em Create a single test buffer.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-flush} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\item 
+void {\bf test\_\-buffer\_\-count\_\-change} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count, void $\ast$data)
+\begin{CompactList}\small\item\em Default action to take on a buffer \char`\"{}count change\char`\"{} event, can be overriden by setting {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})}.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-wrap} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count, void $\ast$data)
+\begin{CompactList}\small\item\em Default action to take on a buffer \char`\"{}wrap\char`\"{} event. Can be overridden by setting {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})}.\item\end{CompactList}\item 
+{\bf T\_\-test\_\-sample} $\ast$ {\bf test\_\-buffer\_\-next} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count)
+\begin{CompactList}\small\item\em Get the next sample from the buffer, handling the count change and buffer wrap cases.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{test_buffer@{test\_\-buffer}!test_buffer_cb_fill_mem@{test\_\-buffer\_\-cb\_\-fill\_\-mem}}
+\index{test_buffer_cb_fill_mem@{test\_\-buffer\_\-cb\_\-fill\_\-mem}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-cb\_\-fill\_\-mem ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, {\bf T\_\-test\_\-sample} $\ast$ {\em s}, void $\ast$ {\em data})}\label{group__test__buffer_a5}
+
+
+Standard callback to fill one sample with a pattern (not NULL terminated).
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer the sample is in. \item[{\em 
+s}]the sample to fill \item[{\em 
+data}]private data for this callback (unused) \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_cb_fill_zstr@{test\_\-buffer\_\-cb\_\-fill\_\-zstr}}
+\index{test_buffer_cb_fill_zstr@{test\_\-buffer\_\-cb\_\-fill\_\-zstr}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-cb\_\-fill\_\-zstr ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, {\bf T\_\-test\_\-sample} $\ast$ {\em s}, void $\ast$ {\em data})}\label{group__test__buffer_a4}
+
+
+Standard callback to fill one sample with a zstring.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer the sample is in. \item[{\em 
+s}]the sample to fill \item[{\em 
+data}]private data for this callback (unused) \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_count_change@{test\_\-buffer\_\-count\_\-change}}
+\index{test_buffer_count_change@{test\_\-buffer\_\-count\_\-change}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-count\_\-change ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count}, void $\ast$ {\em data})}\label{group__test__buffer_a8}
+
+
+Default action to take on a buffer \char`\"{}count change\char`\"{} event, can be overriden by setting {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})}.
+
+Sets the toc for the current count if it has changed. Also responsible $\ast$ for initialization (as count change happens in timetest(). Override this function by defining {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})} \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+count}]the current count \item[{\em 
+data}]arbitrary private for the count change (ignored) \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_create@{test\_\-buffer\_\-create}}
+\index{test_buffer_create@{test\_\-buffer\_\-create}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-buffer}$\ast$ test\_\-buffer\_\-create (size\_\-t {\em type}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em scale}, size\_\-t {\em extra\_\-pad})}\label{group__test__buffer_a6}
+
+
+Create a single test buffer.
+
+TODO: Needs a destructor \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+type}]buffer type 0 for src, 1 for dst, $>$ 1 other (treated as dst) \item[{\em 
+app}]the application state \item[{\em 
+scale}]the multiplier for count to compute buffer sample size \item[{\em 
+extra\_\-pad}]the fixed amount to add to each buffer size \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+test buffer structure \end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_fill_from_toc@{test\_\-buffer\_\-fill\_\-from\_\-toc}}
+\index{test_buffer_fill_from_toc@{test\_\-buffer\_\-fill\_\-from\_\-toc}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-fill\_\-from\_\-toc ({\bf T\_\-test\_\-buffer} $\ast$ {\em b})}\label{group__test__buffer_a3}
+
+
+Fill a buffer with based on the toc entries and the fill callback. Since both the \_\-const and \_\-rand toc initialization routines set all sample fields this can be used in either case.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_flush@{test\_\-buffer\_\-flush}}
+\index{test_buffer_flush@{test\_\-buffer\_\-flush}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-flush ({\bf T\_\-test\_\-buffer} $\ast$ {\em b})}\label{group__test__buffer_a7}
+
+
+Flush all the cachelines in the buffer \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_get_align@{test\_\-buffer\_\-get\_\-align}}
+\index{test_buffer_get_align@{test\_\-buffer\_\-get\_\-align}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-buffer\_\-get\_\-align ({\bf T\_\-test\_\-buffer} $\ast$ {\em b})}\label{group__test__buffer_a0}
+
+
+Return the next alignment value for the buffer. If alignment randomization is enabled, this will vary, otherwise it will be constant.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the appropriate alignment value \end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_next@{test\_\-buffer\_\-next}}
+\index{test_buffer_next@{test\_\-buffer\_\-next}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-sample}$\ast$ test\_\-buffer\_\-next ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count})}\label{group__test__buffer_a10}
+
+
+Get the next sample from the buffer, handling the count change and buffer wrap cases.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+count}]the current count (ignored for rand) \item[{\em 
+b}]the buffer to get the next sample from \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+pointer to the next sample in the the buffer \end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_toc_const@{test\_\-buffer\_\-toc\_\-const}}
+\index{test_buffer_toc_const@{test\_\-buffer\_\-toc\_\-const}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-toc\_\-const ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count})}\label{group__test__buffer_a1}
+
+
+Fills a toc for a given count and account for cacheline and align effects.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+count}]the current constant for the toc \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_toc_rand@{test\_\-buffer\_\-toc\_\-rand}}
+\index{test_buffer_toc_rand@{test\_\-buffer\_\-toc\_\-rand}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-toc\_\-rand ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em current\_\-count})}\label{group__test__buffer_a2}
+
+
+Fills a toc for a given count and account for cacheline and align effects.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+current\_\-count}]the current constant count from the innerloop (e.g loop\_\-innerloop() ) \end{description}
+\end{Desc}
+\index{test_buffer@{test\_\-buffer}!test_buffer_wrap@{test\_\-buffer\_\-wrap}}
+\index{test_buffer_wrap@{test\_\-buffer\_\-wrap}!test_buffer@{test\_\-buffer}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-wrap ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count}, void $\ast$ {\em data})}\label{group__test__buffer_a9}
+
+
+Default action to take on a buffer \char`\"{}wrap\char`\"{} event. Can be overridden by setting {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})}.
+
+Fills the toc with a new random distribution if app-$>$rand. Note that if f\_\-fill is NULL not actually fill anything. Override this function by defining {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})} \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+count}]the current count \item[{\em 
+data}]arbitrary private for the wrap (ignored) \end{description}
+\end{Desc}

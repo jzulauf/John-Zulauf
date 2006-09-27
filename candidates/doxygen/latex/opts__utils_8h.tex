@@ -1,0 +1,262 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/opts\_\-utils.h File Reference}
+\label{opts__utils_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/opts_utils.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/opts\_\-utils.h}}
+Prototypes and macros for using {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})}. 
+
+
+{\tt \#include $<$getopt.h$>$}\par
+{\tt \#include $<$limits.h$>$}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-opts\_\-def}
+\begin{CompactList}\small\item\em Stores the information about a single option.\item\end{CompactList}\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf \_\-GNU\_\-SOURCE}
+\item 
+\#define {\bf OPTS\_\-MAX}\ UCHAR\_\-MAX
+\item 
+\#define {\bf OPTS\_\-LIM}\ (OPTS\_\-MAX + 1)
+\item 
+\#define {\bf OPTS\_\-DEF}(short\_\-name, long\_\-name, description)
+\item 
+\#define {\bf OPTS\_\-DEF\_\-ARG}(short\_\-name, long\_\-name, description, arg\_\-name)
+\item 
+\#define {\bf OPTS\_\-DEF\_\-STRTOL}(short\_\-name, long\_\-name, description, arg\_\-name, v)
+\item 
+\#define {\bf OPTS\_\-DEF\_\-CLEAR}(short\_\-name, long\_\-name, description, v)
+\item 
+\#define {\bf OPTS\_\-DEF\_\-INCR}(short\_\-name, long\_\-name, description, v)
+\item 
+\#define {\bf OPTS\_\-DEF\_\-SET}(short\_\-name, long\_\-name, description, v)
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef int($\ast$ {\bf T\_\-opts\_\-action} )(void $\ast$)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf opts\_\-init} (const char $\ast$progname, const char $\ast$progversion)
+\begin{CompactList}\small\item\em initialize the {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})} subsystem. Call this before calling\item\end{CompactList}\item 
+\index{opts_default_opts@{opts\_\-default\_\-opts}!opts_utils.h@{opts\_\-utils.h}}\index{opts_utils.h@{opts\_\-utils.h}!opts_default_opts@{opts\_\-default\_\-opts}}
+void {\bf opts\_\-default\_\-opts} ()\label{opts__utils_8h_a11}
+
+\begin{CompactList}\small\item\em add the default opts to opts\_\-table\item\end{CompactList}\item 
+void {\bf opts\_\-def} (char short\_\-name, char $\ast$long\_\-name, char $\ast$description, char $\ast$arg\_\-name, {\bf T\_\-opts\_\-action} action, void $\ast$data)
+\begin{CompactList}\small\item\em add the given option to the opts\_\-table\item\end{CompactList}\item 
+int {\bf opts\_\-getopt} (int argc, char $\ast$const $\ast$argv)
+\begin{CompactList}\small\item\em parse the known options, calling their callback actions, and returning on unknown options with the identical semantics of getopt\item\end{CompactList}\item 
+\index{opts_usage@{opts\_\-usage}!opts_utils.h@{opts\_\-utils.h}}\index{opts_utils.h@{opts\_\-utils.h}!opts_usage@{opts\_\-usage}}
+void {\bf opts\_\-usage} (void)\label{opts__utils_8h_a14}
+
+\begin{CompactList}\small\item\em output the usage message and exit\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-clear} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to zero a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-incr} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to increment a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-set} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to set to 1 a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-strtol} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to set long value to the supplied argument if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-usage} (void $\ast$ignored)
+\begin{CompactList}\small\item\em callback action display the usage message if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-version} (void $\ast$ignored)
+\begin{CompactList}\small\item\em callback action display the usage version message if a flag is present\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Prototypes and macros for using {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})}.
+
+
+
+
+
+\subsection{Define Documentation}
+\index{opts_utils.h@{opts\_\-utils.h}!_GNU_SOURCE@{\_\-GNU\_\-SOURCE}}
+\index{_GNU_SOURCE@{\_\-GNU\_\-SOURCE}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-GNU\_\-SOURCE}\label{opts__utils_8h_a0}
+
+
+enables the long options processing in getopt.h \index{opts_utils.h@{opts\_\-utils.h}!OPTS_DEF@{OPTS\_\-DEF}}
+\index{OPTS_DEF@{OPTS\_\-DEF}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-DEF(short\_\-name, long\_\-name, description)}\label{opts__utils_8h_a3}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}opts_def(short_name,long_name,description,NULL, \
+                NULL,NULL)\end{verbatim}\normalsize 
+declares a option with no action, or argument. The calling program must \char`\"{}catch\char`\"{} this option (don't do this unless you have to) \index{opts_utils.h@{opts\_\-utils.h}!OPTS_DEF_ARG@{OPTS\_\-DEF\_\-ARG}}
+\index{OPTS_DEF_ARG@{OPTS\_\-DEF\_\-ARG}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-DEF\_\-ARG(short\_\-name, long\_\-name, description, arg\_\-name)}\label{opts__utils_8h_a4}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}opts_def(short_name,long_name,description,arg_name,     \
+                NULL,NULL)\end{verbatim}\normalsize 
+declares an option with no action. The calling program must catch this option (don't do this unless you have to) \index{opts_utils.h@{opts\_\-utils.h}!OPTS_DEF_CLEAR@{OPTS\_\-DEF\_\-CLEAR}}
+\index{OPTS_DEF_CLEAR@{OPTS\_\-DEF\_\-CLEAR}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-DEF\_\-CLEAR(short\_\-name, long\_\-name, description, v)}\label{opts__utils_8h_a6}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}opts_def(short_name,long_name,description,NULL,         \
+                opts_action_clear,(void *)&(v))\end{verbatim}\normalsize 
+declares an option which sets v to 0 \index{opts_utils.h@{opts\_\-utils.h}!OPTS_DEF_INCR@{OPTS\_\-DEF\_\-INCR}}
+\index{OPTS_DEF_INCR@{OPTS\_\-DEF\_\-INCR}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-DEF\_\-INCR(short\_\-name, long\_\-name, description, v)}\label{opts__utils_8h_a7}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}opts_def(short_name,long_name,description,NULL,         \
+                opts_action_incr,(void *)&(v))\end{verbatim}\normalsize 
+declares an option which increments v \index{opts_utils.h@{opts\_\-utils.h}!OPTS_DEF_SET@{OPTS\_\-DEF\_\-SET}}
+\index{OPTS_DEF_SET@{OPTS\_\-DEF\_\-SET}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-DEF\_\-SET(short\_\-name, long\_\-name, description, v)}\label{opts__utils_8h_a8}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}opts_def(short_name,long_name,description,NULL,         \
+                opts_action_set,(void *)&(v))\end{verbatim}\normalsize 
+declares an option which sets v to 1 \index{opts_utils.h@{opts\_\-utils.h}!OPTS_DEF_STRTOL@{OPTS\_\-DEF\_\-STRTOL}}
+\index{OPTS_DEF_STRTOL@{OPTS\_\-DEF\_\-STRTOL}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-DEF\_\-STRTOL(short\_\-name, long\_\-name, description, arg\_\-name, v)}\label{opts__utils_8h_a5}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}opts_def(short_name,long_name,description,arg_name,             \
+                opts_action_strtol,(void *)&(v))\end{verbatim}\normalsize 
+declares an option which takes a \char`\"{}long\char`\"{} argument and stores it in v \index{opts_utils.h@{opts\_\-utils.h}!OPTS_LIM@{OPTS\_\-LIM}}
+\index{OPTS_LIM@{OPTS\_\-LIM}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-LIM\ (OPTS\_\-MAX + 1)}\label{opts__utils_8h_a2}
+
+
+The highest valid ordinal for an option \index{opts_utils.h@{opts\_\-utils.h}!OPTS_MAX@{OPTS\_\-MAX}}
+\index{OPTS_MAX@{OPTS\_\-MAX}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define OPTS\_\-MAX\ UCHAR\_\-MAX}\label{opts__utils_8h_a1}
+
+
+The most options we can have. Options $>$ CHAR\_\-MAX will have no short names 
+
+\subsection{Typedef Documentation}
+\index{opts_utils.h@{opts\_\-utils.h}!T_opts_action@{T\_\-opts\_\-action}}
+\index{T_opts_action@{T\_\-opts\_\-action}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$ T\_\-opts\_\-action)(void $\ast$)}\label{opts__utils_8h_a9}
+
+
+The option handling callback function type 
+
+\subsection{Function Documentation}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_action_clear@{opts\_\-action\_\-clear}}
+\index{opts_action_clear@{opts\_\-action\_\-clear}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-clear (void $\ast$ {\em ptr\_\-to\_\-long})}\label{opts__utils_8h_a15}
+
+
+callback action to zero a long value if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_action_incr@{opts\_\-action\_\-incr}}
+\index{opts_action_incr@{opts\_\-action\_\-incr}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-incr (void $\ast$ {\em ptr\_\-to\_\-long})}\label{opts__utils_8h_a16}
+
+
+callback action to increment a long value if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_action_set@{opts\_\-action\_\-set}}
+\index{opts_action_set@{opts\_\-action\_\-set}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-set (void $\ast$ {\em ptr\_\-to\_\-long})}\label{opts__utils_8h_a17}
+
+
+callback action to set to 1 a long value if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_action_strtol@{opts\_\-action\_\-strtol}}
+\index{opts_action_strtol@{opts\_\-action\_\-strtol}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-strtol (void $\ast$ {\em ptr\_\-to\_\-long})}\label{opts__utils_8h_a18}
+
+
+callback action to set long value to the supplied argument if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_action_usage@{opts\_\-action\_\-usage}}
+\index{opts_action_usage@{opts\_\-action\_\-usage}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-usage (void $\ast$ {\em ignored})}\label{opts__utils_8h_a19}
+
+
+callback action display the usage message if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_action_version@{opts\_\-action\_\-version}}
+\index{opts_action_version@{opts\_\-action\_\-version}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-version (void $\ast$ {\em ignored})}\label{opts__utils_8h_a20}
+
+
+callback action display the usage version message if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_def@{opts\_\-def}}
+\index{opts_def@{opts\_\-def}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void opts\_\-def (char {\em short\_\-name}, char $\ast$ {\em long\_\-name}, char $\ast$ {\em description}, char $\ast$ {\em arg\_\-name}, {\bf T\_\-opts\_\-action} {\em action}, void $\ast$ {\em data})}\label{opts__utils_8h_a12}
+
+
+add the given option to the opts\_\-table
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+short\_\-name}]the 1 character that uniquely identifies this option \item[{\em 
+long\_\-name}]the long (no spaces) name for this option. Must be {\bf non-NULL}. \item[{\em 
+description}]descriptive text for this option. If arg\_\-name is non-NULL, \%s in description will insert arg\_\-name. \item[{\em 
+arg\_\-name}]the descriptive name of the argument the option takes (if an option takes an argument), or NULL if it doesn't. \item[{\em 
+action}]the callback action if the flag is found \item[{\em 
+data}]pointer to the data the callback will need. \end{description}
+\end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_getopt@{opts\_\-getopt}}
+\index{opts_getopt@{opts\_\-getopt}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-getopt (int {\em argc}, char $\ast$const $\ast$ {\em argv})}\label{opts__utils_8h_a13}
+
+
+parse the known options, calling their callback actions, and returning on unknown options with the identical semantics of getopt
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+argc}]the argument count \item[{\em 
+argv}]the argument array \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+-1 for end of arguments, anything else for an unknown options \end{Desc}
+\index{opts_utils.h@{opts\_\-utils.h}!opts_init@{opts\_\-init}}
+\index{opts_init@{opts\_\-init}!opts_utils.h@{opts\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void opts\_\-init (const char $\ast$ {\em progname}, const char $\ast$ {\em progversion})}\label{opts__utils_8h_a10}
+
+
+initialize the {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})} subsystem. Call this before calling
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}

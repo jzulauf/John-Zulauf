@@ -1,0 +1,109 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strcmp/def\_\-test.h File Reference}
+\label{strcmp_2def__test_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strcmp/def_test.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strcmp/def\_\-test.h}}
+This file defines the functions types and names for the strcmp performance optimization test. /ref strcmp\_\-test. 
+
+
+{\tt \#include \char`\"{}def\_\-test\_\-def.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-def\_\-test}
+\begin{CompactList}\small\item\em the structure that {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})} uses to define the function under test\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int {\bf \_\-\_\-strcmp\_\-gg} (const char $\ast$p1, const char $\ast$p2)
+\item 
+int {\bf gen\_\-strcmp} (const char $\ast$p1, const char $\ast$p2)
+\item 
+int {\bf i386\_\-strcmp} (const char $\ast$s1, const char $\ast$s2)
+\item 
+int {\bf i486\_\-\_\-strcmp\_\-gg} (\_\-\_\-const char $\ast$s1, const char $\ast$s2)
+\item 
+int {\bf i686\_\-strcmp} (const char $\ast$s1, const char $\ast$s2)
+\item 
+int {\bf i686\_\-strcmp\_\-r1i} (const char $\ast$s1, const char $\ast$s2)
+\item 
+int {\bf i686\_\-strcmp\_\-r1iu} (const char $\ast$s1, const char $\ast$s2)
+\item 
+int {\bf i686\_\-strcmp\_\-r2} (const char $\ast$s1, const char $\ast$s2)
+\item 
+int {\bf lx\_\-strcmp\_\-1dw} (const char $\ast$s1, const char $\ast$s2)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This file defines the functions types and names for the strcmp performance optimization test. /ref strcmp\_\-test.
+
+
+
+
+
+\subsection{Function Documentation}
+\index{strcmp/def_test.h@{strcmp/def\_\-test.h}!__strcmp_gg@{\_\-\_\-strcmp\_\-gg}}
+\index{__strcmp_gg@{\_\-\_\-strcmp\_\-gg}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \_\-\_\-strcmp\_\-gg (const char $\ast$ {\em p1}, const char $\ast$ {\em p2})}\label{strcmp_2def__test_8h_a5}
+
+
+the gg version from libc \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!gen_strcmp@{gen\_\-strcmp}}
+\index{gen_strcmp@{gen\_\-strcmp}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int gen\_\-strcmp (const char $\ast$ {\em p1}, const char $\ast$ {\em p2})}\label{strcmp_2def__test_8h_a6}
+
+
+\char`\"{}generic\char`\"{} the sysdeps/generic version \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!i386_strcmp@{i386\_\-strcmp}}
+\index{i386_strcmp@{i386\_\-strcmp}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int i386\_\-strcmp (const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a7}
+
+
+\char`\"{}i386\char`\"{} the i386 inline version \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!i486__strcmp_gg@{i486\_\-\_\-strcmp\_\-gg}}
+\index{i486__strcmp_gg@{i486\_\-\_\-strcmp\_\-gg}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int i486\_\-\_\-strcmp\_\-gg (\_\-\_\-const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a8}
+
+
+\char`\"{}i486\char`\"{} the i486 inline version \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!i686_strcmp@{i686\_\-strcmp}}
+\index{i686_strcmp@{i686\_\-strcmp}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int i686\_\-strcmp (const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a9}
+
+
+\char`\"{}i686\char`\"{} the i686 assembly version \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!i686_strcmp_r1i@{i686\_\-strcmp\_\-r1i}}
+\index{i686_strcmp_r1i@{i686\_\-strcmp\_\-r1i}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int i686\_\-strcmp\_\-r1i (const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a10}
+
+
+\char`\"{}i686\_\-1i\char`\"{} the i686 assembly version, with a tweak to allow a single incr \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!i686_strcmp_r1iu@{i686\_\-strcmp\_\-r1iu}}
+\index{i686_strcmp_r1iu@{i686\_\-strcmp\_\-r1iu}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int i686\_\-strcmp\_\-r1iu (const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a11}
+
+
+\char`\"{}i686\_\-1iu\char`\"{} the i686 assembly version, with a tweak to allow a single incr, 16 byte unrolled loop with prefetch of s1 and s2 \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!i686_strcmp_r2@{i686\_\-strcmp\_\-r2}}
+\index{i686_strcmp_r2@{i686\_\-strcmp\_\-r2}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int i686\_\-strcmp\_\-r2 (const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a12}
+
+
+\char`\"{}i686\_\-1iu\char`\"{} with extra incl's removed \index{strcmp/def_test.h@{strcmp/def\_\-test.h}!lx_strcmp_1dw@{lx\_\-strcmp\_\-1dw}}
+\index{lx_strcmp_1dw@{lx\_\-strcmp\_\-1dw}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int lx\_\-strcmp\_\-1dw (const char $\ast$ {\em s1}, const char $\ast$ {\em s2})}\label{strcmp_2def__test_8h_a13}
+
+
+\char`\"{}1dw\char`\"{} dword 0 attack on one string 
+
+\subsection{Variable Documentation}
+\index{strcmp/def_test.h@{strcmp/def\_\-test.h}!def_tests@{def\_\-tests}}
+\index{def_tests@{def\_\-tests}!strcmp/def_test.h@{strcmp/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-def\_\-test} def\_\-tests[$\,$]}\label{strcmp_2def__test_8h_a4}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+                {strcmp, "local" },
+                {__strcmp_gg, "local_gg" },
+                {gen_strcmp, "generic"}, 
+                {i386_strcmp, "i386"},  
+                {i486__strcmp_gg, "i486"},      
+                {i686_strcmp, "i686"},  
+                {i686_strcmp_r1i, "i686_1i"},   
+                {i686_strcmp_r1iu, "i686_1iu"},
+                {i686_strcmp_r2, "i686_r2"},
+                {lx_strcmp_1dw, "1dw"}, 
+}\end{verbatim}\normalsize 

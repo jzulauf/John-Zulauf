@@ -1,0 +1,77 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/table.c File Reference}
+\label{table_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/table.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/table.c}}
+Implements a simple table object. 
+
+
+{\tt \#include \char`\"{}table.h\char`\"{}}\par
+{\tt \#include $<$limits.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf CELL\_\-SET\_\-CASE}(cell, dtype, ctype, data)
+\item 
+\#define {\bf CELL\_\-ZPRINTF\_\-TRY}(pz, pfmt, data, ret, try\_\-len)
+\item 
+\#define {\bf CELL\_\-ZPRINTF}(pz, pfmt, data, ret)
+\item 
+\#define {\bf CELL\_\-DO\_\-ZPRINT\_\-CASE}(pz, fmt, cell, dtype, ret)
+\item 
+\#define {\bf CELL\_\-DO\_\-ZPRINT\_\-CASE\_\-ZSTRING}(pz, fmt, cell, ret, tstr)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-cell} $\ast$ {\bf cell\_\-create\_\-array} (size\_\-t num)
+\item 
+void {\bf cell\_\-destroy\_\-array} ({\bf T\_\-cell} $\ast$cell\_\-array, size\_\-t num)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf cell\_\-set} ({\bf T\_\-cell} $\ast$c, {\bf T\_\-cell\_\-type} type, const void $\ast$data)
+\item 
+int {\bf cell\_\-fprintf} ({\bf T\_\-cell} $\ast$c, FILE $\ast$out, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+int {\bf cell\_\-sprintf} ({\bf T\_\-cell} $\ast$c, {\bf T\_\-zstring} $\ast$z, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+{\bf T\_\-table} $\ast$ {\bf table\_\-create} (size\_\-t rows, size\_\-t cols)
+\item 
+void {\bf table\_\-destroy} ({\bf T\_\-table} $\ast$t)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-get\_\-cell} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, {\bf T\_\-cell\_\-type} type, const void $\ast$data)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-zstr} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, const char $\ast$zstr)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-dbl} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, double dbl)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-u64} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, unsigned long long u64)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-u32} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, unsigned long u32)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-reformat} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+int {\bf table\_\-get\_\-column\_\-width} ({\bf T\_\-table} $\ast$t, size\_\-t col, {\bf T\_\-table\_\-fmt} $\ast$fmt)
+\item 
+void {\bf table\_\-print} ({\bf T\_\-table} $\ast$t, FILE $\ast$out, {\bf T\_\-table\_\-fmt} $\ast$fmt)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-cell\_\-fmt} {\bf g\_\-cell\_\-fmt\_\-default}
+\item 
+{\bf T\_\-cell\_\-class} {\bf g\_\-cell\_\-class}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-pad}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-csv}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-html}
+\item 
+{\bf T\_\-table\_\-class} {\bf g\_\-table\_\-class}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a simple table object.
+
+
+

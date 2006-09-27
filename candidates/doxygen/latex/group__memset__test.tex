@@ -1,0 +1,90 @@
+\section{Memset performance test}
+\label{group__memset__test}\index{Memset performance test@{Memset performance test}}
+The performance and optimzation test for memset. Uses the framework provided by {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} and {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})}. 
+{\bf Status}
+
+The testing and optimization is complete. The winners are noted below.
+
+{\bf Current} {\bf Standings}
+
+{\bf Top} {\bf Three} {\bf Overall}\begin{enumerate}
+\item 
+{\bf lx\_\-mmx64\_\-h2} {\bf lx\_\-memset\_\-mmx64\_\-h2()} {\rm (p.\,\pageref{memset_2def__test_8h_a13})} lx\_\-memset\_\-mmx\_\-h2.S\begin{CompactItemize}
+\item 
+increases the minimum size for mmx set operations to 512B\end{CompactItemize}
+\item 
+{\bf lx\_\-hyb} {\bf lx\_\-memset\_\-hyb()} {\rm (p.\,\pageref{memset_2def__test_8h_a7})} lx\_\-memset\_\-hyb.S\begin{CompactItemize}
+\item 
+combines size and align test with a cmovz (fewest jumps of implementations handling alignment)\item 
+5-15\% better than baseline for dword aligned $<$ 512B\item 
+Up to 6\% worse than baseline 0-7B, 2-3\% worse 8-11B\begin{CompactItemize}
+\item 
+These are cases handled by inlines by gcc\end{CompactItemize}
+\item 
+2-5\% better than baseline for 12-512B for unaligned memsets\end{CompactItemize}
+\item 
+{\bf lx\_\-zan} {\bf lx\_\-memset\_\-zan()} {\rm (p.\,\pageref{memset_2def__test_8h_a5})} lx\_\-memset\_\-zan.S\begin{CompactItemize}
+\item 
+unaligned performance better than lx\_\-hyb for $<$ 100B\item 
+aligned performance far worse than lx\_\-hyb\end{CompactItemize}
+\end{enumerate}
+{\bf Special} {\bf Recognition}\begin{CompactItemize}
+\item 
+{\bf lx\_\-simp} {\bf lx\_\-memset\_\-simp()} {\rm (p.\,\pageref{memset_2def__test_8h_a6})} lx\_\-memset\_\-simp.S\begin{CompactItemize}
+\item 
+fastest {\bf $<$512B} {\bf aligned} (17\% above baseline) \item 
+10\% {\bf slower} than baseline unaligned\end{CompactItemize}
+\item 
+{\bf lx\_\-mmx64\_\-BA} {\bf lx\_\-memset\_\-mmx64\_\-BA()} {\rm (p.\,\pageref{memset_2def__test_8h_a12})} lx\_\-memset\_\-mmx64\_\-BA.S \begin{CompactItemize}
+\item 
+{\bf best} {\bf overall} {\bf $>$512B}\item 
+quadword aligned quadword writes ({\bf fast)}\item 
+16\% above baseline for aligned\item 
+15\% above baseline for unaligned (2KB-4KB)\end{CompactItemize}
+\item 
+{\bf lx\_\-mmx64simp} {\bf lx\_\-memset\_\-mmx64simp()} {\rm (p.\,\pageref{memset_2def__test_8h_a11})} lx\_\-memset\_\-mmx64simp.S \begin{CompactItemize}
+\item 
+{\bf fastest} {\bf $>$512B} {\bf aligned}\item 
+5-7\% {\bf slower} than baseline unaligned\end{CompactItemize}
+\end{CompactItemize}
+{\bf Also} {\bf ran} (nothing to see here folks... move along)\begin{CompactItemize}
+\item 
+{\bf local} memset() \begin{CompactItemize}
+\item 
+{\bf baseline}\item 
+uses i386 'C' with inline asm\end{CompactItemize}
+\item 
+{\bf i386} {\bf i386\_\-memset()} {\rm (p.\,\pageref{memset_2def__test_8h_a1})} i386\_\-memset.c\begin{CompactItemize}
+\item 
+glibc implementation for x[34]86\item 
+same as \char`\"{}local\char`\"{} on Gentoo image\end{CompactItemize}
+\item 
+{\bf i586} {\bf i586\_\-memset()} {\rm (p.\,\pageref{memset_2def__test_8h_a2})} i586\_\-memset.c\begin{CompactItemize}
+\item 
+glibc implementation for x586\item 
+uses unrolled movl loop\item 
+slowest overall\end{CompactItemize}
+\item 
+{\bf 686} {\bf i686\_\-memset()} {\rm (p.\,\pageref{memset_2def__test_8h_a3})} i686\_\-memset.S\begin{CompactItemize}
+\item 
+glibc implementation for x686\item 
+dword alignment preamble broken patch submitted to glibc project\item 
+up to 10\% worse than baseline for non-aligned\end{CompactItemize}
+\item 
+{\bf lx\_\-hyb\_\-BA} {\bf lx\_\-memset\_\-hyb\_\-BA()} {\rm (p.\,\pageref{memset_2def__test_8h_a8})} lx\_\-memset\_\-hyb\_\-BA.S\begin{CompactItemize}
+\item 
+same as lx\_\-hyb, but alignment logic used quadword boundary\item 
+BIGGER ALIGN SIZE DOESN'T HELP HYB (and sometimes slows)\end{CompactItemize}
+\item 
+{\bf lx\_\-mmx} {\bf lx\_\-memset\_\-mmx()} {\rm (p.\,\pageref{memset_2def__test_8h_a9})} lx\_\-memset\_\-mmx.S \char`\"{}lx\_\-mmx\char`\"{} \}\begin{CompactItemize}
+\item 
+32 byte unroll\item 
+never faster than lx\_\-hyb \item 
+dword aligned qword writes (takes two writes {\bf slow}\end{CompactItemize}
+\item 
+{\bf lx\_\-mmx64} {\bf lx\_\-memset\_\-mmx64()} {\rm (p.\,\pageref{memset_2def__test_8h_a10})} lx\_\-memset\_\-mmx64.S\begin{CompactItemize}
+\item 
+64 byte unroll\item 
+fast $>$512B and aligned\item 
+unaligned uses dword aligned qword writes ({\bf slow)} \end{CompactItemize}
+\end{CompactItemize}

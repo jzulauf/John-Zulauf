@@ -1,0 +1,210 @@
+\section{\char`\"{}cell\_\-\char`\"{} A smart union datatype}
+\label{group__table__cell}\index{"cell_" A smart union datatype@{""cell\_\-"" A smart union datatype}}
+T\_\-cell:: can store and print a variety of data, allowing for flexible storage, such as is useful in an array. 
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf CELL\_\-SET\_\-CASE}(cell, dtype, ctype, data)
+\item 
+\#define {\bf CELL\_\-ZPRINTF\_\-TRY}(pz, pfmt, data, ret, try\_\-len)
+\item 
+\#define {\bf CELL\_\-ZPRINTF}(pz, pfmt, data, ret)
+\item 
+\#define {\bf CELL\_\-DO\_\-ZPRINT\_\-CASE}(pz, fmt, cell, dtype, ret)
+\item 
+\#define {\bf CELL\_\-DO\_\-ZPRINT\_\-CASE\_\-ZSTRING}(pz, fmt, cell, ret, tstr)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-cell} $\ast$ {\bf cell\_\-create\_\-array} (size\_\-t num)
+\item 
+void {\bf cell\_\-destroy\_\-array} ({\bf T\_\-cell} $\ast$cell\_\-array, size\_\-t num)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf cell\_\-set} ({\bf T\_\-cell} $\ast$c, {\bf T\_\-cell\_\-type} type, const void $\ast$data)
+\item 
+int {\bf cell\_\-fprintf} ({\bf T\_\-cell} $\ast$c, FILE $\ast$out, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+int {\bf cell\_\-sprintf} ({\bf T\_\-cell} $\ast$c, {\bf T\_\-zstring} $\ast$z, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-cell\_\-fmt} {\bf g\_\-cell\_\-fmt\_\-default}
+\item 
+{\bf T\_\-cell\_\-class} {\bf g\_\-cell\_\-class}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+T\_\-cell:: can store and print a variety of data, allowing for flexible storage, such as is useful in an array.
+
+
+
+\subsection{Define Documentation}
+\index{table_cell@{table\_\-cell}!CELL_DO_ZPRINT_CASE@{CELL\_\-DO\_\-ZPRINT\_\-CASE}}
+\index{CELL_DO_ZPRINT_CASE@{CELL\_\-DO\_\-ZPRINT\_\-CASE}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CELL\_\-DO\_\-ZPRINT\_\-CASE(pz, fmt, cell, dtype, ret)}\label{group__table__cell_a10}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}case CELL_##dtype:                              \
+                CELL_ZPRINTF(pz,fmt->dtype,cell->data.dtype,ret);\
+                break;\end{verbatim}\normalsize 
+A generic sprintf macro for T\_\-cells:: except ZSTRING \index{table_cell@{table\_\-cell}!CELL_DO_ZPRINT_CASE_ZSTRING@{CELL\_\-DO\_\-ZPRINT\_\-CASE\_\-ZSTRING}}
+\index{CELL_DO_ZPRINT_CASE_ZSTRING@{CELL\_\-DO\_\-ZPRINT\_\-CASE\_\-ZSTRING}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CELL\_\-DO\_\-ZPRINT\_\-CASE\_\-ZSTRING(pz, fmt, cell, ret, tstr)}\label{group__table__cell_a11}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}case CELL_ZSTRING:                                      \
+                tstr = zstring_get(cell->data.ZSTRING);         \
+                CELL_ZPRINTF(pz,fmt->ZSTRING,tstr,ret); \
+                break;\end{verbatim}\normalsize 
+A generic sprintf macro for T\_\-cells:: of type ZSTRING \index{table_cell@{table\_\-cell}!CELL_SET_CASE@{CELL\_\-SET\_\-CASE}}
+\index{CELL_SET_CASE@{CELL\_\-SET\_\-CASE}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CELL\_\-SET\_\-CASE(cell, dtype, ctype, data)}\label{group__table__cell_a7}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}case CELL_##dtype:                              \
+                cell->data.dtype = *(ctype *)data;      \
+                cell->type = CELL_##dtype;              \
+                break;\end{verbatim}\normalsize 
+A define to simplify setting the T\_\-cell:: fields except ZSTRING \index{table_cell@{table\_\-cell}!CELL_ZPRINTF@{CELL\_\-ZPRINTF}}
+\index{CELL_ZPRINTF@{CELL\_\-ZPRINTF}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CELL\_\-ZPRINTF(pz, pfmt, data, ret)}\label{group__table__cell_a9}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{                       \
+        if ( pfmt ) {                                           \
+                CELL_ZPRINTF_TRY(pz,pfmt,data,ret,16);          \
+                if ( ret > 16 ) {                               \
+                        CELL_ZPRINTF_TRY(pz,pfmt,data,ret,ret); \
+                }                                               \
+        } else {                                                \
+                ret = 0;                                        \
+        }                                                       \
+}\end{verbatim}\normalsize 
+snprintf into a zstring. Adaptively resize the zstring until the snprintf fits \index{table_cell@{table\_\-cell}!CELL_ZPRINTF_TRY@{CELL\_\-ZPRINTF\_\-TRY}}
+\index{CELL_ZPRINTF_TRY@{CELL\_\-ZPRINTF\_\-TRY}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define CELL\_\-ZPRINTF\_\-TRY(pz, pfmt, data, ret, try\_\-len)}\label{group__table__cell_a8}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{               \
+        zstring_alloc(pz,try_len);                              \
+        ret = snprintf((char *)zstring_get(pz),try_len+1,pfmt,data);    \
+}\end{verbatim}\normalsize 
+Try to snprintf with the given length 
+
+\subsection{Function Documentation}
+\index{table_cell@{table\_\-cell}!cell_create_array@{cell\_\-create\_\-array}}
+\index{cell_create_array@{cell\_\-create\_\-array}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ cell\_\-create\_\-array (size\_\-t {\em num})}\label{group__table__cell_a2}
+
+
+Array creator for T\_\-cell::
+
+Since the \char`\"{}uninitialized\char`\"{} type is 0, we simply calloc to create\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+num}]the number of T\_\-cell:: to create \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the array of T\_\-cell:: created \end{Desc}
+\index{table_cell@{table\_\-cell}!cell_destroy_array@{cell\_\-destroy\_\-array}}
+\index{cell_destroy_array@{cell\_\-destroy\_\-array}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cell\_\-destroy\_\-array ({\bf T\_\-cell} $\ast$ {\em cell\_\-array}, size\_\-t {\em num})}\label{group__table__cell_a3}
+
+
+Destructor for arrays of cells
+
+WARNING: num must match the number passed to the creator \index{table_cell@{table\_\-cell}!cell_fprintf@{cell\_\-fprintf}}
+\index{cell_fprintf@{cell\_\-fprintf}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cell\_\-fprintf ({\bf T\_\-cell} $\ast$ {\em c}, FILE $\ast$ {\em out}, {\bf T\_\-cell\_\-fmt} $\ast$ {\em fmt})}\label{group__table__cell_a5}
+
+
+fprintf the cell to the given FILE\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the cell to fprintf \item[{\em 
+out}]the file to write \item[{\em 
+fmt}]the cell format to use, or NULL for to use {\bf T\_\-cell\_\-class::fmt} {\rm (p.\,\pageref{structS__cell__class_m0})} \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the return value fprintf \end{Desc}
+\index{table_cell@{table\_\-cell}!cell_set@{cell\_\-set}}
+\index{cell_set@{cell\_\-set}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ cell\_\-set ({\bf T\_\-cell} $\ast$ {\em c}, {\bf T\_\-cell\_\-type} {\em type}, const void $\ast$ {\em data})}\label{group__table__cell_a4}
+
+
+Sets the value\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the cell to set (if NULL, function is NOOP) \item[{\em 
+type}]the type of data \item[{\em 
+data}]the address of the data to store (except for type VOID where the parameter is the data to store). ZSTRING are copied into a T\_\-zstring::. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell itself (can be NULL)\end{Desc}
+Note: changing a cell from type ZSTRING destroys the T\_\-zstring:: referenced do {\bf not} keep a pointer to the T\_\-zstring:: in your own code. \index{table_cell@{table\_\-cell}!cell_sprintf@{cell\_\-sprintf}}
+\index{cell_sprintf@{cell\_\-sprintf}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cell\_\-sprintf ({\bf T\_\-cell} $\ast$ {\em c}, {\bf T\_\-zstring} $\ast$ {\em z}, {\bf T\_\-cell\_\-fmt} $\ast$ {\em fmt})}\label{group__table__cell_a6}
+
+
+sprintf the cell to the passed zstring using the given fmt structure Note: will alloc zstring as needed. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the cell to sprintf \item[{\em 
+z}]the T\_\-zstring:: to hold the result (automatically resized) \item[{\em 
+fmt}]the cell format to use, or NULL for to use {\bf T\_\-cell\_\-class::fmt} {\rm (p.\,\pageref{structS__cell__class_m0})} \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the return value sprintf (number of characters formatted) \end{Desc}
+
+
+\subsection{Variable Documentation}
+\index{table_cell@{table\_\-cell}!g_cell_class@{g\_\-cell\_\-class}}
+\index{g_cell_class@{g\_\-cell\_\-class}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell\_\-class} g\_\-cell\_\-class}\label{group__table__cell_a1}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        .fmt            = &g_cell_fmt_default
+}\end{verbatim}\normalsize 
+The class object for T\_\-cell:: \index{table_cell@{table\_\-cell}!g_cell_fmt_default@{g\_\-cell\_\-fmt\_\-default}}
+\index{g_cell_fmt_default@{g\_\-cell\_\-fmt\_\-default}!table_cell@{table\_\-cell}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell\_\-fmt} g\_\-cell\_\-fmt\_\-default}\label{group__table__cell_a0}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        .DOUBLE         = "% lg",
+        .LONG           = "%ld",
+        .ULONG          = "%lu",
+        .LONGLONG       = "%Ld",
+        .ULONGLONG      = "%Lu",
+        .VOID           = "0x%08lx",
+        .ZSTRING        = "%s"
+}\end{verbatim}\normalsize 
+default print formats
+
+These formats defined the output for T\_\-cell:: fields. 

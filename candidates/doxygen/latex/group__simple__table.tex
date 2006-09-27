@@ -1,0 +1,296 @@
+\section{\char`\"{}table\_\-\char`\"{} Simple table utility API}
+\label{group__simple__table}\index{"table_" Simple table utility API@{""table\_\-"" Simple table utility API}}
+Implements a simple table of {\bf \char`\"{}cell\_\-\char`\"{} A smart union datatype} {\rm (p.\,\pageref{group__table__cell})}. 
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-table} $\ast$ {\bf table\_\-create} (size\_\-t rows, size\_\-t cols)
+\item 
+void {\bf table\_\-destroy} ({\bf T\_\-table} $\ast$t)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-get\_\-cell} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, {\bf T\_\-cell\_\-type} type, const void $\ast$data)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-zstr} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, const char $\ast$zstr)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-dbl} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, double dbl)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-u64} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, unsigned long long u64)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-u32} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, unsigned long u32)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-reformat} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+int {\bf table\_\-get\_\-column\_\-width} ({\bf T\_\-table} $\ast$t, size\_\-t col, {\bf T\_\-table\_\-fmt} $\ast$fmt)
+\item 
+void {\bf table\_\-print} ({\bf T\_\-table} $\ast$t, FILE $\ast$out, {\bf T\_\-table\_\-fmt} $\ast$fmt)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-pad}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-csv}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-html}
+\item 
+{\bf T\_\-table\_\-class} {\bf g\_\-table\_\-class}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a simple table of {\bf \char`\"{}cell\_\-\char`\"{} A smart union datatype} {\rm (p.\,\pageref{group__table__cell})}.
+
+TODO\begin{CompactItemize}
+\item 
+Add convenience \char`\"{}set\char`\"{} for the rest of the cell types \end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{simple_table@{simple\_\-table}!table_create@{table\_\-create}}
+\index{table_create@{table\_\-create}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table}$\ast$ table\_\-create (size\_\-t {\em rows}, size\_\-t {\em cols})}\label{group__simple__table_a4}
+
+
+The creator for T\_\-table::\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+rows}]the number of rows for the table \item[{\em 
+cols}]the number of columns for the table \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the T\_\-table:: created \end{Desc}
+\index{simple_table@{simple\_\-table}!table_destroy@{table\_\-destroy}}
+\index{table_destroy@{table\_\-destroy}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-destroy ({\bf T\_\-table} $\ast$ {\em t})}\label{group__simple__table_a5}
+
+
+The destroyer for T\_\-table::\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table to destroy \end{description}
+\end{Desc}
+\index{simple_table@{simple\_\-table}!table_get_cell@{table\_\-get\_\-cell}}
+\index{table_get_cell@{table\_\-get\_\-cell}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-get\_\-cell ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col})}\label{group__simple__table_a6}
+
+
+Look up the cell based on the row, colum pair in a T\_\-table::\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \end{description}
+\end{Desc}
+\index{simple_table@{simple\_\-table}!table_get_column_width@{table\_\-get\_\-column\_\-width}}
+\index{table_get_column_width@{table\_\-get\_\-column\_\-width}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int table\_\-get\_\-column\_\-width ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em col}, {\bf T\_\-table\_\-fmt} $\ast$ {\em fmt})}\label{group__simple__table_a13}
+
+
+find the width of the column in the current fmt \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table to check \item[{\em 
+col}]the column to scan \item[{\em 
+fmt}]the fmt for the table (use g\_\-table\_\-class::fmt if NULL) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the maximum width for the column \end{Desc}
+\index{simple_table@{simple\_\-table}!table_print@{table\_\-print}}
+\index{table_print@{table\_\-print}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-print ({\bf T\_\-table} $\ast$ {\em t}, FILE $\ast$ {\em out}, {\bf T\_\-table\_\-fmt} $\ast$ {\em fmt})}\label{group__simple__table_a14}
+
+
+print the table using the current format\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table to print \item[{\em 
+out}]the file to which to print \item[{\em 
+fmt}]the fmt for the table (use g\_\-table\_\-class::fmt if NULL) \end{description}
+\end{Desc}
+\index{simple_table@{simple\_\-table}!table_reformat@{table\_\-reformat}}
+\index{table_reformat@{table\_\-reformat}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-reformat ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, {\bf T\_\-cell\_\-fmt} $\ast$ {\em fmt})}\label{group__simple__table_a12}
+
+
+Reformat a cell from it's native type to a string using sprintf and the passed format table. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+fmt}]the fmt structure \end{description}
+\end{Desc}
+\index{simple_table@{simple\_\-table}!table_set_cell@{table\_\-set\_\-cell}}
+\index{table_set_cell@{table\_\-set\_\-cell}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, {\bf T\_\-cell\_\-type} {\em type}, const void $\ast$ {\em data})}\label{group__simple__table_a7}
+
+
+Store a value in a cell
+
+This is a convenience function for strings as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+type}]the type of data \item[{\em 
+data}]the address of the data to store (except for type VOID where the parameter is the data to store). ZSTRING are copied into a T\_\-zstring::.\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{simple_table@{simple\_\-table}!table_set_cell_dbl@{table\_\-set\_\-cell\_\-dbl}}
+\index{table_set_cell_dbl@{table\_\-set\_\-cell\_\-dbl}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-dbl ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, double {\em dbl})}\label{group__simple__table_a9}
+
+
+Store a double in cell(row,col) of the T\_\-table::
+
+This is a convenience function for double as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+dbl}]the value to store\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{simple_table@{simple\_\-table}!table_set_cell_u32@{table\_\-set\_\-cell\_\-u32}}
+\index{table_set_cell_u32@{table\_\-set\_\-cell\_\-u32}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-u32 ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, unsigned long {\em u32})}\label{group__simple__table_a11}
+
+
+Store a unsigned long in cell(row,col) of the T\_\-table::
+
+This is a convenience function for unsigned long long as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+u32}]the value to store\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{simple_table@{simple\_\-table}!table_set_cell_u64@{table\_\-set\_\-cell\_\-u64}}
+\index{table_set_cell_u64@{table\_\-set\_\-cell\_\-u64}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-u64 ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, unsigned long long {\em u64})}\label{group__simple__table_a10}
+
+
+Store a unsigned long long in cell(row,col) of the T\_\-table::
+
+This is a convenience function for unsigned long long as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+u64}]the value to store\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{simple_table@{simple\_\-table}!table_set_cell_zstr@{table\_\-set\_\-cell\_\-zstr}}
+\index{table_set_cell_zstr@{table\_\-set\_\-cell\_\-zstr}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-zstr ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, const char $\ast$ {\em zstr})}\label{group__simple__table_a8}
+
+
+Store a NULL terminated string in a cell
+
+This is a convenience function for strings as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+zstr}]the NULL terminated string to store (the string is copied)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+
+
+\subsection{Variable Documentation}
+\index{simple_table@{simple\_\-table}!g_table_class@{g\_\-table\_\-class}}
+\index{g_table_class@{g\_\-table\_\-class}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-class} g\_\-table\_\-class}\label{group__simple__table_a3}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        fmt:&g_table_fmt_pad
+}\end{verbatim}\normalsize 
+The class data for T\_\-table:: \index{simple_table@{simple\_\-table}!g_table_fmt_csv@{g\_\-table\_\-fmt\_\-csv}}
+\index{g_table_fmt_csv@{g\_\-table\_\-fmt\_\-csv}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-fmt} g\_\-table\_\-fmt\_\-csv}\label{group__simple__table_a1}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        sep:",",
+        start:NULL,
+        end:NULL,
+        start_row:NULL,
+        end_row:NULL,
+        start_cell:NULL,
+        end_cell:NULL,
+        no_return:0,
+        auto_pad:0
+}\end{verbatim}\normalsize 
+The csv formatting for a T\_\-table:: \index{simple_table@{simple\_\-table}!g_table_fmt_html@{g\_\-table\_\-fmt\_\-html}}
+\index{g_table_fmt_html@{g\_\-table\_\-fmt\_\-html}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-fmt} g\_\-table\_\-fmt\_\-html}\label{group__simple__table_a2}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        sep:NULL,
+        start:"<table>",
+        end:"</table>",
+        start_row:"<tr>",
+        end_row:"</tr>",
+        start_cell:"<td>",
+        end_cell:"</td>",
+        no_return:0,
+        auto_pad:0
+}\end{verbatim}\normalsize 
+Formatting for a T\_\-table:: which will produce an HTML table \index{simple_table@{simple\_\-table}!g_table_fmt_pad@{g\_\-table\_\-fmt\_\-pad}}
+\index{g_table_fmt_pad@{g\_\-table\_\-fmt\_\-pad}!simple_table@{simple\_\-table}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-fmt} g\_\-table\_\-fmt\_\-pad}\label{group__simple__table_a0}
+
+
+{\bf Initial value:}
+
+\footnotesize\begin{verbatim} {
+        sep:" ",
+        start:NULL,
+        end:NULL,
+        start_row:NULL,
+        end_row:NULL,
+        start_cell:NULL,
+        end_cell:NULL,
+        no_return:0,
+        auto_pad:1
+}\end{verbatim}\normalsize 
+The default formatting for a T\_\-table:: 

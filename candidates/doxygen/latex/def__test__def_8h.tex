@@ -1,0 +1,64 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/def\_\-test\_\-def.h File Reference}
+\label{def__test__def_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/def_test_def.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/def\_\-test\_\-def.h}}
+Defines useful default/common macros for def\_\-test.h to use. 
+
+
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf DEF\_\-NEXT\_\-SAMP\_\-DEF}(b, tc, samp, data)
+\begin{CompactList}\small\item\em Get the next sample and data pointers for the given buffer.\item\end{CompactList}\item 
+\#define {\bf DEF\_\-NEXT\_\-BOTH\_\-DEF}(a, tc, c, s, sp, d, dp)
+\begin{CompactList}\small\item\em Update the src and dest samples.\item\end{CompactList}\item 
+\#define {\bf DEF\_\-NEXT\_\-SRC\_\-DEF}(a, tc, c, s, sp)
+\begin{CompactList}\small\item\em Update just the src sample.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Defines useful default/common macros for def\_\-test.h to use.
+
+
+
+
+
+\subsection{Define Documentation}
+\index{def_test_def.h@{def\_\-test\_\-def.h}!DEF_NEXT_BOTH_DEF@{DEF\_\-NEXT\_\-BOTH\_\-DEF}}
+\index{DEF_NEXT_BOTH_DEF@{DEF\_\-NEXT\_\-BOTH\_\-DEF}!def_test_def.h@{def\_\-test\_\-def.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DEF\_\-NEXT\_\-BOTH\_\-DEF(a, tc, c, s, sp, d, dp)}\label{def__test__def_8h_a1}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+        DEF_NEXT_SAMP_DEF(a->bufs[TEST_SRC],tc,s,sp);   \
+        DEF_NEXT_SAMP_DEF(a->bufs[TEST_DST],tc,d,dp);   \
+        c = s->count;   \
+}\end{verbatim}\normalsize 
+Update the src and dest samples.
+
+\index{def_test_def.h@{def\_\-test\_\-def.h}!DEF_NEXT_SAMP_DEF@{DEF\_\-NEXT\_\-SAMP\_\-DEF}}
+\index{DEF_NEXT_SAMP_DEF@{DEF\_\-NEXT\_\-SAMP\_\-DEF}!def_test_def.h@{def\_\-test\_\-def.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DEF\_\-NEXT\_\-SAMP\_\-DEF(b, tc, samp, data)}\label{def__test__def_8h_a0}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+        samp = test_buffer_next((b),tc);        \
+        data = samp->entry;     \
+}\end{verbatim}\normalsize 
+Get the next sample and data pointers for the given buffer.
+
+\index{def_test_def.h@{def\_\-test\_\-def.h}!DEF_NEXT_SRC_DEF@{DEF\_\-NEXT\_\-SRC\_\-DEF}}
+\index{DEF_NEXT_SRC_DEF@{DEF\_\-NEXT\_\-SRC\_\-DEF}!def_test_def.h@{def\_\-test\_\-def.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define DEF\_\-NEXT\_\-SRC\_\-DEF(a, tc, c, s, sp)}\label{def__test__def_8h_a2}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}{ \
+        DEF_NEXT_SAMP_DEF(a->bufs[TEST_SRC],tc,s,sp);   \
+        c = s->count;   \
+}\end{verbatim}\normalsize 
+Update just the src sample.
+

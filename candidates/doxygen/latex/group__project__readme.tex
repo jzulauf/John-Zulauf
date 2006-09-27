@@ -1,0 +1,69 @@
+\section{README for Glibc optimization project}
+\label{group__project__readme}\index{README for Glibc optimization project@{README for Glibc optimization project}}
+the glibc candidate (test) function directories
+
+Doxygen documentation is avaiable for the project. Use either
+
+doxygen -g doxygen.config
+
+or
+
+make doc
+
+to generate.
+
+Common Elements
+
+Each directory below constitutes a performance and unit test suite for evaluating and optimizing a given glibc func. The functions from the various sysdeps subdirectories are copied here, minimally edited (e.g. renaming the function to $<$arch$>$\_\-$<$func$>$), and link with the utest and ptest applications.
+
+$\backslash$subsection define\_\-ptest ptest
+
+ptest is the peformance test, and is uses the framework in common for standard options handling, test inner and outer loops, statitistics gathering and reporting.
+
+$\backslash$subsection define\_\-utest utest
+
+the unit test application for each candidate. Typically these use oversized buffers to check for overruns and underruns.
+
+$\backslash$subsection reference\_\-imp Reference Implementation memset contains the \char`\"{}canonical form\char`\"{} of ptest, which can be branched and modified for any additional candidates.
+
+Creating a new test
+
+$\backslash$subsection test\_\-must Things you will need to modify:
+
+{\bf {\bf T\_\-def\_\-Fn}}
+
+this needs to be defined to match the prototype of the function under test
+
+{\bf {\bf def\_\-tests}[$\,$]}
+
+needs to contain the function pointer and name of the implementations to test
+
+{\bf DO\_\-TEST\_\-NEXT}
+
+needs to contain the instructions to move through the buffers
+
+{\bf DO\_\-TEST\_\-RUN}
+
+needs to have the invocation line for the function under test (Note: the variables to use must be visible inside the do\_\-test\_\-func boilerplate)
+
+{\bf Makefile}
+
+LGPL\_\-OBJS, BSD\_\-OBJS to include the functions under test
+
+$\backslash$subsection test\_\-may Things you may need to modify
+
+{\bf Options}
+
+you can add options easily calling the opts\_\-def function with useful automated value setting (c.f. \char`\"{}Standard Actions\char`\"{} in common/include/opts\_\-util.h). Add these just below test\_\-init in ptest.c:main.
+
+{\bf {\bf main()}} while ... opts\_\-getopt (in ptest.c)
+
+you may need some behavior not easily supported in the T\_\-opts\_\-action callback
+
+{\bf {\bf T\_\-test\_\-buffer::f\_\-wrap}}
+
+You may need to override this if you need to refill the src or dst buffer on wrap-around.
+
+{\bf {\bf T\_\-test\_\-buffer::f\_\-count}}
+
+if the buffer contents need to change for each count (for example strlen) you can set f\_\-count to a new count change operation. Please examine the default implementation for semantices. 

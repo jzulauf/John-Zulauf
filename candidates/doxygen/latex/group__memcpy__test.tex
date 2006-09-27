@@ -1,0 +1,29 @@
+\section{Memcpy performance test}
+\label{group__memcpy__test}\index{Memcpy performance test@{Memcpy performance test}}
+The performance and optimzation test for memcpy. Uses the framework provided by {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} and {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})}. 
+Status
+
+The testing and optimization has been completed
+
+Results
+
+\begin{CompactItemize}
+\item 
+Winner: lx\_\-memcpy\_\-movq\_\-r()\item 
+Honorable mention: lx\_\-memcpy\_\-si1() best non-mmx implementation\end{CompactItemize}
+Candidates
+
+\begin{CompactItemize}
+\item 
+glibc\_\-memcpy()\item 
+lx\_\-memcpy\_\-movq()\item 
+lx\_\-memcpy\_\-movq\_\-r()\item 
+lx\_\-memcpy\_\-noleal()\item 
+lx\_\-memcpy\_\-noleal\_\-128()\item 
+lx\_\-memcpy\_\-si0()\item 
+lx\_\-memcpy\_\-si1()\end{CompactItemize}
+Notes While the lx\_\-memcpy\_\-movq\_\-r() is the winner, it may not be acceptable as a glibc function as the kernel uses only light weight threading and doesn't protect the FPU state.
+
+TODO\begin{CompactItemize}
+\item 
+convert utest to use def\_\-test.h (to keep utest and ptest in sync) \end{CompactItemize}

@@ -1,0 +1,65 @@
+\section{T\_\-opts\_\-def Struct Reference}
+\label{structT__opts__def}\index{T_opts_def@{T\_\-opts\_\-def}}
+Stores the information about a single option. 
+
+
+{\tt \#include $<$opts\_\-utils.h$>$}
+
+\subsection*{Public Attributes}
+\begin{CompactItemize}
+\item 
+int {\bf set}
+\item 
+char $\ast$ {\bf arg}
+\item 
+{\bf T\_\-opts\_\-action} {\bf action}
+\item 
+void $\ast$ {\bf data}
+\item 
+char $\ast$ {\bf desc}
+\item 
+option $\ast$ {\bf lopt}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Stores the information about a single option.
+
+
+
+\subsection{Member Data Documentation}
+\index{T_opts_def@{T\_\-opts\_\-def}!action@{action}}
+\index{action@{action}!T_opts_def@{T\_\-opts\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-opts\_\-action} T\_\-opts\_\-def::action}\label{structT__opts__def_m2}
+
+
+The callback when this option is found \index{T_opts_def@{T\_\-opts\_\-def}!arg@{arg}}
+\index{arg@{arg}!T_opts_def@{T\_\-opts\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ T\_\-opts\_\-def::arg}\label{structT__opts__def_m1}
+
+
+The descriptive name of the argument (if any) \index{T_opts_def@{T\_\-opts\_\-def}!data@{data}}
+\index{data@{data}!T_opts_def@{T\_\-opts\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ T\_\-opts\_\-def::data}\label{structT__opts__def_m3}
+
+
+The data passed to the action callback \index{T_opts_def@{T\_\-opts\_\-def}!desc@{desc}}
+\index{desc@{desc}!T_opts_def@{T\_\-opts\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ T\_\-opts\_\-def::desc}\label{structT__opts__def_m4}
+
+
+Help text for this message s for arg \index{T_opts_def@{T\_\-opts\_\-def}!lopt@{lopt}}
+\index{lopt@{lopt}!T_opts_def@{T\_\-opts\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct option$\ast$ T\_\-opts\_\-def::lopt}\label{structT__opts__def_m5}
+
+
+The longopt info, -$>$val == shortname \index{T_opts_def@{T\_\-opts\_\-def}!set@{set}}
+\index{set@{set}!T_opts_def@{T\_\-opts\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int T\_\-opts\_\-def::set}\label{structT__opts__def_m0}
+
+
+Non-zero if this option been set 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/{\bf opts\_\-utils.h}\end{CompactItemize}

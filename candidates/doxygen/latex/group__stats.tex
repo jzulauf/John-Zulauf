@@ -1,0 +1,153 @@
+\section{\char`\"{}stats\_\-\char`\"{} Simple Approximate Statitistics Package}
+\label{group__stats}\index{"stats_" Simple Approximate Statitistics Package@{""stats\_\-"" Simple Approximate Statitistics Package}}
+A simple statistics gathering library with the following features. 
+\subsection*{Modules}
+\begin{CompactItemize}
+\item 
+{\bf Static utility functions (internal)}
+\begin{CompactList}\small\item\em static utility functions implementing Simple Approximate Statitistics Package\item\end{CompactList}
+
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf stats\_\-init\_\-package} ()
+\begin{CompactList}\small\item\em Initializes the Simple Statistics Package, call once before using.\item\end{CompactList}\item 
+void {\bf stats\_\-record\_\-init} ({\bf T\_\-stats\_\-record} $\ast$rec)
+\begin{CompactList}\small\item\em Initializes the statistics gather record. Call before each test run. Erases all previous statitistics.\item\end{CompactList}\item 
+{\bf T\_\-stats\_\-record} $\ast$ {\bf stats\_\-record\_\-create} ()
+\begin{CompactList}\small\item\em Allocates and initalizes statistics record.\item\end{CompactList}\item 
+void {\bf stats\_\-record\_\-datapoint} ({\bf T\_\-stats\_\-record} $\ast$rec, {\bf T\_\-tick} t)
+\begin{CompactList}\small\item\em Records one datapoint.\item\end{CompactList}\item 
+void {\bf stats\_\-record\_\-compute} ({\bf T\_\-stats\_\-record} $\ast$rec, size\_\-t count, char $\ast$name, {\bf T\_\-stats\_\-result} $\ast$result)
+\begin{CompactList}\small\item\em Computes the modes and averages from the current statistics record.\item\end{CompactList}\item 
+int {\bf stats\_\-get\_\-verbose} ()
+\begin{CompactList}\small\item\em Get the verbosity level.\item\end{CompactList}\item 
+void {\bf stats\_\-set\_\-verbose} (int verbose)
+\begin{CompactList}\small\item\em Set the verbosity level.\item\end{CompactList}\item 
+{\bf T\_\-stats\_\-range\_\-def} $\ast$ {\bf stats\_\-get\_\-range\_\-defs} ()
+\begin{CompactList}\small\item\em Get the range defs.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+A simple statistics gathering library with the following features.
+
+\begin{CompactItemize}
+\item 
+Wide dynamic range (up to 32 bits)\begin{CompactItemize}
+\item 
+Constant precision (as a \% of value)\item 
+Configurable accuracy\item 
+Mode computation and modal weighted averages\item 
+Mode \char`\"{}ignore\char`\"{} for lightly popluated modes\end{CompactItemize}
+\end{CompactItemize}
+and the following limitations
+
+\begin{CompactItemize}
+\item 
+only a single active dataset (this restriction could be removed)\item 
+does not track if \char`\"{}bucket,range\char`\"{} accumulation is exact (i.e. all values the same)\item 
+does not provide exact statistics with a given range\item 
+does not support mean, median, std. deviation etc. (only mode) \end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{stats@{stats}!stats_get_range_defs@{stats\_\-get\_\-range\_\-defs}}
+\index{stats_get_range_defs@{stats\_\-get\_\-range\_\-defs}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-stats\_\-range\_\-def}$\ast$ stats\_\-get\_\-range\_\-defs ()}\label{group__stats_a7}
+
+
+Get the range defs.
+
+\begin{Desc}
+\item[Returns: ]\par
+the range defs \end{Desc}
+\index{stats@{stats}!stats_get_verbose@{stats\_\-get\_\-verbose}}
+\index{stats_get_verbose@{stats\_\-get\_\-verbose}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int stats\_\-get\_\-verbose ()}\label{group__stats_a5}
+
+
+Get the verbosity level.
+
+\begin{Desc}
+\item[Returns: ]\par
+the verbosity level \end{Desc}
+\index{stats@{stats}!stats_init_package@{stats\_\-init\_\-package}}
+\index{stats_init_package@{stats\_\-init\_\-package}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void stats\_\-init\_\-package ()}\label{group__stats_a0}
+
+
+Initializes the Simple Statistics Package, call once before using.
+
+\begin{Desc}
+\item[Returns: ]\par
+void \end{Desc}
+\index{stats@{stats}!stats_record_compute@{stats\_\-record\_\-compute}}
+\index{stats_record_compute@{stats\_\-record\_\-compute}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void stats\_\-record\_\-compute ({\bf T\_\-stats\_\-record} $\ast$ {\em rec}, size\_\-t {\em count}, char $\ast$ {\em name}, {\bf T\_\-stats\_\-result} $\ast$ {\em result})}\label{group__stats_a4}
+
+
+Computes the modes and averages from the current statistics record.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+rec}]the statistics record to update ({\bf T\_\-stats\_\-record} {\rm (p.\,\pageref{structT__stats__record})} $\ast$) \item[{\em 
+count}]the unit count for normalizing dwavg (size\_\-t) \item[{\em 
+name}]the name for verbose output (char $\ast$) \item[{\em 
+result}]where to put the computed values ({\bf T\_\-stats\_\-result} {\rm (p.\,\pageref{structT__stats__result})} $\ast$) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+void \end{Desc}
+\index{stats@{stats}!stats_record_create@{stats\_\-record\_\-create}}
+\index{stats_record_create@{stats\_\-record\_\-create}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-stats\_\-record}$\ast$ stats\_\-record\_\-create ()}\label{group__stats_a2}
+
+
+Allocates and initalizes statistics record.
+
+\begin{Desc}
+\item[Returns: ]\par
+the created record \end{Desc}
+\index{stats@{stats}!stats_record_datapoint@{stats\_\-record\_\-datapoint}}
+\index{stats_record_datapoint@{stats\_\-record\_\-datapoint}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void stats\_\-record\_\-datapoint ({\bf T\_\-stats\_\-record} $\ast$ {\em rec}, {\bf T\_\-tick} {\em t})}\label{group__stats_a3}
+
+
+Records one datapoint.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+rec}]the statistics record to update ({\bf T\_\-stats\_\-record} {\rm (p.\,\pageref{structT__stats__record})} $\ast$) \item[{\em 
+t}]value to record (T\_\-tick) \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+void \end{Desc}
+\index{stats@{stats}!stats_record_init@{stats\_\-record\_\-init}}
+\index{stats_record_init@{stats\_\-record\_\-init}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void stats\_\-record\_\-init ({\bf T\_\-stats\_\-record} $\ast$ {\em rec})}\label{group__stats_a1}
+
+
+Initializes the statistics gather record. Call before each test run. Erases all previous statitistics.
+
+\begin{Desc}
+\item[Returns: ]\par
+void \end{Desc}
+\index{stats@{stats}!stats_set_verbose@{stats\_\-set\_\-verbose}}
+\index{stats_set_verbose@{stats\_\-set\_\-verbose}!stats@{stats}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void stats\_\-set\_\-verbose (int {\em verbose})}\label{group__stats_a6}
+
+
+Set the verbosity level.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+verbose}]the verbosity level to set \end{description}
+\end{Desc}

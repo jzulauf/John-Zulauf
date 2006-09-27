@@ -1,0 +1,32 @@
+Prefetch:
+	Note: you can't prefetch the 0th
+	requires unrolling
+	ONLY three prefetch slots
+		implies two cachline unrolls (max)
+		(address math is thus shift math, isn't for 3 line)
+	need to minimize cache impact for small copies
+
+Dword-align
+	Either src or dst
+	Several different approaches c.f. i686/memset and i586/strcpy
+		i686 -- xor/and filter
+		i586 -- hardcoded jump target (computed based on stanza)
+			need to objdump this -- seems "too clever"
+
+Use of Dword-ops
+	extant in much of sysdep/i386
+	rep instruction take M + Nc where
+		M is fixed startup cost and
+		N is cycles per count
+		c is count (number of iterations)
+		dword means c >> 2 vs. bytes
+	need to compare vs. repne; scasb kinds of ops.
+		strlen, strcpy, et. al. must check for '\0'
+		dword algorithms are more complex per/dword
+
+Open Questions:
+	cost of conditional jumps (Dan Yee for the jmp questions)
+	optimal scheduling for flag-setting ops vs. conditional jmp
+	branch prediction
+		how to avoid it slowing us down.
+

@@ -1,0 +1,25 @@
+\section{Memcmp performance test}
+\label{group__memcmp__test}\index{Memcmp performance test@{Memcmp performance test}}
+The performance and optimzation test for memcmp. Uses the framework provided by {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} and {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})}. 
+Status
+
+The testing and optimization has be completed
+
+Current Standings
+
+\begin{CompactItemize}
+\item 
+Winner: lx\-Dw lxd\_\-memcmp 26-66\% improvement vs. local (i486)\item 
+Honorable mention: i686 28-58\% improvement vs. local (i486)\end{CompactItemize}
+Candidates
+
+\begin{CompactItemize}
+\item 
+{\bf local} the i486 glibc memcmp\item 
+{\bf i386} the i386 glibc assembly code\item 
+{\bf i686} the i686 glibc assembly code (unrolled movl; movl; cmpl;)\item 
+{\bf lx\-Cond} a rep/byte compare (repe;cmpsb)\item 
+{\bf lx\-Dw} a rep/dword compare (repe;cmpsl), with remainder cmpsb\end{CompactItemize}
+Notes
+
+The performance of the unrolled i686, while slightly less than lx\-Dw's {\tt repe} approach, is suggestive of approaches to take for other optimizations. 

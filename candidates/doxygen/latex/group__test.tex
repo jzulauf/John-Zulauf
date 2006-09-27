@@ -1,0 +1,69 @@
+\section{\char`\"{}test\_\-\char`\"{} Test framework for performance testing}
+\label{group__test}\index{"test_" Test framework for performance testing@{""test\_\-"" Test framework for performance testing}}
+\subsection*{Modules}
+\begin{CompactItemize}
+\item 
+{\bf Test application state management}
+\item 
+{\bf Utility routines (cache, stride, alignment, and fill)}
+\item 
+{\bf Test buffer creation and management functions}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf test\_\-init} (const char $\ast$progname, const char $\ast$progversion, {\bf T\_\-test\_\-type} type)
+\begin{CompactList}\small\item\em Initializes the app state structure and command line (opts table).\item\end{CompactList}\item 
+void {\bf test\_\-create\_\-buffers} ({\bf T\_\-test\_\-app} $\ast$app, size\_\-t scale, size\_\-t extra)
+\begin{CompactList}\small\item\em Allocates the default set of buffers {\bf NOTE}: init buffers computes and allocates the buffers and the TOC but {\bf doesn't} fill them. It {\bf does} look at the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} settings and the test\_\-type to initialize the count and wrap call backs.\item\end{CompactList}\item 
+int {\bf test\_\-action\_\-oneshot} (void $\ast$ptr\_\-to\_\-test\_\-app)
+\begin{CompactList}\small\item\em Callback for {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})} and the --oneshot flag.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{test@{test}!test_action_oneshot@{test\_\-action\_\-oneshot}}
+\index{test_action_oneshot@{test\_\-action\_\-oneshot}!test@{test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int test\_\-action\_\-oneshot (void $\ast$ {\em ptr\_\-to\_\-test\_\-app})}\label{group__test_a2}
+
+
+Callback for {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})} and the --oneshot flag.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+ptr\_\-to\_\-test\_\-app}]action callback data pointing to the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} structure \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+0 (action successful) \end{Desc}
+\index{test@{test}!test_create_buffers@{test\_\-create\_\-buffers}}
+\index{test_create_buffers@{test\_\-create\_\-buffers}!test@{test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-create\_\-buffers ({\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em scale}, size\_\-t {\em extra})}\label{group__test_a1}
+
+
+Allocates the default set of buffers {\bf NOTE}: init buffers computes and allocates the buffers and the TOC but {\bf doesn't} fill them. It {\bf does} look at the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} settings and the test\_\-type to initialize the count and wrap call backs.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state \item[{\em 
+scale}]size multiplier the samples: samp\_\-size = count $\ast$ scale + extra \item[{\em 
+extra}]additional bytes for each sample (see scale parameter) \end{description}
+\end{Desc}
+\index{test@{test}!test_init@{test\_\-init}}
+\index{test_init@{test\_\-init}!test@{test}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-app}$\ast$ test\_\-init (const char $\ast$ {\em progname}, const char $\ast$ {\em progversion}, {\bf T\_\-test\_\-type} {\em type})}\label{group__test_a0}
+
+
+Initializes the app state structure and command line (opts table).
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+progname}]name of this program (information only) \item[{\em 
+progversion}]name of this program (for help and usage) \item[{\em 
+type}]the cannonical form of the test \end{description}
+\end{Desc}

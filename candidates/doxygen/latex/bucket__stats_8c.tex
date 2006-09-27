@@ -1,0 +1,40 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/bucket\_\-stats.c File Reference}
+\label{bucket__stats_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/bucket_stats.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/bucket\_\-stats.c}}
+Implements the \char`\"{}Simple Approximate Statitistics Package\char`\"{}. 
+
+
+{\tt \#include \char`\"{}rdtsc.h\char`\"{}}\par
+{\tt \#include \char`\"{}bucket\_\-stats.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\index{STATS_DECLARE_EXTERNS@{STATS\_\-DECLARE\_\-EXTERNS}!bucket_stats.c@{bucket\_\-stats.c}}\index{bucket_stats.c@{bucket\_\-stats.c}!STATS_DECLARE_EXTERNS@{STATS\_\-DECLARE\_\-EXTERNS}}
+\#define {\bf STATS\_\-DECLARE\_\-EXTERNS}\label{bucket__stats_8c_a0}
+
+\begin{CompactList}\small\item\em causes stats\_\-$\ast$ variables to be declared (allocated) in this file\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf stats\_\-init\_\-package} ()
+\begin{CompactList}\small\item\em Initializes the Simple Statistics Package, call once before using.\item\end{CompactList}\item 
+void {\bf stats\_\-record\_\-init} ({\bf T\_\-stats\_\-record} $\ast$rec)
+\begin{CompactList}\small\item\em Initializes the statistics gather record. Call before each test run. Erases all previous statitistics.\item\end{CompactList}\item 
+{\bf T\_\-stats\_\-record} $\ast$ {\bf stats\_\-record\_\-create} ()
+\begin{CompactList}\small\item\em Allocates and initalizes statistics record.\item\end{CompactList}\item 
+void {\bf stats\_\-record\_\-datapoint} ({\bf T\_\-stats\_\-record} $\ast$rec, {\bf T\_\-tick} t)
+\begin{CompactList}\small\item\em Records one datapoint.\item\end{CompactList}\item 
+void {\bf stats\_\-record\_\-compute} ({\bf T\_\-stats\_\-record} $\ast$rec, size\_\-t count, char $\ast$name, {\bf T\_\-stats\_\-result} $\ast$result)
+\begin{CompactList}\small\item\em Computes the modes and averages from the current statistics record.\item\end{CompactList}\item 
+int {\bf stats\_\-get\_\-verbose} ()
+\begin{CompactList}\small\item\em Get the verbosity level.\item\end{CompactList}\item 
+void {\bf stats\_\-set\_\-verbose} (int verbose)
+\begin{CompactList}\small\item\em Set the verbosity level.\item\end{CompactList}\item 
+{\bf T\_\-stats\_\-range\_\-def} $\ast$ {\bf stats\_\-get\_\-range\_\-defs} ()
+\begin{CompactList}\small\item\em Get the range defs.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements the \char`\"{}Simple Approximate Statitistics Package\char`\"{}.
+
+
+

@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# calibrate_ptest returns the number of tries for a 10-20 second run
+function calibrate_ptest {
+	declare -i scale=120
+	# for testing only
+	#scale=1
+	declare -i begin=0
+	declare -i end=0
+	declare -i tries=4
+	declare -i cal=1
+	declare -i lim=5
+	while [ $end -le $lim ] ; do
+		tries="2 * tries"
+		let begin=$(date +%s)
+		echo ptest -t $tries  >&2
+		./ptest -R -A -s0 -e128 -i1 -t $tries > /dev/null
+		let end=$(date +%s)
+		end="end - begin"
+		echo "end:$end" >&2
+		if [ $end -le 2 ] ; then
+			tries="2 * tries"
+		fi
+			
+	done
+	# The limit is half the goal
+	tries="2 * tries * scale"
+	echo $tries
+	return $tries
+}
+
+if [ ! -x ptest ] ; then
+	echo "no ptest executable"
+	exit 2
+fi
+
+if [ -z "$1" ] ; then
+	echo "usage: $0 <platform_name>"
+	exit 1
+fi
+platform=$1
+
+test_name=`basename $PWD`
+store_dir=../results
+if [ ! -d $store_dir ] ; then 
+	mkdir $store_dir
+fi
+
+date_string=`date +"%y%m%d_%H%M"`
+file_root="${store_dir}/${test_name}_${platform}_${date_string}"
+echo "file_root:$file_root"
+
+# Calibrate the "tries" flag
+declare -i cal_val=`calibrate_ptest`
+
+echo nice -n -20 ./ptest -e 128 -FRCPc -R -t $cal_val \
+	\> ${file_root}_to128-R.csv
+nice -n -20 ./ptest -e 128 -FRCPc -R -t $cal_val \
+	> ${file_root}_to128-R.csv
+echo nice -n -20 ./ptest -e 128 -FRCPc -R -A -t $cal_val \
+	\> ${file_root}_to128-R-A.csv
+nice -n -20 ./ptest -e 128 -FRCPc -R -A -t $cal_val \
+	> ${file_root}_to128-R-A.csv
+
+# The next set is harder so, cut done the rep count
+cal_val="cal_val/8"
+echo nice -n -20 ./ptest -s 3 -e 2049 -i 33 -FRCPc -R -t $cal_val  \
+	\> ${file_root}_to2049-R.csv
+nice -n -20 ./ptest -s 3 -e 2049 -i 33 -FRCPc -R -t $cal_val  \
+	> ${file_root}_to2049-R.csv
+echo nice -n -20 ./ptest -s 3 -e 2049 -i 33 -FRCPc -R -A -t $cal_val \
+	\> ${file_root}_to2049-R-A.csv
+nice -n -20 ./ptest -s 3 -e 2049 -i 33 -FRCPc -R -A -t $cal_val \
+	> ${file_root}_to2049-R-A.csv
+

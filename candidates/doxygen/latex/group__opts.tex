@@ -1,0 +1,121 @@
+\section{\char`\"{}opts\_\-\char`\"{} Callback based command line options handler}
+\label{group__opts}\index{"opts_" Callback based command line options handler@{""opts\_\-"" Callback based command line options handler}}
+This API wraps the getopt\_\-long functionality and provides a general call back mechanism to define the behavior of command line flags. 
+\subsection*{Modules}
+\begin{CompactItemize}
+\item 
+{\bf Static variables and functions (internal)}
+\item 
+{\bf Standard callback actions}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void {\bf opts\_\-init} (const char $\ast$progname, const char $\ast$progversion)
+\begin{CompactList}\small\item\em initialize the {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})} subsystem. Call this before calling\item\end{CompactList}\item 
+void {\bf opts\_\-def} (char short\_\-name, char $\ast$long\_\-name, char $\ast$description, char $\ast$arg\_\-name, {\bf T\_\-opts\_\-action} action, void $\ast$data)
+\begin{CompactList}\small\item\em add the given option to the opts\_\-table\item\end{CompactList}\item 
+\index{opts_default_opts@{opts\_\-default\_\-opts}!opts@{opts}}\index{opts@{opts}!opts_default_opts@{opts\_\-default\_\-opts}}
+void {\bf opts\_\-default\_\-opts} ()\label{group__opts_a2}
+
+\begin{CompactList}\small\item\em add the default opts to opts\_\-table\item\end{CompactList}\item 
+int {\bf opts\_\-getopt} (int argc, char $\ast$const $\ast$argv)
+\begin{CompactList}\small\item\em parse the known options, calling their callback actions, and returning on unknown options with the identical semantics of getopt\item\end{CompactList}\item 
+\index{opts_usage@{opts\_\-usage}!opts@{opts}}\index{opts@{opts}!opts_usage@{opts\_\-usage}}
+void {\bf opts\_\-usage} (void)\label{group__opts_a4}
+
+\begin{CompactList}\small\item\em output the usage message and exit\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This API wraps the getopt\_\-long functionality and provides a general call back mechanism to define the behavior of command line flags.
+
+{\bf TO} {\bf USE}:\begin{CompactItemize}
+\item 
+{\bf opts\_\-init()} {\rm (p.\,\pageref{group__opts_a0})} to initialize the subsystem \item 
+{\bf opts\_\-default\_\-opts()} {\rm (p.\,\pageref{group__opts_a2})} to add useful default opts (help and version)\item 
+Define the arguments using:\begin{CompactItemize}
+\item 
+{\bf opts\_\-def()} {\rm (p.\,\pageref{group__opts_a1})}\item 
+{\bf OPTS\_\-DEF} {\rm (p.\,\pageref{opts__utils_8h_a3})} \item 
+{\bf OPTS\_\-DEF\_\-ARG} {\rm (p.\,\pageref{opts__utils_8h_a4})}, \item 
+{\bf OPTS\_\-DEF\_\-CLEAR} {\rm (p.\,\pageref{opts__utils_8h_a6})} \item 
+{\bf OPTS\_\-DEF\_\-INCR} {\rm (p.\,\pageref{opts__utils_8h_a7})} \item 
+{\bf OPTS\_\-DEF\_\-SET} {\rm (p.\,\pageref{opts__utils_8h_a8})} \item 
+{\bf OPTS\_\-DEF\_\-STRTOL} {\rm (p.\,\pageref{opts__utils_8h_a5})} \end{CompactItemize}
+\item 
+{\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})} parses the known options\begin{CompactItemize}
+\item 
+-1 end of options (no error)\item 
+Anything else, and unknown flag either\begin{CompactItemize}
+\item 
+catch in a traditional getopts switch such as 
+
+\footnotesize\begin{verbatim}       while ((c = opts_getopt (argc, argv)) != -1) {
+               switch (c) {
+               // add stuff opts_getopt() can't handle
+               case 'Z':
+                       Z_option_handler();
+                       break;
+               // end of stuff opts_utils can't handle 
+               default:
+                       opts_usage();
+               }
+       }
+\end{verbatim}\normalsize 
+\item 
+{\bf opts\_\-usage()} {\rm (p.\,\pageref{group__opts_a4})} to display usage message and exit.\end{CompactItemize}
+\end{CompactItemize}
+\end{CompactItemize}
+{\bf TODO}\begin{CompactItemize}
+\item 
+Add optional argument support\item 
+Allow use of non-printable shortnames for longname only options \end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{opts@{opts}!opts_def@{opts\_\-def}}
+\index{opts_def@{opts\_\-def}!opts@{opts}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void opts\_\-def (char {\em short\_\-name}, char $\ast$ {\em long\_\-name}, char $\ast$ {\em description}, char $\ast$ {\em arg\_\-name}, {\bf T\_\-opts\_\-action} {\em action}, void $\ast$ {\em data})}\label{group__opts_a1}
+
+
+add the given option to the opts\_\-table
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+short\_\-name}]the 1 character that uniquely identifies this option \item[{\em 
+long\_\-name}]the long (no spaces) name for this option. Must be {\bf non-NULL}. \item[{\em 
+description}]descriptive text for this option. If arg\_\-name is non-NULL, \%s in description will insert arg\_\-name. \item[{\em 
+arg\_\-name}]the descriptive name of the argument the option takes (if an option takes an argument), or NULL if it doesn't. \item[{\em 
+action}]the callback action if the flag is found \item[{\em 
+data}]pointer to the data the callback will need. \end{description}
+\end{Desc}
+\index{opts@{opts}!opts_getopt@{opts\_\-getopt}}
+\index{opts_getopt@{opts\_\-getopt}!opts@{opts}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-getopt (int {\em argc}, char $\ast$const $\ast$ {\em argv})}\label{group__opts_a3}
+
+
+parse the known options, calling their callback actions, and returning on unknown options with the identical semantics of getopt
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+argc}]the argument count \item[{\em 
+argv}]the argument array \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+-1 for end of arguments, anything else for an unknown options \end{Desc}
+\index{opts@{opts}!opts_init@{opts\_\-init}}
+\index{opts_init@{opts\_\-init}!opts@{opts}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void opts\_\-init (const char $\ast$ {\em progname}, const char $\ast$ {\em progversion})}\label{group__opts_a0}
+
+
+initialize the {\bf \char`\"{}opts\_\-\char`\"{} Callback based command line options handler} {\rm (p.\,\pageref{group__opts})} subsystem. Call this before calling
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}

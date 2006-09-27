@@ -1,0 +1,22 @@
+\section{strcpy performance test}
+\label{group__strcpy__test}\index{strcpy performance test@{strcpy performance test}}
+The performance and optimzation test for strcpy. Uses the framework provided by {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} and {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})}. 
+Status
+
+The testing and optimization has been completed
+
+Results
+
+\begin{CompactItemize}
+\item 
+Winner: {\bf lx\_\-strcpy\_\-r3()} {\rm (p.\,\pageref{strcpy_2def__test_8h_a3})} 1.65x performance gain on LX \item 
+Honorable mention: {\bf lx\_\-strcpy\_\-5a()} {\rm (p.\,\pageref{strcpy_2def__test_8h_a1})} 1.2x peformance gain on K7\end{CompactItemize}
+Candidates \begin{CompactItemize}
+\item 
+{\bf lx\_\-strcpy\_\-r3()} {\rm (p.\,\pageref{strcpy_2def__test_8h_a3})}\item 
+{\bf lx\_\-strcpy\_\-r4()} {\rm (p.\,\pageref{strcpy_2def__test_8h_a4})}\item 
+{\bf lx\_\-strcpy\_\-5a()} {\rm (p.\,\pageref{strcpy_2def__test_8h_a1})}\item 
+{\bf lx\_\-strcpy\_\-5a\_\-r()} {\rm (p.\,\pageref{strcpy_2def__test_8h_a2})}\end{CompactItemize}
+Notes Reference is made to the 'Darwin \char`\"{}magic\char`\"{} algorithm.' By this we are referring to the dword zero find algorithm which uses the 0xfefefeff \char`\"{}magic\char`\"{} number. This is similar to (and mathematically equivalent to) the i586 implementation but is implemented in fewer instructions and fewer conditional jumps.
+
+Note also that as the Darwin code was PPC assembly, thus only the algorithm and not the implementation is reflected in the implementation here. 

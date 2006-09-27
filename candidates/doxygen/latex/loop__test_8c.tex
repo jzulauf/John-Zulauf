@@ -1,0 +1,79 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/loop\_\-test.c File Reference}
+\label{loop__test_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/loop_test.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/loop\_\-test.c}}
+Implements standard inner and outer loop for performance testing. 
+
+
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$limits.h$>$}\par
+{\tt \#include $<$math.h$>$}\par
+{\tt \#include \char`\"{}def\_\-test.h\char`\"{}}\par
+{\tt \#include \char`\"{}bucket\_\-stats.h\char`\"{}}\par
+{\tt \#include \char`\"{}test\_\-utils.h\char`\"{}}\par
+{\tt \#include \char`\"{}loop\_\-test.h\char`\"{}}\par
+{\tt \#include \char`\"{}table.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-loop\_\-result\_\-line}
+\begin{CompactList}\small\item\em stores one line of statistics and results for all tests\item\end{CompactList}\item 
+struct {\bf T\_\-loop\_\-results}
+\begin{CompactList}\small\item\em stores the table of results for counts and tests. The results are organized into lines ({\bf T\_\-loop\_\-result\_\-line} {\rm (p.\,\pageref{structT__loop__result__line})}::) for each valid count in the range defined by size, start, and incr. Additionally, the run field controls whether a given test is run at all.\item\end{CompactList}\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf LOOP\_\-START\_\-TEST}(tick)
+\item 
+\#define {\bf LOOP\_\-END\_\-TEST}(tick)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf loop\_\-get\_\-num\_\-test} ()
+\begin{CompactList}\small\item\em return the value of NUM\_\-TEST, so we don't have to make def\_\-tests global\item\end{CompactList}\item 
+const char $\ast$ {\bf loop\_\-get\_\-testname} (size\_\-t test)
+\begin{CompactList}\small\item\em return the test names , so we don't have to make def\_\-tests global\item\end{CompactList}\item 
+{\bf T\_\-loop\_\-results} $\ast$ {\bf loop\_\-results\_\-create} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em allocates and initialize a {\bf T\_\-loop\_\-results} {\rm (p.\,\pageref{structT__loop__results})}:: structure. The {\bf T\_\-loop\_\-results::lines} {\rm (p.\,\pageref{structT__loop__results_m4})} are initialized to for each valid count in the supplied {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})}::, and the T\_\-loop\_\-result::run flags are set based on the {\bf T\_\-test\_\-app::testmask} {\rm (p.\,\pageref{structT__test__app_m13})}\item\end{CompactList}\item 
+void {\bf loop\_\-results\_\-destroy} ({\bf T\_\-loop\_\-results} $\ast$lr)
+\begin{CompactList}\small\item\em deallocate a loop\_\-results structure\item\end{CompactList}\item 
+void {\bf loop\_\-results\_\-record} ({\bf T\_\-loop\_\-results} $\ast$lr, size\_\-t count, size\_\-t test, {\bf T\_\-tick} data)
+\begin{CompactList}\small\item\em record a data point in the appropriate T\_\-loop\_\-result::lines entry based on the count and test indices. Notices that the line index must be solved backwards from the count and the T\_\-loop\_\-result::start etc. as their is not a line for every count, but only for every {\bf valid} count.\item\end{CompactList}\item 
+void {\bf loop\_\-inner} (size\_\-t ord, size\_\-t test, {\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em run the inner loop of the testing for a given function and count if ! app-$>$rand, the count will be constant, but should still be derived from the count in {\bf DEF\_\-NEXT}. {\bf DEF\_\-RUN} should {\bf only} call the function under test with any parameter set up or pointer math handled in {\bf DEF\_\-NEXT}. Notice that DEF\_\-NEXT begins a block, thus extra variables needed for this can be define in DEF\_\-NEXT and referenced in DEF\_\-RUN without impacting the timestamp.\item\end{CompactList}\item 
+void {\bf loop\_\-results\_\-compute} ({\bf T\_\-loop\_\-results} $\ast$lr)
+\begin{CompactList}\small\item\em compute the statistical results for this loop. This should be called prior to {\bf loop\_\-results\_\-report()} {\rm (p.\,\pageref{group__loop__test_a19})}\item\end{CompactList}\item 
+double {\bf loop\_\-results\_\-get\_\-raw} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-comp} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-comp\_\-diff} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-comp\_\-pct} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-diff} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-normalized} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+double {\bf loop\_\-results\_\-get\_\-speed} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t count, size\_\-t test)
+\item 
+size\_\-t {\bf loop\_\-results\_\-fill\_\-table} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$tbl, size\_\-t row\_\-base, size\_\-t col\_\-base, char type)
+\item 
+double {\bf loop\_\-results\_\-count\_\-total} ({\bf T\_\-loop\_\-results} $\ast$lr)
+\item 
+double {\bf loop\_\-results\_\-raw\_\-total} ({\bf T\_\-loop\_\-results} $\ast$lr, size\_\-t test)
+\item 
+size\_\-t {\bf loop\_\-results\_\-fill\_\-data} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$tbl, size\_\-t row\_\-data, size\_\-t col\_\-data)
+\item 
+void {\bf loop\_\-results\_\-report} ({\bf T\_\-loop\_\-results} $\ast$lr, {\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em print the statistical results for this loop. This should not be called until after {\bf loop\_\-results\_\-compute()} {\rm (p.\,\pageref{group__loop__test_a7})}\item\end{CompactList}\item 
+void {\bf loop\_\-test} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Set up and run the inner loop for the test, and then report the results.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements standard inner and outer loop for performance testing.
+
+
+

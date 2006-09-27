@@ -1,0 +1,10 @@
+\section{Permuted preamble memcpy performance test}
+\label{group__permute__memcpy__test}\index{Permuted preamble memcpy performance test@{Permuted preamble memcpy performance test}}
+The permutation optimzation test for memcpy. Uses the framework provided by {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} and {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})}. 
+To create the premuted source  
+
+\footnotesize\begin{verbatim}        make source && make
+\end{verbatim}\normalsize 
+
+
+Notes Use utest and ptest as usual to determine the best of the permutations ensuring that you have a large enough -t value to reduce variability below the permutation variation difference. The usual rule of \char`\"{}double the repeat count until the data stops changing\char`\"{} applies, with the proviso that a number of the permutations share the same performance profile 

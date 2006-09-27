@@ -1,0 +1,100 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strlen/def\_\-test.h File Reference}
+\label{strlen_2def__test_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strlen/def_test.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strlen/def\_\-test.h}}
+This file contains the test definitions common for {\bf Strlen performance test} {\rm (p.\,\pageref{group__strlen__test})}. 
+
+
+{\tt \#include \char`\"{}def\_\-test\_\-def.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-def\_\-test}
+\begin{CompactList}\small\item\em the structure that {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})} uses to define the function under test\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+size\_\-t {\bf i386\_\-strlen} (const char $\ast$)
+\item 
+size\_\-t {\bf i486\_\-inline\_\-strlen} (const char $\ast$)
+\item 
+size\_\-t {\bf i486p\_\-strlen} (const char $\ast$)
+\item 
+size\_\-t {\bf i486\_\-strlen} (const char $\ast$)
+\item 
+size\_\-t {\bf lx\_\-strlen\_\-5a\_\-r2} (const char $\ast$)
+\item 
+size\_\-t {\bf lx\_\-strlen\_\-5a\_\-r} (const char $\ast$)
+\item 
+size\_\-t {\bf lx\_\-strlen} (const char $\ast$)
+\item 
+size\_\-t {\bf lxus\_\-strlen} (const char $\ast$)
+\item 
+size\_\-t {\bf lxu\_\-strlen} (const char $\ast$)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This file contains the test definitions common for {\bf Strlen performance test} {\rm (p.\,\pageref{group__strlen__test})}.
+
+
+
+
+
+\subsection{Function Documentation}
+\index{strlen/def_test.h@{strlen/def\_\-test.h}!i386_strlen@{i386\_\-strlen}}
+\index{i386_strlen@{i386\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t i386\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a1}
+
+
+renamed from sysdeps/i386/strlen.c \index{strlen/def_test.h@{strlen/def\_\-test.h}!i486_inline_strlen@{i486\_\-inline\_\-strlen}}
+\index{i486_inline_strlen@{i486\_\-inline\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t i486\_\-inline\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a2}
+
+
+extracted from sysdeps/i386/i486/bits/string.h \index{strlen/def_test.h@{strlen/def\_\-test.h}!i486_strlen@{i486\_\-strlen}}
+\index{i486_strlen@{i486\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t i486\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a4}
+
+
+Copied an renamed from sysdeps/i486/strlen.S \index{strlen/def_test.h@{strlen/def\_\-test.h}!i486p_strlen@{i486p\_\-strlen}}
+\index{i486p_strlen@{i486p\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t i486p\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a3}
+
+
+Strlen implementation\begin{CompactItemize}
+\item 
+Based on sysdeps/i486/strlen.S \item 
+Prefetch added to 'find zero in dword' unroll loop \end{CompactItemize}
+\index{strlen/def_test.h@{strlen/def\_\-test.h}!lx_strlen@{lx\_\-strlen}}
+\index{lx_strlen@{lx\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t lx\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a7}
+
+
+A simple assembly implementation using repnz;scasb \index{strlen/def_test.h@{strlen/def\_\-test.h}!lx_strlen_5a_r@{lx\_\-strlen\_\-5a\_\-r}}
+\index{lx_strlen_5a_r@{lx\_\-strlen\_\-5a\_\-r}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t lx\_\-strlen\_\-5a\_\-r (const char $\ast$)}\label{strlen_2def__test_8h_a6}
+
+
+Completely gutted from the {\bf i486\_\-strlen()} {\rm (p.\,\pageref{strlen_2def__test_8h_a4})} implementation\begin{CompactItemize}
+\item 
+Uses computed address alignment logic\item 
+Uses Darwin \char`\"{}magic\char`\"{} algorithm for zero finding \end{CompactItemize}
+\index{strlen/def_test.h@{strlen/def\_\-test.h}!lx_strlen_5a_r2@{lx\_\-strlen\_\-5a\_\-r2}}
+\index{lx_strlen_5a_r2@{lx\_\-strlen\_\-5a\_\-r2}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t lx\_\-strlen\_\-5a\_\-r2 (const char $\ast$)}\label{strlen_2def__test_8h_a5}
+
+
+Based on i468\_\-strlen()\begin{CompactItemize}
+\item 
+Uses i468\_\-strlen() alignment logic\item 
+Uses Darwin \char`\"{}magic\char`\"{} algorithm for zero finding \end{CompactItemize}
+\index{strlen/def_test.h@{strlen/def\_\-test.h}!lxu_strlen@{lxu\_\-strlen}}
+\index{lxu_strlen@{lxu\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t lxu\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a9}
+
+
+A assembly implementation using 32 byte repnz;scasb, in an unroll loop. Alignment logic, puts the string to scan on a cacheline (32 byte) boundary for the unroll \index{strlen/def_test.h@{strlen/def\_\-test.h}!lxus_strlen@{lxus\_\-strlen}}
+\index{lxus_strlen@{lxus\_\-strlen}!strlen/def_test.h@{strlen/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t lxus\_\-strlen (const char $\ast$)}\label{strlen_2def__test_8h_a8}
+
+
+A assembly implementation using 32 byte repnz;scasb, in an unroll loop 

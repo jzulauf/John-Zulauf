@@ -1,0 +1,170 @@
+\section{T\_\-test\_\-app Struct Reference}
+\label{structT__test__app}\index{T_test_app@{T\_\-test\_\-app}}
+Stores the standard options and setting for a test program. 
+
+
+{\tt \#include $<$test\_\-utils.h$>$}
+
+\subsection*{Public Attributes}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-test\_\-type} {\bf type}
+\item 
+const char $\ast$ {\bf name}
+\item 
+const char $\ast$ {\bf vers}
+\item 
+long {\bf start}
+\item 
+long {\bf end}
+\item 
+long {\bf incr}
+\item 
+long {\bf num\_\-try}
+\item 
+long {\bf align}
+\item 
+long {\bf rand\_\-align}
+\item 
+long {\bf verbose}
+\item 
+long {\bf baseline}
+\item 
+long {\bf seed}
+\item 
+long {\bf rand}
+\item 
+long {\bf testmask}
+\item 
+{\bf T\_\-test\_\-app\_\-fmt} {\bf fmt}
+\item 
+void $\ast$ {\bf test\_\-data}
+\item 
+long {\bf clock}
+\item 
+double {\bf bandwidth\_\-scale}
+\item 
+unsigned int {\bf useed}
+\item 
+size\_\-t {\bf num\_\-counts}
+\item 
+{\bf T\_\-test\_\-buffer} $\ast$$\ast$ {\bf bufs}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Stores the standard options and setting for a test program.
+
+
+
+\subsection{Member Data Documentation}
+\index{T_test_app@{T\_\-test\_\-app}!align@{align}}
+\index{align@{align}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::align}\label{structT__test__app_m7}
+
+
+alignment for test \index{T_test_app@{T\_\-test\_\-app}!bandwidth_scale@{bandwidth\_\-scale}}
+\index{bandwidth_scale@{bandwidth\_\-scale}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double T\_\-test\_\-app::bandwidth\_\-scale}\label{structT__test__app_m17}
+
+
+the total IO for each byte in count \index{T_test_app@{T\_\-test\_\-app}!baseline@{baseline}}
+\index{baseline@{baseline}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::baseline}\label{structT__test__app_m10}
+
+
+test number to use as the comparison basis \index{T_test_app@{T\_\-test\_\-app}!bufs@{bufs}}
+\index{bufs@{bufs}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct {\bf T\_\-test\_\-buffer}$\ast$$\ast$ T\_\-test\_\-app::bufs}\label{structT__test__app_m20}
+
+
+the test buffers \index{T_test_app@{T\_\-test\_\-app}!clock@{clock}}
+\index{clock@{clock}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::clock}\label{structT__test__app_m16}
+
+
+the clock speed of the host in MHz \index{T_test_app@{T\_\-test\_\-app}!end@{end}}
+\index{end@{end}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::end}\label{structT__test__app_m4}
+
+
+highest count to test (inclusive) \index{T_test_app@{T\_\-test\_\-app}!fmt@{fmt}}
+\index{fmt@{fmt}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-app\_\-fmt} T\_\-test\_\-app::fmt}\label{structT__test__app_m14}
+
+
+the format for the test report \index{T_test_app@{T\_\-test\_\-app}!incr@{incr}}
+\index{incr@{incr}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::incr}\label{structT__test__app_m5}
+
+
+step size for between tests \index{T_test_app@{T\_\-test\_\-app}!name@{name}}
+\index{name@{name}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ T\_\-test\_\-app::name}\label{structT__test__app_m1}
+
+
+program name \index{T_test_app@{T\_\-test\_\-app}!num_counts@{num\_\-counts}}
+\index{num_counts@{num\_\-counts}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t T\_\-test\_\-app::num\_\-counts}\label{structT__test__app_m19}
+
+
+The number of counts we test at \index{T_test_app@{T\_\-test\_\-app}!num_try@{num\_\-try}}
+\index{num_try@{num\_\-try}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::num\_\-try}\label{structT__test__app_m6}
+
+
+number of attemps for each count and function \index{T_test_app@{T\_\-test\_\-app}!rand@{rand}}
+\index{rand@{rand}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::rand}\label{structT__test__app_m12}
+
+
+random walk the count \index{T_test_app@{T\_\-test\_\-app}!rand_align@{rand\_\-align}}
+\index{rand_align@{rand\_\-align}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::rand\_\-align}\label{structT__test__app_m8}
+
+
+randomize alignment for test \index{T_test_app@{T\_\-test\_\-app}!seed@{seed}}
+\index{seed@{seed}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::seed}\label{structT__test__app_m11}
+
+
+seed for random walk \index{T_test_app@{T\_\-test\_\-app}!start@{start}}
+\index{start@{start}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::start}\label{structT__test__app_m3}
+
+
+lowest count to test (inclusive) \index{T_test_app@{T\_\-test\_\-app}!test_data@{test\_\-data}}
+\index{test_data@{test\_\-data}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ T\_\-test\_\-app::test\_\-data}\label{structT__test__app_m15}
+
+
+test specific data \index{T_test_app@{T\_\-test\_\-app}!testmask@{testmask}}
+\index{testmask@{testmask}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::testmask}\label{structT__test__app_m13}
+
+
+bitmask of tests to {\bf skip} \index{T_test_app@{T\_\-test\_\-app}!type@{type}}
+\index{type@{type}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-type} T\_\-test\_\-app::type}\label{structT__test__app_m0}
+
+
+type of operation tested \index{T_test_app@{T\_\-test\_\-app}!useed@{useed}}
+\index{useed@{useed}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}unsigned int T\_\-test\_\-app::useed}\label{structT__test__app_m18}
+
+
+The persistant state for rand\_\-r for this app, initialized to {\bf T\_\-test\_\-app::seed} {\rm (p.\,\pageref{structT__test__app_m11})} \index{T_test_app@{T\_\-test\_\-app}!verbose@{verbose}}
+\index{verbose@{verbose}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}long T\_\-test\_\-app::verbose}\label{structT__test__app_m9}
+
+
+level of detail for output \index{T_test_app@{T\_\-test\_\-app}!vers@{vers}}
+\index{vers@{vers}!T_test_app@{T\_\-test\_\-app}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ T\_\-test\_\-app::vers}\label{structT__test__app_m2}
+
+
+program name 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/{\bf test\_\-utils.h}\end{CompactItemize}

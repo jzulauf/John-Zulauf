@@ -1,0 +1,68 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strcpy/def\_\-test.h File Reference}
+\label{strcpy_2def__test_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strcpy/def_test.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/strcpy/def\_\-test.h}}
+This file defines the functions types and names for {\bf strcpy performance test} {\rm (p.\,\pageref{group__strcpy__test})}. 
+
+
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include \char`\"{}def\_\-test\_\-def.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-def\_\-test}
+\begin{CompactList}\small\item\em the structure that {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})} uses to define the function under test\item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+char $\ast$ {\bf lx\_\-strcpy\_\-5a} (char $\ast$dst, const char $\ast$src)
+\item 
+char $\ast$ {\bf lx\_\-strcpy\_\-5a\_\-r} (char $\ast$dst, const char $\ast$src)
+\item 
+char $\ast$ {\bf lx\_\-strcpy\_\-r3} (char $\ast$dst, const char $\ast$src)
+\item 
+char $\ast$ {\bf lx\_\-strcpy\_\-r4} (char $\ast$dst, const char $\ast$src)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This file defines the functions types and names for {\bf strcpy performance test} {\rm (p.\,\pageref{group__strcpy__test})}.
+
+
+
+
+
+\subsection{Function Documentation}
+\index{strcpy/def_test.h@{strcpy/def\_\-test.h}!lx_strcpy_5a@{lx\_\-strcpy\_\-5a}}
+\index{lx_strcpy_5a@{lx\_\-strcpy\_\-5a}!strcpy/def_test.h@{strcpy/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ lx\_\-strcpy\_\-5a (char $\ast$ {\em dst}, const char $\ast$ {\em src})}\label{strcpy_2def__test_8h_a1}
+
+
+Strcpy implementation using \begin{CompactItemize}
+\item 
+the 586 alignment logic\item 
+Darwin \char`\"{}magic\char`\"{} algorithm \end{CompactItemize}
+\index{strcpy/def_test.h@{strcpy/def\_\-test.h}!lx_strcpy_5a_r@{lx\_\-strcpy\_\-5a\_\-r}}
+\index{lx_strcpy_5a_r@{lx\_\-strcpy\_\-5a\_\-r}!strcpy/def_test.h@{strcpy/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ lx\_\-strcpy\_\-5a\_\-r (char $\ast$ {\em dst}, const char $\ast$ {\em src})}\label{strcpy_2def__test_8h_a2}
+
+
+Strcpy implementation using \begin{CompactItemize}
+\item 
+the 586 alignment logic\item 
+Darwin \char`\"{}magic\char`\"{} algorithm\item 
+Unrolled last dword logic \end{CompactItemize}
+\index{strcpy/def_test.h@{strcpy/def\_\-test.h}!lx_strcpy_r3@{lx\_\-strcpy\_\-r3}}
+\index{lx_strcpy_r3@{lx\_\-strcpy\_\-r3}!strcpy/def_test.h@{strcpy/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ lx\_\-strcpy\_\-r3 (char $\ast$ {\em dst}, const char $\ast$ {\em src})}\label{strcpy_2def__test_8h_a3}
+
+
+Strcpy implementation using \begin{CompactItemize}
+\item 
+New align logic using negative offsets in the align blocks\item 
+Darwin \char`\"{}magic\char`\"{} algorithm\item 
+Unrolled last dword logic \end{CompactItemize}
+\index{strcpy/def_test.h@{strcpy/def\_\-test.h}!lx_strcpy_r4@{lx\_\-strcpy\_\-r4}}
+\index{lx_strcpy_r4@{lx\_\-strcpy\_\-r4}!strcpy/def_test.h@{strcpy/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ lx\_\-strcpy\_\-r4 (char $\ast$ {\em dst}, const char $\ast$ {\em src})}\label{strcpy_2def__test_8h_a4}
+
+
+{\bf special} version allowing search for ideal prefetch placement in conjunction with tools/permute.sh and {\bf dodef.h} 

@@ -1,0 +1,46 @@
+GLIBC Memcopy:
+There are a variety of ways memory copying is done in glib, controlled by the
+libc/sysdeps tree.
+
+Generic: libc/sysdeps/generic
+	memcpy uses: BYTE_COPY_FWD, PAGE_COPY_FWD_MAYBE, WORD_COPY_FWD macros 
+
+x86 (32bit): libc/sysdeps/i386
+	Has a generic 386 implementation with override directorys for
+	i486,  i586,  i686,  i786,
+i386 (generic x86 from which others "derive"
+	Defines _COPY_ macros
+		BYTE_COPY_FWD: (bytewise copy)
+			rep; movsb
+		WORD_COPY_FWD: (dword copy)
+			rep; movsl
+
+	Defines inline _memcpy_c for "count is a constant"
+		Special cases for: (and free at runtime)
+		0->20 explict assignments (in 'C')
+		count % 4: optionally inserting movsw, movsb after the movsl
+	__memcpy_by2 wraps memcpy
+	__memcpy_by4, __memcpy_g, __memcpy_g_internal are aliases __memcpy_by2
+	
+i486 Overrides:
+	__memcpy_c:
+		Special cases for:
+			0
+			switch count % 4 
+				0 __memcpy_by4
+				2 __memcpy_by2
+				other __memcpy_g 
+				non-repmov, movl (movd) jnz loop
+			..._by2 % 2 == 0
+				simple, non-repmov, movw loop
+				repmov dwords (Gentoo image)
+	__memcpy_by4
+		non-repmov: movl (movd) jnz loop
+	__memcpy_by2
+		non-repmov: movw jnz loop
+	__memcpy_g
+		shr; jnc; movs, for byte and word (if any)
+		repmov dwords 
+
+On i586
+	Pentium pipe unrolled movl's (WORD_COPY_FWD)

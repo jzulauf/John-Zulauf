@@ -1,0 +1,12 @@
+#!/bin/sh -v
+
+date_string=`date +"%y%m%d_%H%M"`
+file_root=`hostname`"_${date_string}_permuted_"`basename $PWD`
+echo $file_root
+time ./ptest -s 0 -e 513 -i 1 -t 20000 | tee ${file_root}_to513.txt | grep -v "^STATS"
+time ./ptest -s 1024 -e 16384 -i 1024 -t 20000 | tee ${file_root}_to16K.txt | grep -v "^STATS"
+time ./ptest -s 32768 -e 131072 -i 8192 -t 3000 | tee ${file_root}_to128K.txt | grep -v "^STATS"
+
+
+
+

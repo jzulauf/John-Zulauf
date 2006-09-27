@@ -1,0 +1,5 @@
+This is the README for the memset performance optimization candidates.
+
+See def_test.h for information, or use make doc in the parent directory
+to create Doxygen documenation for this candidate.
+

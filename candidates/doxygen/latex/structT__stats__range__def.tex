@@ -1,0 +1,58 @@
+\section{T\_\-stats\_\-range\_\-def Struct Reference}
+\label{structT__stats__range__def}\index{T_stats_range_def@{T\_\-stats\_\-range\_\-def}}
+Defines an msb range and bucket limits for easy hashing and reporting All range values are {\bf inclusive}. 
+
+
+{\tt \#include $<$bucket\_\-stats.h$>$}
+
+\subsection*{Public Attributes}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-tick} {\bf min}
+\item 
+{\bf T\_\-tick} {\bf max}
+\item 
+int {\bf shift}
+\item 
+{\bf T\_\-tick} {\bf bmin} [STATS\_\-BUCKETS]
+\item 
+{\bf T\_\-tick} {\bf bmax} [STATS\_\-BUCKETS]
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Defines an msb range and bucket limits for easy hashing and reporting All range values are {\bf inclusive}.
+
+
+
+\subsection{Member Data Documentation}
+\index{T_stats_range_def@{T\_\-stats\_\-range\_\-def}!bmax@{bmax}}
+\index{bmax@{bmax}!T_stats_range_def@{T\_\-stats\_\-range\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-tick} T\_\-stats\_\-range\_\-def::bmax[STATS\_\-BUCKETS]}\label{structT__stats__range__def_m4}
+
+
+maximum for each bucket \index{T_stats_range_def@{T\_\-stats\_\-range\_\-def}!bmin@{bmin}}
+\index{bmin@{bmin}!T_stats_range_def@{T\_\-stats\_\-range\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-tick} T\_\-stats\_\-range\_\-def::bmin[STATS\_\-BUCKETS]}\label{structT__stats__range__def_m3}
+
+
+minimum for each bucket \index{T_stats_range_def@{T\_\-stats\_\-range\_\-def}!max@{max}}
+\index{max@{max}!T_stats_range_def@{T\_\-stats\_\-range\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-tick} T\_\-stats\_\-range\_\-def::max}\label{structT__stats__range__def_m1}
+
+
+range max 2$^\wedge$(msb+1) -1 \index{T_stats_range_def@{T\_\-stats\_\-range\_\-def}!min@{min}}
+\index{min@{min}!T_stats_range_def@{T\_\-stats\_\-range\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-tick} T\_\-stats\_\-range\_\-def::min}\label{structT__stats__range__def_m0}
+
+
+range minimum 2$^\wedge$msb \index{T_stats_range_def@{T\_\-stats\_\-range\_\-def}!shift@{shift}}
+\index{shift@{shift}!T_stats_range_def@{T\_\-stats\_\-range\_\-def}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int T\_\-stats\_\-range\_\-def::shift}\label{structT__stats__range__def_m2}
+
+
+shift to compute bucket mask 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/{\bf bucket\_\-stats.h}\end{CompactItemize}

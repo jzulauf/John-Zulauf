@@ -1,0 +1,451 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/table.h File Reference}
+\label{table_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/table.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/table.h}}
+Types and default settings for {\bf \char`\"{}table\_\-\char`\"{} Simple table utility API} {\rm (p.\,\pageref{group__simple__table})} and {\bf \char`\"{}cell\_\-\char`\"{} A smart union datatype} {\rm (p.\,\pageref{group__table__cell})}. 
+
+
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}zstring.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf S\_\-cell}
+\item 
+struct {\bf S\_\-cell\_\-class}
+\item 
+struct {\bf S\_\-cell\_\-fmt}
+\item 
+struct {\bf S\_\-table}
+\item 
+struct {\bf S\_\-table\_\-class}
+\item 
+struct {\bf S\_\-table\_\-fmt}
+\item 
+union {\bf U\_\-cell\_\-data}
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef enum {\bf E\_\-cell\_\-type} {\bf T\_\-cell\_\-type}
+\item 
+typedef {\bf S\_\-cell\_\-fmt} {\bf T\_\-cell\_\-fmt}
+\item 
+typedef {\bf S\_\-cell\_\-class} {\bf T\_\-cell\_\-class}
+\item 
+typedef {\bf U\_\-cell\_\-data} {\bf T\_\-cell\_\-data}
+\item 
+typedef {\bf S\_\-cell} {\bf T\_\-cell}
+\item 
+typedef {\bf S\_\-table\_\-fmt} {\bf T\_\-table\_\-fmt}
+\item 
+typedef {\bf S\_\-table\_\-class} {\bf T\_\-table\_\-class}
+\item 
+typedef {\bf S\_\-table} {\bf T\_\-table}
+\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum {\bf E\_\-cell\_\-type} \{ {\bf CELL\_\-UNINIT} =  0, 
+{\bf CELL\_\-DOUBLE}, 
+{\bf CELL\_\-LONG}, 
+{\bf CELL\_\-ULONG}, 
+{\bf CELL\_\-LONGLONG}, 
+{\bf CELL\_\-ULONGLONG}, 
+{\bf CELL\_\-VOID}, 
+{\bf CELL\_\-ZSTRING}
+ \}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-cell} $\ast$ {\bf cell\_\-create\_\-array} (size\_\-t num)
+\item 
+void {\bf cell\_\-destroy\_\-array} ({\bf T\_\-cell} $\ast$cell\_\-array, size\_\-t num)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf cell\_\-set} ({\bf T\_\-cell} $\ast$c, {\bf T\_\-cell\_\-type} type, const void $\ast$data)
+\item 
+int {\bf cell\_\-fprintf} ({\bf T\_\-cell} $\ast$c, FILE $\ast$out, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+int {\bf cell\_\-sprintf} ({\bf T\_\-cell} $\ast$c, {\bf T\_\-zstring} $\ast$z, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+{\bf T\_\-table} $\ast$ {\bf table\_\-create} (size\_\-t rows, size\_\-t cols)
+\item 
+void {\bf table\_\-destroy} ({\bf T\_\-table} $\ast$t)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-get\_\-cell} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, {\bf T\_\-cell\_\-type} type, const void $\ast$data)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-zstr} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, const char $\ast$zstr)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-dbl} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, double dbl)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-u64} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, unsigned long long u64)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-set\_\-cell\_\-u32} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, unsigned long u32)
+\item 
+{\bf T\_\-cell} $\ast$ {\bf table\_\-reformat} ({\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col, {\bf T\_\-cell\_\-fmt} $\ast$fmt)
+\item 
+void {\bf table\_\-print} ({\bf T\_\-table} $\ast$t, FILE $\ast$out, {\bf T\_\-table\_\-fmt} $\ast$fmt)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-cell\_\-fmt} {\bf g\_\-cell\_\-fmt\_\-default}
+\item 
+{\bf T\_\-cell\_\-class} {\bf g\_\-cell\_\-class}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-html}
+\item 
+{\bf T\_\-table\_\-fmt} {\bf g\_\-table\_\-fmt\_\-csv}
+\item 
+{\bf T\_\-table\_\-class} {\bf g\_\-table\_\-class}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Types and default settings for {\bf \char`\"{}table\_\-\char`\"{} Simple table utility API} {\rm (p.\,\pageref{group__simple__table})} and {\bf \char`\"{}cell\_\-\char`\"{} A smart union datatype} {\rm (p.\,\pageref{group__table__cell})}.
+
+
+
+
+
+\subsection{Typedef Documentation}
+\index{table.h@{table.h}!T_cell@{T\_\-cell}}
+\index{T_cell@{T\_\-cell}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-cell}  T\_\-cell}\label{table_8h_a4}
+
+
+The data defining a T\_\-cell:: instance
+
+The use of capitilized names makes it convenient to access in macros using CELL\_\-\#field to indicate the type for the field \index{table.h@{table.h}!T_cell_class@{T\_\-cell\_\-class}}
+\index{T_cell_class@{T\_\-cell\_\-class}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-cell\_\-class}  T\_\-cell\_\-class}\label{table_8h_a2}
+
+
+The class data for T\_\-cell:: \index{table.h@{table.h}!T_cell_data@{T\_\-cell\_\-data}}
+\index{T_cell_data@{T\_\-cell\_\-data}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef union {\bf U\_\-cell\_\-data}  T\_\-cell\_\-data}\label{table_8h_a3}
+
+
+The flexible storage union for T\_\-cell:: \index{table.h@{table.h}!T_cell_fmt@{T\_\-cell\_\-fmt}}
+\index{T_cell_fmt@{T\_\-cell\_\-fmt}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-cell\_\-fmt}  T\_\-cell\_\-fmt}\label{table_8h_a1}
+
+
+The formats to use when printing cell data, one for each type in T\_\-cell\_\-type:: \index{table.h@{table.h}!T_cell_type@{T\_\-cell\_\-type}}
+\index{T_cell_type@{T\_\-cell\_\-type}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf E\_\-cell\_\-type}  T\_\-cell\_\-type}\label{table_8h_a0}
+
+
+The list of valid types for {\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})}, stored in {\bf T\_\-cell::type} {\rm (p.\,\pageref{structS__cell_m1})} \index{table.h@{table.h}!T_table@{T\_\-table}}
+\index{T_table@{T\_\-table}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-table}  T\_\-table}\label{table_8h_a9}
+
+
+the data defining a T\_\-table:: instance \index{table.h@{table.h}!T_table_class@{T\_\-table\_\-class}}
+\index{T_table_class@{T\_\-table\_\-class}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-table\_\-class}  T\_\-table\_\-class}\label{table_8h_a8}
+
+
+class data for T\_\-table:: \index{table.h@{table.h}!T_table_fmt@{T\_\-table\_\-fmt}}
+\index{T_table_fmt@{T\_\-table\_\-fmt}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf S\_\-table\_\-fmt}  T\_\-table\_\-fmt}\label{table_8h_a7}
+
+
+Store the strings to control formatting of T\_\-table:: 
+
+\subsection{Enumeration Type Documentation}
+\index{table.h@{table.h}!E_cell_type@{E\_\-cell\_\-type}}
+\index{E_cell_type@{E\_\-cell\_\-type}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum E\_\-cell\_\-type}\label{table_8h_a37}
+
+
+The list of valid types for {\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})}, stored in {\bf T\_\-cell::type} {\rm (p.\,\pageref{structS__cell_m1})} \begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{CELL_UNINIT@{CELL\_\-UNINIT}!table.h@{table.h}}\index{table.h@{table.h}!CELL_UNINIT@{CELL\_\-UNINIT}}\item[{\em 
+{\em CELL\_\-UNINIT}\label{table_8h_a37a14}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is uninitialized \index{CELL_DOUBLE@{CELL\_\-DOUBLE}!table.h@{table.h}}\index{table.h@{table.h}!CELL_DOUBLE@{CELL\_\-DOUBLE}}\item[{\em 
+{\em CELL\_\-DOUBLE}\label{table_8h_a37a15}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is a double \index{CELL_LONG@{CELL\_\-LONG}!table.h@{table.h}}\index{table.h@{table.h}!CELL_LONG@{CELL\_\-LONG}}\item[{\em 
+{\em CELL\_\-LONG}\label{table_8h_a37a16}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is a long \index{CELL_ULONG@{CELL\_\-ULONG}!table.h@{table.h}}\index{table.h@{table.h}!CELL_ULONG@{CELL\_\-ULONG}}\item[{\em 
+{\em CELL\_\-ULONG}\label{table_8h_a37a17}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is an unsigned long \index{CELL_LONGLONG@{CELL\_\-LONGLONG}!table.h@{table.h}}\index{table.h@{table.h}!CELL_LONGLONG@{CELL\_\-LONGLONG}}\item[{\em 
+{\em CELL\_\-LONGLONG}\label{table_8h_a37a18}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is a long long \index{CELL_ULONGLONG@{CELL\_\-ULONGLONG}!table.h@{table.h}}\index{table.h@{table.h}!CELL_ULONGLONG@{CELL\_\-ULONGLONG}}\item[{\em 
+{\em CELL\_\-ULONGLONG}\label{table_8h_a37a19}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is an unsigned long long \index{CELL_VOID@{CELL\_\-VOID}!table.h@{table.h}}\index{table.h@{table.h}!CELL_VOID@{CELL\_\-VOID}}\item[{\em 
+{\em CELL\_\-VOID}\label{table_8h_a37a20}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is a void $\ast$ \index{CELL_ZSTRING@{CELL\_\-ZSTRING}!table.h@{table.h}}\index{table.h@{table.h}!CELL_ZSTRING@{CELL\_\-ZSTRING}}\item[{\em 
+{\em CELL\_\-ZSTRING}\label{table_8h_a37a21}
+}]{\bf T\_\-cell::data} {\rm (p.\,\pageref{structS__cell_m0})} is a string (T\_\-zstring:: ) \end{description}
+\end{Desc}
+
+
+
+\subsection{Function Documentation}
+\index{table.h@{table.h}!cell_create_array@{cell\_\-create\_\-array}}
+\index{cell_create_array@{cell\_\-create\_\-array}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ cell\_\-create\_\-array (size\_\-t {\em num})}\label{table_8h_a22}
+
+
+Array creator for T\_\-cell::
+
+Since the \char`\"{}uninitialized\char`\"{} type is 0, we simply calloc to create\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+num}]the number of T\_\-cell:: to create \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the array of T\_\-cell:: created \end{Desc}
+\index{table.h@{table.h}!cell_destroy_array@{cell\_\-destroy\_\-array}}
+\index{cell_destroy_array@{cell\_\-destroy\_\-array}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cell\_\-destroy\_\-array ({\bf T\_\-cell} $\ast$ {\em cell\_\-array}, size\_\-t {\em num})}\label{table_8h_a23}
+
+
+Destructor for arrays of cells
+
+WARNING: num must match the number passed to the creator \index{table.h@{table.h}!cell_fprintf@{cell\_\-fprintf}}
+\index{cell_fprintf@{cell\_\-fprintf}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cell\_\-fprintf ({\bf T\_\-cell} $\ast$ {\em c}, FILE $\ast$ {\em out}, {\bf T\_\-cell\_\-fmt} $\ast$ {\em fmt})}\label{table_8h_a25}
+
+
+fprintf the cell to the given FILE\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the cell to fprintf \item[{\em 
+out}]the file to write \item[{\em 
+fmt}]the cell format to use, or NULL for to use {\bf T\_\-cell\_\-class::fmt} {\rm (p.\,\pageref{structS__cell__class_m0})} \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the return value fprintf \end{Desc}
+\index{table.h@{table.h}!cell_set@{cell\_\-set}}
+\index{cell_set@{cell\_\-set}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ cell\_\-set ({\bf T\_\-cell} $\ast$ {\em c}, {\bf T\_\-cell\_\-type} {\em type}, const void $\ast$ {\em data})}\label{table_8h_a24}
+
+
+Sets the value\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the cell to set (if NULL, function is NOOP) \item[{\em 
+type}]the type of data \item[{\em 
+data}]the address of the data to store (except for type VOID where the parameter is the data to store). ZSTRING are copied into a T\_\-zstring::. \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell itself (can be NULL)\end{Desc}
+Note: changing a cell from type ZSTRING destroys the T\_\-zstring:: referenced do {\bf not} keep a pointer to the T\_\-zstring:: in your own code. \index{table.h@{table.h}!cell_sprintf@{cell\_\-sprintf}}
+\index{cell_sprintf@{cell\_\-sprintf}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int cell\_\-sprintf ({\bf T\_\-cell} $\ast$ {\em c}, {\bf T\_\-zstring} $\ast$ {\em z}, {\bf T\_\-cell\_\-fmt} $\ast$ {\em fmt})}\label{table_8h_a26}
+
+
+sprintf the cell to the passed zstring using the given fmt structure Note: will alloc zstring as needed. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+c}]the cell to sprintf \item[{\em 
+z}]the T\_\-zstring:: to hold the result (automatically resized) \item[{\em 
+fmt}]the cell format to use, or NULL for to use {\bf T\_\-cell\_\-class::fmt} {\rm (p.\,\pageref{structS__cell__class_m0})} \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the return value sprintf (number of characters formatted) \end{Desc}
+\index{table.h@{table.h}!table_create@{table\_\-create}}
+\index{table_create@{table\_\-create}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table}$\ast$ table\_\-create (size\_\-t {\em rows}, size\_\-t {\em cols})}\label{table_8h_a27}
+
+
+The creator for T\_\-table::\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+rows}]the number of rows for the table \item[{\em 
+cols}]the number of columns for the table \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the T\_\-table:: created \end{Desc}
+\index{table.h@{table.h}!table_destroy@{table\_\-destroy}}
+\index{table_destroy@{table\_\-destroy}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-destroy ({\bf T\_\-table} $\ast$ {\em t})}\label{table_8h_a28}
+
+
+The destroyer for T\_\-table::\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table to destroy \end{description}
+\end{Desc}
+\index{table.h@{table.h}!table_get_cell@{table\_\-get\_\-cell}}
+\index{table_get_cell@{table\_\-get\_\-cell}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-get\_\-cell ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col})}\label{table_8h_a29}
+
+
+Look up the cell based on the row, colum pair in a T\_\-table::\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \end{description}
+\end{Desc}
+\index{table.h@{table.h}!table_print@{table\_\-print}}
+\index{table_print@{table\_\-print}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-print ({\bf T\_\-table} $\ast$ {\em t}, FILE $\ast$ {\em out}, {\bf T\_\-table\_\-fmt} $\ast$ {\em fmt})}\label{table_8h_a36}
+
+
+print the table using the current format\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table to print \item[{\em 
+out}]the file to which to print \item[{\em 
+fmt}]the fmt for the table (use g\_\-table\_\-class::fmt if NULL) \end{description}
+\end{Desc}
+\index{table.h@{table.h}!table_reformat@{table\_\-reformat}}
+\index{table_reformat@{table\_\-reformat}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-reformat ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, {\bf T\_\-cell\_\-fmt} $\ast$ {\em fmt})}\label{table_8h_a35}
+
+
+Reformat a cell from it's native type to a string using sprintf and the passed format table. \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+fmt}]the fmt structure \end{description}
+\end{Desc}
+\index{table.h@{table.h}!table_set_cell@{table\_\-set\_\-cell}}
+\index{table_set_cell@{table\_\-set\_\-cell}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, {\bf T\_\-cell\_\-type} {\em type}, const void $\ast$ {\em data})}\label{table_8h_a30}
+
+
+Store a value in a cell
+
+This is a convenience function for strings as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+type}]the type of data \item[{\em 
+data}]the address of the data to store (except for type VOID where the parameter is the data to store). ZSTRING are copied into a T\_\-zstring::.\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{table.h@{table.h}!table_set_cell_dbl@{table\_\-set\_\-cell\_\-dbl}}
+\index{table_set_cell_dbl@{table\_\-set\_\-cell\_\-dbl}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-dbl ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, double {\em dbl})}\label{table_8h_a32}
+
+
+Store a double in cell(row,col) of the T\_\-table::
+
+This is a convenience function for double as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+dbl}]the value to store\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{table.h@{table.h}!table_set_cell_u32@{table\_\-set\_\-cell\_\-u32}}
+\index{table_set_cell_u32@{table\_\-set\_\-cell\_\-u32}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-u32 ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, unsigned long {\em u32})}\label{table_8h_a34}
+
+
+Store a unsigned long in cell(row,col) of the T\_\-table::
+
+This is a convenience function for unsigned long long as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+u32}]the value to store\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{table.h@{table.h}!table_set_cell_u64@{table\_\-set\_\-cell\_\-u64}}
+\index{table_set_cell_u64@{table\_\-set\_\-cell\_\-u64}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-u64 ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, unsigned long long {\em u64})}\label{table_8h_a33}
+
+
+Store a unsigned long long in cell(row,col) of the T\_\-table::
+
+This is a convenience function for unsigned long long as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+u64}]the value to store\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+\index{table.h@{table.h}!table_set_cell_zstr@{table\_\-set\_\-cell\_\-zstr}}
+\index{table_set_cell_zstr@{table\_\-set\_\-cell\_\-zstr}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell}$\ast$ table\_\-set\_\-cell\_\-zstr ({\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col}, const char $\ast$ {\em zstr})}\label{table_8h_a31}
+
+
+Store a NULL terminated string in a cell
+
+This is a convenience function for strings as a commonly used type\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+t}]the table \item[{\em 
+row}]the row \item[{\em 
+col}]the column \item[{\em 
+zstr}]the NULL terminated string to store (the string is copied)\end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the cell set or NULL if row or column out-of-bounds \end{Desc}
+
+
+\subsection{Variable Documentation}
+\index{table.h@{table.h}!g_cell_class@{g\_\-cell\_\-class}}
+\index{g_cell_class@{g\_\-cell\_\-class}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell\_\-class} g\_\-cell\_\-class ()}\label{table_8h_a6}
+
+
+The class object for T\_\-cell:: \index{table.h@{table.h}!g_cell_fmt_default@{g\_\-cell\_\-fmt\_\-default}}
+\index{g_cell_fmt_default@{g\_\-cell\_\-fmt\_\-default}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-cell\_\-fmt} g\_\-cell\_\-fmt\_\-default ()}\label{table_8h_a5}
+
+
+default print formats
+
+These formats defined the output for T\_\-cell:: fields. \index{table.h@{table.h}!g_table_class@{g\_\-table\_\-class}}
+\index{g_table_class@{g\_\-table\_\-class}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-class} g\_\-table\_\-class ()}\label{table_8h_a13}
+
+
+The class data for T\_\-table:: \index{table.h@{table.h}!g_table_fmt_csv@{g\_\-table\_\-fmt\_\-csv}}
+\index{g_table_fmt_csv@{g\_\-table\_\-fmt\_\-csv}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-fmt} g\_\-table\_\-fmt\_\-csv ()}\label{table_8h_a12}
+
+
+The csv formatting for a T\_\-table:: \index{table.h@{table.h}!g_table_fmt_html@{g\_\-table\_\-fmt\_\-html}}
+\index{g_table_fmt_html@{g\_\-table\_\-fmt\_\-html}!table.h@{table.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-table\_\-fmt} g\_\-table\_\-fmt\_\-html ()}\label{table_8h_a11}
+
+
+Formatting for a T\_\-table:: which will produce an HTML table 

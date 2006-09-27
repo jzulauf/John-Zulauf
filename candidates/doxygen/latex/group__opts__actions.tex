@@ -1,0 +1,80 @@
+\section{Standard callback actions}
+\label{group__opts__actions}\index{Standard callback actions@{Standard callback actions}}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int {\bf opts\_\-action\_\-clear} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to zero a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-incr} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to increment a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-set} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to set to 1 a long value if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-strtol} (void $\ast$ptr\_\-to\_\-long)
+\begin{CompactList}\small\item\em callback action to set long value to the supplied argument if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-usage} (void $\ast$ignored)
+\begin{CompactList}\small\item\em callback action display the usage message if a flag is present\item\end{CompactList}\item 
+int {\bf opts\_\-action\_\-version} (void $\ast$ignored)
+\begin{CompactList}\small\item\em callback action display the usage version message if a flag is present\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{opts_actions@{opts\_\-actions}!opts_action_clear@{opts\_\-action\_\-clear}}
+\index{opts_action_clear@{opts\_\-action\_\-clear}!opts_actions@{opts\_\-actions}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-clear (void $\ast$ {\em ptr\_\-to\_\-long})}\label{group__opts__actions_a0}
+
+
+callback action to zero a long value if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_actions@{opts\_\-actions}!opts_action_incr@{opts\_\-action\_\-incr}}
+\index{opts_action_incr@{opts\_\-action\_\-incr}!opts_actions@{opts\_\-actions}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-incr (void $\ast$ {\em ptr\_\-to\_\-long})}\label{group__opts__actions_a1}
+
+
+callback action to increment a long value if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_actions@{opts\_\-actions}!opts_action_set@{opts\_\-action\_\-set}}
+\index{opts_action_set@{opts\_\-action\_\-set}!opts_actions@{opts\_\-actions}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-set (void $\ast$ {\em ptr\_\-to\_\-long})}\label{group__opts__actions_a2}
+
+
+callback action to set to 1 a long value if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_actions@{opts\_\-actions}!opts_action_strtol@{opts\_\-action\_\-strtol}}
+\index{opts_action_strtol@{opts\_\-action\_\-strtol}!opts_actions@{opts\_\-actions}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-strtol (void $\ast$ {\em ptr\_\-to\_\-long})}\label{group__opts__actions_a3}
+
+
+callback action to set long value to the supplied argument if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_actions@{opts\_\-actions}!opts_action_usage@{opts\_\-action\_\-usage}}
+\index{opts_action_usage@{opts\_\-action\_\-usage}!opts_actions@{opts\_\-actions}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-usage (void $\ast$ {\em ignored})}\label{group__opts__actions_a4}
+
+
+callback action display the usage message if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}
+\index{opts_actions@{opts\_\-actions}!opts_action_version@{opts\_\-action\_\-version}}
+\index{opts_action_version@{opts\_\-action\_\-version}!opts_actions@{opts\_\-actions}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int opts\_\-action\_\-version (void $\ast$ {\em ignored})}\label{group__opts__actions_a5}
+
+
+callback action display the usage version message if a flag is present
+
+\begin{Desc}
+\item[Returns: ]\par
+0 for success non-zero for failure \end{Desc}

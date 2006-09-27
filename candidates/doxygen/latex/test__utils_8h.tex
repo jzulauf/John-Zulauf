@@ -1,0 +1,635 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/test\_\-utils.h File Reference}
+\label{test__utils_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/test_utils.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/test\_\-utils.h}}
+types and prototypes for {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})} 
+
+
+{\tt \#include $<$limits.h$>$}\par
+{\tt \#include \char`\"{}deck.h\char`\"{}}\par
+{\tt \#include \char`\"{}table.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-test\_\-app}
+\begin{CompactList}\small\item\em Stores the standard options and setting for a test program.\item\end{CompactList}\item 
+struct {\bf T\_\-test\_\-app\_\-fmt}
+\item 
+struct {\bf T\_\-test\_\-buffer}
+\begin{CompactList}\small\item\em The data and callbacks for a given test buffer.\item\end{CompactList}\item 
+struct {\bf T\_\-test\_\-sample}
+\begin{CompactList}\small\item\em This is a data sample that a test function works on.\item\end{CompactList}\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf TEST\_\-IS\_\-ONE\_\-BUFFER}(t)
+\item 
+\#define {\bf TEST\_\-IS\_\-ZSTR}(t)
+\item 
+\#define {\bf TEST\_\-IS\_\-MEM}(t)
+\item 
+\#define {\bf TEST\_\-IS\_\-CAT}(t)
+\item 
+\#define {\bf TEST\_\-APP\_\-TABLE\_\-MAX}\ 5
+\item 
+\#define {\bf TEST\_\-BUFFER\_\-MAX}\ 2
+\item 
+\#define {\bf TEST\_\-PAT\_\-SRC}\ \char`\"{}ABCDEFGHIJKLMNOP\char`\"{}
+\item 
+\#define {\bf TEST\_\-PAT\_\-DST}\ \char`\"{}abcdefghijklmnop\char`\"{}
+\item 
+\#define {\bf TEST\_\-PAT\_\-PAD}\ \char`\"{}0123456789:;$<$=$>$?\char`\"{}
+\item 
+\#define {\bf TEST\_\-PAT\_\-BAD}\ \char`\"{} !$\backslash$\char`\"{}\#\$\%\&'()$\ast$+`-./\char`\"{}
+\item 
+\#define {\bf TEST\_\-CL\_\-SIZE}\ 32
+\item 
+\#define {\bf TEST\_\-EXTRA\_\-PREFETCH}\ 3
+\begin{CompactList}\small\item\em sets the maximum number of extra cachlines prefetched, w.r.t. the last cl processed by a test\_\-function. Three is default as this is the number of prefetch slots on a Geode LX processor\item\end{CompactList}\item 
+\#define {\bf TEST\_\-ALIGN\_\-SIZE}\ TEST\_\-CL\_\-SIZE
+\item 
+\#define {\bf TEST\_\-MIN\_\-BUFFER\_\-SIZE}\ 256$\ast$1024
+\item 
+\#define {\bf TEST\_\-MAX\_\-BUFFER\_\-SIZE}\ 1024$\ast$1024
+\item 
+\#define {\bf TEST\_\-BUFFER\_\-REP\_\-MIN}\ 8
+\item 
+\#define {\bf TEST\_\-BUFFER\_\-REP\_\-MAX}\ 512
+\item 
+\#define {\bf TEST\_\-SRC}\ 0
+\item 
+\#define {\bf TEST\_\-DST}\ 1
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef void($\ast$ {\bf T\_\-test\_\-cb\_\-samp} )(struct {\bf T\_\-test\_\-buffer} $\ast$, size\_\-t, void $\ast$)
+\item 
+typedef void($\ast$ {\bf T\_\-test\_\-cb\_\-fill} )(struct {\bf T\_\-test\_\-buffer} $\ast$, {\bf T\_\-test\_\-sample} $\ast$, void $\ast$)
+\item 
+\index{T_test_buffer@{T\_\-test\_\-buffer}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!T_test_buffer@{T\_\-test\_\-buffer}}
+typedef T\_\-test\_\-buffer {\bf T\_\-test\_\-buffer}\label{test__utils_8h_a21}
+
+\begin{CompactList}\small\item\em The data and callbacks for a given test buffer.\item\end{CompactList}\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum {\bf T\_\-test\_\-type} \{ {\bf MEM}, 
+{\bf MEM\_\-TO\_\-MEM}, 
+{\bf ZSTR}, 
+{\bf ZSTR\_\-TO\_\-ZSTR}, 
+{\bf ZSTR\_\-CAT\_\-ZSTR}, 
+{\bf CUSTOM\_\-ONE}, 
+{\bf CUSTOM\_\-MORE}, 
+{\bf CUSTOM\_\-CAT}
+ \}
+\begin{CompactList}\small\item\em The overall type of the test. Defines default behavior for the buffers.\item\end{CompactList}\item 
+enum {\bf T\_\-test\_\-toc\_\-type} 
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf test\_\-init} (const char $\ast$progname, const char $\ast$progversion, {\bf T\_\-test\_\-type} type)
+\begin{CompactList}\small\item\em Initializes the app state structure and command line (opts table).\item\end{CompactList}\item 
+void {\bf test\_\-create\_\-buffers} ({\bf T\_\-test\_\-app} $\ast$app, size\_\-t scale, size\_\-t extra)
+\begin{CompactList}\small\item\em Allocates the default set of buffers {\bf NOTE}: init buffers computes and allocates the buffers and the TOC but {\bf doesn't} fill them. It {\bf does} look at the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} settings and the test\_\-type to initialize the count and wrap call backs.\item\end{CompactList}\item 
+int {\bf test\_\-action\_\-oneshot} (void $\ast$ptr\_\-to\_\-app\_\-opts)
+\begin{CompactList}\small\item\em Callback for {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})} and the --oneshot flag.\item\end{CompactList}\item 
+{\bf T\_\-test\_\-app} $\ast$ {\bf test\_\-app\_\-create} (const char $\ast$progname, const char $\ast$progversion, {\bf T\_\-test\_\-type} type)
+\begin{CompactList}\small\item\em Allocate the test application state structure and set the default values.\item\end{CompactList}\item 
+void {\bf test\_\-app\_\-default\_\-opts} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Add the common test commandline options to the opts table used by {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})}.\item\end{CompactList}\item 
+void {\bf test\_\-app\_\-print\_\-options} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Outputs test option information.\item\end{CompactList}\item 
+void {\bf test\_\-app\_\-validate\_\-options} ({\bf T\_\-test\_\-app} $\ast$app)
+\begin{CompactList}\small\item\em Make sure the user inputs are \char`\"{}sane\char`\"{}.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-app\_\-fill\_\-data} ({\bf T\_\-test\_\-app} $\ast$app, {\bf T\_\-table} $\ast$t, size\_\-t row, size\_\-t col)
+\item 
+size\_\-t {\bf test\_\-compute\_\-cl\_\-stride} (size\_\-t size, size\_\-t align)
+\begin{CompactList}\small\item\em Compute a cacheline aligned stride given a size and an alignment.\item\end{CompactList}\item 
+size\_\-t {\bf test\_\-compute\_\-buffer\_\-size} (size\_\-t min, size\_\-t max)
+\begin{CompactList}\small\item\em computes the buffer size from the strides and limits\item\end{CompactList}\item 
+char $\ast$ {\bf test\_\-compute\_\-next\_\-cl} (char $\ast$addr)
+\begin{CompactList}\small\item\em computes the next cacheline aligned address. If address is cacheline aligned, it is returned unaltered\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-toc\_\-const} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count)
+\begin{CompactList}\small\item\em Fills a toc for a given count and account for cacheline and align effects.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-toc\_\-rand} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t current\_\-count)
+\begin{CompactList}\small\item\em Fills a toc for a given count and account for cacheline and align effects.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-fill\_\-from\_\-toc} ({\bf T\_\-test\_\-buffer} $\ast$b)
+\begin{CompactList}\small\item\em Fill a buffer with based on the toc entries and the fill callback. Since both the \_\-const and \_\-rand toc initialization routines set all sample fields this can be used in either case.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-cb\_\-fill\_\-zstr} ({\bf T\_\-test\_\-buffer} $\ast$b, {\bf T\_\-test\_\-sample} $\ast$s, void $\ast$data)
+\begin{CompactList}\small\item\em Standard callback to fill one sample with a zstring.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-cb\_\-fill\_\-mem} ({\bf T\_\-test\_\-buffer} $\ast$b, {\bf T\_\-test\_\-sample} $\ast$s, void $\ast$)
+\begin{CompactList}\small\item\em Standard callback to fill one sample with a pattern (not NULL terminated).\item\end{CompactList}\item 
+{\bf T\_\-test\_\-buffer} $\ast$ {\bf test\_\-buffer\_\-create} (size\_\-t type, {\bf T\_\-test\_\-app} $\ast$app, size\_\-t scale, size\_\-t extra\_\-pad)
+\begin{CompactList}\small\item\em Create a single test buffer.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-count\_\-change} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count, void $\ast$data)
+\begin{CompactList}\small\item\em Default action to take on a buffer \char`\"{}count change\char`\"{} event, can be overriden by setting {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})}.\item\end{CompactList}\item 
+void {\bf test\_\-buffer\_\-wrap} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count, void $\ast$data)
+\begin{CompactList}\small\item\em Default action to take on a buffer \char`\"{}wrap\char`\"{} event. Can be overridden by setting {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})}.\item\end{CompactList}\item 
+{\bf T\_\-test\_\-sample} $\ast$ {\bf test\_\-buffer\_\-next} ({\bf T\_\-test\_\-buffer} $\ast$b, size\_\-t count)
+\begin{CompactList}\small\item\em Get the next sample from the buffer, handling the count change and buffer wrap cases.\item\end{CompactList}\item 
+void {\bf test\_\-pat\_\-fill} (char $\ast$buff, size\_\-t n, const char $\ast$pat)
+\begin{CompactList}\small\item\em Fill a char buffer with a repeating pattern.\item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+types and prototypes for {\bf \char`\"{}test\_\-\char`\"{} Test framework for performance testing} {\rm (p.\,\pageref{group__test})}
+
+
+
+
+
+\subsection{Define Documentation}
+\index{test_utils.h@{test\_\-utils.h}!TEST_ALIGN_SIZE@{TEST\_\-ALIGN\_\-SIZE}}
+\index{TEST_ALIGN_SIZE@{TEST\_\-ALIGN\_\-SIZE}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-ALIGN\_\-SIZE\ TEST\_\-CL\_\-SIZE}\label{test__utils_8h_a12}
+
+
+maximum shift of the source/dest start points for alingment testing (+1) \index{test_utils.h@{test\_\-utils.h}!TEST_APP_TABLE_MAX@{TEST\_\-APP\_\-TABLE\_\-MAX}}
+\index{TEST_APP_TABLE_MAX@{TEST\_\-APP\_\-TABLE\_\-MAX}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-APP\_\-TABLE\_\-MAX\ 5}\label{test__utils_8h_a4}
+
+
+The maximum number of tables to emit \index{test_utils.h@{test\_\-utils.h}!TEST_BUFFER_MAX@{TEST\_\-BUFFER\_\-MAX}}
+\index{TEST_BUFFER_MAX@{TEST\_\-BUFFER\_\-MAX}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-BUFFER\_\-MAX\ 2}\label{test__utils_8h_a5}
+
+
+The number of buffers in the test. Default is 2 for src and dst \index{test_utils.h@{test\_\-utils.h}!TEST_BUFFER_REP_MAX@{TEST\_\-BUFFER\_\-REP\_\-MAX}}
+\index{TEST_BUFFER_REP_MAX@{TEST\_\-BUFFER\_\-REP\_\-MAX}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-BUFFER\_\-REP\_\-MAX\ 512}\label{test__utils_8h_a16}
+
+
+The greatest number of test sample to fit in a buffer \index{test_utils.h@{test\_\-utils.h}!TEST_BUFFER_REP_MIN@{TEST\_\-BUFFER\_\-REP\_\-MIN}}
+\index{TEST_BUFFER_REP_MIN@{TEST\_\-BUFFER\_\-REP\_\-MIN}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-BUFFER\_\-REP\_\-MIN\ 8}\label{test__utils_8h_a15}
+
+
+The fewest number of test sample to fit in a buffer \index{test_utils.h@{test\_\-utils.h}!TEST_CL_SIZE@{TEST\_\-CL\_\-SIZE}}
+\index{TEST_CL_SIZE@{TEST\_\-CL\_\-SIZE}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-CL\_\-SIZE\ 32}\label{test__utils_8h_a10}
+
+
+The cacheline size \index{test_utils.h@{test\_\-utils.h}!TEST_DST@{TEST\_\-DST}}
+\index{TEST_DST@{TEST\_\-DST}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-DST\ 1}\label{test__utils_8h_a18}
+
+
+The default index for the destination buffer \index{test_utils.h@{test\_\-utils.h}!TEST_EXTRA_PREFETCH@{TEST\_\-EXTRA\_\-PREFETCH}}
+\index{TEST_EXTRA_PREFETCH@{TEST\_\-EXTRA\_\-PREFETCH}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-EXTRA\_\-PREFETCH\ 3}\label{test__utils_8h_a11}
+
+
+sets the maximum number of extra cachlines prefetched, w.r.t. the last cl processed by a test\_\-function. Three is default as this is the number of prefetch slots on a Geode LX processor
+
+How far ahead do the test functions prefetch (in TEST\_\-CL\_\-SIZE) \index{test_utils.h@{test\_\-utils.h}!TEST_IS_CAT@{TEST\_\-IS\_\-CAT}}
+\index{TEST_IS_CAT@{TEST\_\-IS\_\-CAT}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-IS\_\-CAT(t)}\label{test__utils_8h_a3}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}( \
+        ( ( ZSTR_CAT_ZSTR == t ) ||     \
+          ( CUSTOM_CAT    == t ) ) ? 1 : 0 )\end{verbatim}\normalsize 
+test if test type appends source to dest (i.e. length is additive) \index{test_utils.h@{test\_\-utils.h}!TEST_IS_MEM@{TEST\_\-IS\_\-MEM}}
+\index{TEST_IS_MEM@{TEST\_\-IS\_\-MEM}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-IS\_\-MEM(t)}\label{test__utils_8h_a2}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}( \
+        ( ( MEM        == t ) ||        \
+          ( MEM_TO_MEM == t ) ) ? 1 : 0 )\end{verbatim}\normalsize 
+test if test type use memory (i.e. not strings) \index{test_utils.h@{test\_\-utils.h}!TEST_IS_ONE_BUFFER@{TEST\_\-IS\_\-ONE\_\-BUFFER}}
+\index{TEST_IS_ONE_BUFFER@{TEST\_\-IS\_\-ONE\_\-BUFFER}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-IS\_\-ONE\_\-BUFFER(t)}\label{test__utils_8h_a0}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}( \
+        ( ( MEM        == t ) ||        \
+          ( ZSTR       == t ) ||        \
+          ( CUSTOM_ONE == t ) ) ? 1 : 0 )\end{verbatim}\normalsize 
+test if test type only uses one buffer \index{test_utils.h@{test\_\-utils.h}!TEST_IS_ZSTR@{TEST\_\-IS\_\-ZSTR}}
+\index{TEST_IS_ZSTR@{TEST\_\-IS\_\-ZSTR}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-IS\_\-ZSTR(t)}\label{test__utils_8h_a1}
+
+
+{\bf Value:}
+
+\footnotesize\begin{verbatim}( \
+        ( ( ZSTR          == t ) ||     \
+          ( ZSTR_TO_ZSTR  == t ) ||     \
+          ( ZSTR_CAT_ZSTR == t ) ) ? 1 : 0 )\end{verbatim}\normalsize 
+test if test type uses null terminate strings \index{test_utils.h@{test\_\-utils.h}!TEST_MAX_BUFFER_SIZE@{TEST\_\-MAX\_\-BUFFER\_\-SIZE}}
+\index{TEST_MAX_BUFFER_SIZE@{TEST\_\-MAX\_\-BUFFER\_\-SIZE}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-MAX\_\-BUFFER\_\-SIZE\ 1024$\ast$1024}\label{test__utils_8h_a14}
+
+
+the largest the test buffers can be. Should be $<$$<$ system memory. \index{test_utils.h@{test\_\-utils.h}!TEST_MIN_BUFFER_SIZE@{TEST\_\-MIN\_\-BUFFER\_\-SIZE}}
+\index{TEST_MIN_BUFFER_SIZE@{TEST\_\-MIN\_\-BUFFER\_\-SIZE}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-MIN\_\-BUFFER\_\-SIZE\ 256$\ast$1024}\label{test__utils_8h_a13}
+
+
+the smallest the test buffers can be.  Should be 4x at least 2x the cachesize \index{test_utils.h@{test\_\-utils.h}!TEST_PAT_BAD@{TEST\_\-PAT\_\-BAD}}
+\index{TEST_PAT_BAD@{TEST\_\-PAT\_\-BAD}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-PAT\_\-BAD\ \char`\"{} !$\backslash$\char`\"{}\#\$\%\&'()$\ast$+`-./\char`\"{}}\label{test__utils_8h_a9}
+
+
+The default data pattern for padding that {\bf should'nt} be found \index{test_utils.h@{test\_\-utils.h}!TEST_PAT_DST@{TEST\_\-PAT\_\-DST}}
+\index{TEST_PAT_DST@{TEST\_\-PAT\_\-DST}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-PAT\_\-DST\ \char`\"{}abcdefghijklmnop\char`\"{}}\label{test__utils_8h_a7}
+
+
+The default data pattern for destination buffers \index{test_utils.h@{test\_\-utils.h}!TEST_PAT_PAD@{TEST\_\-PAT\_\-PAD}}
+\index{TEST_PAT_PAD@{TEST\_\-PAT\_\-PAD}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-PAT\_\-PAD\ \char`\"{}0123456789:;$<$=$>$?\char`\"{}}\label{test__utils_8h_a8}
+
+
+The default data pattern for padding that {\bf should} be found \index{test_utils.h@{test\_\-utils.h}!TEST_PAT_SRC@{TEST\_\-PAT\_\-SRC}}
+\index{TEST_PAT_SRC@{TEST\_\-PAT\_\-SRC}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-PAT\_\-SRC\ \char`\"{}ABCDEFGHIJKLMNOP\char`\"{}}\label{test__utils_8h_a6}
+
+
+The default data pattern for source buffers \index{test_utils.h@{test\_\-utils.h}!TEST_SRC@{TEST\_\-SRC}}
+\index{TEST_SRC@{TEST\_\-SRC}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-SRC\ 0}\label{test__utils_8h_a17}
+
+
+The default index for the source buffer 
+
+\subsection{Typedef Documentation}
+\index{test_utils.h@{test\_\-utils.h}!T_test_cb_fill@{T\_\-test\_\-cb\_\-fill}}
+\index{T_test_cb_fill@{T\_\-test\_\-cb\_\-fill}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ T\_\-test\_\-cb\_\-fill)(struct {\bf T\_\-test\_\-buffer} $\ast$, {\bf T\_\-test\_\-sample} $\ast$, void $\ast$)}\label{test__utils_8h_a20}
+
+
+callback function type for sample fill functions \index{test_utils.h@{test\_\-utils.h}!T_test_cb_samp@{T\_\-test\_\-cb\_\-samp}}
+\index{T_test_cb_samp@{T\_\-test\_\-cb\_\-samp}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ T\_\-test\_\-cb\_\-samp)(struct {\bf T\_\-test\_\-buffer} $\ast$, size\_\-t, void $\ast$)}\label{test__utils_8h_a19}
+
+
+callback function type for wrap and count change functions 
+
+\subsection{Enumeration Type Documentation}
+\index{test_utils.h@{test\_\-utils.h}!T_test_toc_type@{T\_\-test\_\-toc\_\-type}}
+\index{T_test_toc_type@{T\_\-test\_\-toc\_\-type}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum T\_\-test\_\-toc\_\-type}\label{test__utils_8h_a54}
+
+
+what type of count is used in the toc's samples \index{test_utils.h@{test\_\-utils.h}!T_test_type@{T\_\-test\_\-type}}
+\index{T_test_type@{T\_\-test\_\-type}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum T\_\-test\_\-type}\label{test__utils_8h_a53}
+
+
+The overall type of the test. Defines default behavior for the buffers.
+
+\begin{Desc}
+\item[Enumeration values: ]\par
+\begin{description}
+\index{MEM@{MEM}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!MEM@{MEM}}\item[{\em 
+{\em MEM}\label{test__utils_8h_a53a22}
+}]one buffer memory operation \index{MEM_TO_MEM@{MEM\_\-TO\_\-MEM}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!MEM_TO_MEM@{MEM\_\-TO\_\-MEM}}\item[{\em 
+{\em MEM\_\-TO\_\-MEM}\label{test__utils_8h_a53a23}
+}]two buffer memory operation dst is size of src \index{ZSTR@{ZSTR}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!ZSTR@{ZSTR}}\item[{\em 
+{\em ZSTR}\label{test__utils_8h_a53a24}
+}]one buffer string operation \index{ZSTR_TO_ZSTR@{ZSTR\_\-TO\_\-ZSTR}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!ZSTR_TO_ZSTR@{ZSTR\_\-TO\_\-ZSTR}}\item[{\em 
+{\em ZSTR\_\-TO\_\-ZSTR}\label{test__utils_8h_a53a25}
+}]two buffer string operation dst is size of src \index{ZSTR_CAT_ZSTR@{ZSTR\_\-CAT\_\-ZSTR}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!ZSTR_CAT_ZSTR@{ZSTR\_\-CAT\_\-ZSTR}}\item[{\em 
+{\em ZSTR\_\-CAT\_\-ZSTR}\label{test__utils_8h_a53a26}
+}]two buffer string operation w/ lengths add \index{CUSTOM_ONE@{CUSTOM\_\-ONE}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!CUSTOM_ONE@{CUSTOM\_\-ONE}}\item[{\em 
+{\em CUSTOM\_\-ONE}\label{test__utils_8h_a53a27}
+}]non-std, one buffer, no default fill action \index{CUSTOM_MORE@{CUSTOM\_\-MORE}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!CUSTOM_MORE@{CUSTOM\_\-MORE}}\item[{\em 
+{\em CUSTOM\_\-MORE}\label{test__utils_8h_a53a28}
+}]non-std, $>$1 buffer, no default fill action \index{CUSTOM_CAT@{CUSTOM\_\-CAT}!test_utils.h@{test\_\-utils.h}}\index{test_utils.h@{test\_\-utils.h}!CUSTOM_CAT@{CUSTOM\_\-CAT}}\item[{\em 
+{\em CUSTOM\_\-CAT}\label{test__utils_8h_a53a29}
+}]non-std, $>$1 buffer, non-src buffers are 2x size, no default fill action \end{description}
+\end{Desc}
+
+
+
+\subsection{Function Documentation}
+\index{test_utils.h@{test\_\-utils.h}!test_action_oneshot@{test\_\-action\_\-oneshot}}
+\index{test_action_oneshot@{test\_\-action\_\-oneshot}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int test\_\-action\_\-oneshot (void $\ast$ {\em ptr\_\-to\_\-test\_\-app})}\label{test__utils_8h_a34}
+
+
+Callback for {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})} and the --oneshot flag.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+ptr\_\-to\_\-test\_\-app}]action callback data pointing to the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} structure \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+0 (action successful) \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_app_create@{test\_\-app\_\-create}}
+\index{test_app_create@{test\_\-app\_\-create}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-app}$\ast$ test\_\-app\_\-create (const char $\ast$ {\em name}, const char $\ast$ {\em vers}, {\bf T\_\-test\_\-type} {\em type})}\label{test__utils_8h_a35}
+
+
+Allocate the test application state structure and set the default values.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+name}]the program name to display \item[{\em 
+vers}]the program version to display \item[{\em 
+type}]the type of operation being tested \end{description}
+\end{Desc}
+\begin{Desc}
+\item[See also: ]\par
+test\_\-init\_\-buffers() return the application state structure \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_app_default_opts@{test\_\-app\_\-default\_\-opts}}
+\index{test_app_default_opts@{test\_\-app\_\-default\_\-opts}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-app\_\-default\_\-opts ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{test__utils_8h_a36}
+
+
+Add the common test commandline options to the opts table used by {\bf opts\_\-getopt()} {\rm (p.\,\pageref{group__opts_a3})}.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_app_fill_data@{test\_\-app\_\-fill\_\-data}}
+\index{test_app_fill_data@{test\_\-app\_\-fill\_\-data}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-app\_\-fill\_\-data ({\bf T\_\-test\_\-app} $\ast$ {\em app}, {\bf T\_\-table} $\ast$ {\em t}, size\_\-t {\em row}, size\_\-t {\em col})}\label{test__utils_8h_a39}
+
+
+Output the test spplication state information \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \item[{\em 
+t}]the table to fill \item[{\em 
+row}]the starting row for the data  \item[{\em 
+col}]the starting column for the data \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the row following the last data value \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_app_print_options@{test\_\-app\_\-print\_\-options}}
+\index{test_app_print_options@{test\_\-app\_\-print\_\-options}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-app\_\-print\_\-options ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{test__utils_8h_a37}
+
+
+Outputs test option information.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_app_validate_options@{test\_\-app\_\-validate\_\-options}}
+\index{test_app_validate_options@{test\_\-app\_\-validate\_\-options}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-app\_\-validate\_\-options ({\bf T\_\-test\_\-app} $\ast$ {\em app})}\label{test__utils_8h_a38}
+
+
+Make sure the user inputs are \char`\"{}sane\char`\"{}.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state structure \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_cb_fill_mem@{test\_\-buffer\_\-cb\_\-fill\_\-mem}}
+\index{test_buffer_cb_fill_mem@{test\_\-buffer\_\-cb\_\-fill\_\-mem}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-cb\_\-fill\_\-mem ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, {\bf T\_\-test\_\-sample} $\ast$ {\em s}, void $\ast$ {\em data})}\label{test__utils_8h_a47}
+
+
+Standard callback to fill one sample with a pattern (not NULL terminated).
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer the sample is in. \item[{\em 
+s}]the sample to fill \item[{\em 
+data}]private data for this callback (unused) \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_cb_fill_zstr@{test\_\-buffer\_\-cb\_\-fill\_\-zstr}}
+\index{test_buffer_cb_fill_zstr@{test\_\-buffer\_\-cb\_\-fill\_\-zstr}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-cb\_\-fill\_\-zstr ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, {\bf T\_\-test\_\-sample} $\ast$ {\em s}, void $\ast$ {\em data})}\label{test__utils_8h_a46}
+
+
+Standard callback to fill one sample with a zstring.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer the sample is in. \item[{\em 
+s}]the sample to fill \item[{\em 
+data}]private data for this callback (unused) \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_count_change@{test\_\-buffer\_\-count\_\-change}}
+\index{test_buffer_count_change@{test\_\-buffer\_\-count\_\-change}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-count\_\-change ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count}, void $\ast$ {\em data})}\label{test__utils_8h_a49}
+
+
+Default action to take on a buffer \char`\"{}count change\char`\"{} event, can be overriden by setting {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})}.
+
+Sets the toc for the current count if it has changed. Also responsible $\ast$ for initialization (as count change happens in timetest(). Override this function by defining {\bf T\_\-test\_\-buffer::f\_\-count} {\rm (p.\,\pageref{structT__test__buffer_m22})} \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+count}]the current count \item[{\em 
+data}]arbitrary private for the count change (ignored) \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_create@{test\_\-buffer\_\-create}}
+\index{test_buffer_create@{test\_\-buffer\_\-create}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-buffer}$\ast$ test\_\-buffer\_\-create (size\_\-t {\em type}, {\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em scale}, size\_\-t {\em extra\_\-pad})}\label{test__utils_8h_a48}
+
+
+Create a single test buffer.
+
+TODO: Needs a destructor \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+type}]buffer type 0 for src, 1 for dst, $>$ 1 other (treated as dst) \item[{\em 
+app}]the application state \item[{\em 
+scale}]the multiplier for count to compute buffer sample size \item[{\em 
+extra\_\-pad}]the fixed amount to add to each buffer size \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+test buffer structure \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_fill_from_toc@{test\_\-buffer\_\-fill\_\-from\_\-toc}}
+\index{test_buffer_fill_from_toc@{test\_\-buffer\_\-fill\_\-from\_\-toc}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-fill\_\-from\_\-toc ({\bf T\_\-test\_\-buffer} $\ast$ {\em b})}\label{test__utils_8h_a45}
+
+
+Fill a buffer with based on the toc entries and the fill callback. Since both the \_\-const and \_\-rand toc initialization routines set all sample fields this can be used in either case.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_next@{test\_\-buffer\_\-next}}
+\index{test_buffer_next@{test\_\-buffer\_\-next}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-sample}$\ast$ test\_\-buffer\_\-next ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count})}\label{test__utils_8h_a51}
+
+
+Get the next sample from the buffer, handling the count change and buffer wrap cases.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+count}]the current count (ignored for rand) \item[{\em 
+b}]the buffer to get the next sample from \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+pointer to the next sample in the the buffer \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_toc_const@{test\_\-buffer\_\-toc\_\-const}}
+\index{test_buffer_toc_const@{test\_\-buffer\_\-toc\_\-const}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-toc\_\-const ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count})}\label{test__utils_8h_a43}
+
+
+Fills a toc for a given count and account for cacheline and align effects.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+count}]the current constant for the toc \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_toc_rand@{test\_\-buffer\_\-toc\_\-rand}}
+\index{test_buffer_toc_rand@{test\_\-buffer\_\-toc\_\-rand}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-toc\_\-rand ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em current\_\-count})}\label{test__utils_8h_a44}
+
+
+Fills a toc for a given count and account for cacheline and align effects.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+current\_\-count}]the current constant count from the innerloop (e.g loop\_\-innerloop() ) \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_buffer_wrap@{test\_\-buffer\_\-wrap}}
+\index{test_buffer_wrap@{test\_\-buffer\_\-wrap}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-buffer\_\-wrap ({\bf T\_\-test\_\-buffer} $\ast$ {\em b}, size\_\-t {\em count}, void $\ast$ {\em data})}\label{test__utils_8h_a50}
+
+
+Default action to take on a buffer \char`\"{}wrap\char`\"{} event. Can be overridden by setting {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})}.
+
+Fills the toc with a new random distribution if app-$>$rand. Note that if f\_\-fill is NULL not actually fill anything. Override this function by defining {\bf T\_\-test\_\-buffer::f\_\-wrap} {\rm (p.\,\pageref{structT__test__buffer_m20})} \begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+b}]the 'this' buffer to affect \item[{\em 
+count}]the current count \item[{\em 
+data}]arbitrary private for the wrap (ignored) \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_compute_buffer_size@{test\_\-compute\_\-buffer\_\-size}}
+\index{test_compute_buffer_size@{test\_\-compute\_\-buffer\_\-size}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-compute\_\-buffer\_\-size (size\_\-t {\em min}, size\_\-t {\em max})}\label{test__utils_8h_a41}
+
+
+computes the buffer size from the strides and limits
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+min}]the minimum sample size \item[{\em 
+max}]the maximum sample size \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+the size of the buffer to create \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_compute_cl_stride@{test\_\-compute\_\-cl\_\-stride}}
+\index{test_compute_cl_stride@{test\_\-compute\_\-cl\_\-stride}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t test\_\-compute\_\-cl\_\-stride (size\_\-t {\em size}, size\_\-t {\em align})}\label{test__utils_8h_a40}
+
+
+Compute a cacheline aligned stride given a size and an alignment.
+
+Note: the role of TEST\_\-MAX\_\-PREFETCH, is to ensure that extra prefetches at the end of an optimized routine do {\bf not} affect the results of the next sample or test.\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+size}]the size of the sample \item[{\em 
+align}]the the alignment off set the sample \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+cacheline aligned stride. \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_compute_next_cl@{test\_\-compute\_\-next\_\-cl}}
+\index{test_compute_next_cl@{test\_\-compute\_\-next\_\-cl}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ test\_\-compute\_\-next\_\-cl (char $\ast$ {\em addr})}\label{test__utils_8h_a42}
+
+
+computes the next cacheline aligned address. If address is cacheline aligned, it is returned unaltered
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+addr}]address to align \end{description}
+\end{Desc}
+\begin{Desc}
+\item[Returns: ]\par
+cacheline aligned address \end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_create_buffers@{test\_\-create\_\-buffers}}
+\index{test_create_buffers@{test\_\-create\_\-buffers}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-create\_\-buffers ({\bf T\_\-test\_\-app} $\ast$ {\em app}, size\_\-t {\em scale}, size\_\-t {\em extra})}\label{test__utils_8h_a33}
+
+
+Allocates the default set of buffers {\bf NOTE}: init buffers computes and allocates the buffers and the TOC but {\bf doesn't} fill them. It {\bf does} look at the {\bf T\_\-test\_\-app} {\rm (p.\,\pageref{structT__test__app})} settings and the test\_\-type to initialize the count and wrap call backs.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+app}]the application state \item[{\em 
+scale}]size multiplier the samples: samp\_\-size = count $\ast$ scale + extra \item[{\em 
+extra}]additional bytes for each sample (see scale parameter) \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_init@{test\_\-init}}
+\index{test_init@{test\_\-init}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}{\bf T\_\-test\_\-app}$\ast$ test\_\-init (const char $\ast$ {\em progname}, const char $\ast$ {\em progversion}, {\bf T\_\-test\_\-type} {\em type})}\label{test__utils_8h_a32}
+
+
+Initializes the app state structure and command line (opts table).
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+progname}]name of this program (information only) \item[{\em 
+progversion}]name of this program (for help and usage) \item[{\em 
+type}]the cannonical form of the test \end{description}
+\end{Desc}
+\index{test_utils.h@{test\_\-utils.h}!test_pat_fill@{test\_\-pat\_\-fill}}
+\index{test_pat_fill@{test\_\-pat\_\-fill}!test_utils.h@{test\_\-utils.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void test\_\-pat\_\-fill (char $\ast$ {\em buff}, size\_\-t {\em n}, const char $\ast$ {\em pat})}\label{test__utils_8h_a52}
+
+
+Fill a char buffer with a repeating pattern.
+
+\begin{Desc}
+\item[Parameters: ]\par
+\begin{description}
+\item[{\em 
+buff}]char buffer of at least n bytes \item[{\em 
+n}]number bytes to fill \item[{\em 
+pat}]pattern to fill the buffer with (a NULL terminated string) \end{description}
+\end{Desc}

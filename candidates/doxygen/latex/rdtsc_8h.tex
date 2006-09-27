@@ -1,0 +1,46 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/rdtsc.h File Reference}
+\label{rdtsc_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/rdtsc.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/include/rdtsc.h}}
+defines for reading the real time stamp counter 
+
+
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define {\bf ULLONG\_\-MAX}\ 18446744073709551615ULL
+\item 
+\#define {\bf rdtscll}(val)\ \_\-\_\-asm\_\-\_\- \_\-\_\-volatile\_\-\_\-(\char`\"{}rdtsc\char`\"{} : \char`\"{}=A\char`\"{} (val))
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef unsigned long long {\bf T\_\-tick}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+defines for reading the real time stamp counter
+
+
+
+
+
+\subsection{Define Documentation}
+\index{rdtsc.h@{rdtsc.h}!rdtscll@{rdtscll}}
+\index{rdtscll@{rdtscll}!rdtsc.h@{rdtsc.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define rdtscll(val)\ \_\-\_\-asm\_\-\_\- \_\-\_\-volatile\_\-\_\-(\char`\"{}rdtsc\char`\"{} : \char`\"{}=A\char`\"{} (val))}\label{rdtsc_8h_a1}
+
+
+Inline assembly to read the timestamp counter \index{rdtsc.h@{rdtsc.h}!ULLONG_MAX@{ULLONG\_\-MAX}}
+\index{ULLONG_MAX@{ULLONG\_\-MAX}!rdtsc.h@{rdtsc.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define ULLONG\_\-MAX\ 18446744073709551615ULL}\label{rdtsc_8h_a0}
+
+
+max value for and unsigned long long variable 
+
+\subsection{Typedef Documentation}
+\index{rdtsc.h@{rdtsc.h}!T_tick@{T\_\-tick}}
+\index{T_tick@{T\_\-tick}!rdtsc.h@{rdtsc.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned long long T\_\-tick}\label{rdtsc_8h_a2}
+
+
+type for rdtsc timestamps 

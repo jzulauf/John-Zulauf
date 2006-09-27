@@ -1,0 +1,93 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/memset/def\_\-test.h File Reference}
+\label{memset_2def__test_8h}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/memset/def_test.h@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/memset/def\_\-test.h}}
+This file defines the functions types and names for the memset performance optimization test. {\bf Memset performance test} {\rm (p.\,\pageref{group__memset__test})}. 
+
+
+{\tt \#include \char`\"{}def\_\-test\_\-def.h\char`\"{}}\par
+\subsection*{Compounds}
+\begin{CompactItemize}
+\item 
+struct {\bf T\_\-def\_\-test}
+\begin{CompactList}\small\item\em the structure that {\bf \char`\"{}loop\_\-\char`\"{} Standard loops for testing and reporting} {\rm (p.\,\pageref{group__loop__test})} uses to define the function under test\item\end{CompactList}\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef void $\ast$($\ast$ {\bf T\_\-def\_\-Fn} )(void $\ast$, int, size\_\-t)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\index{i386_memset@{i386\_\-memset}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!i386_memset@{i386\_\-memset}}
+void $\ast$ {\bf i386\_\-memset} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a1}
+
+\begin{CompactList}\small\item\em the 386 glibc implementation of memset\item\end{CompactList}\item 
+\index{i586_memset@{i586\_\-memset}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!i586_memset@{i586\_\-memset}}
+void $\ast$ {\bf i586\_\-memset} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a2}
+
+\begin{CompactList}\small\item\em the 586 glibc implementation of memset\item\end{CompactList}\item 
+\index{i686_memset@{i686\_\-memset}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!i686_memset@{i686\_\-memset}}
+void $\ast$ {\bf i686\_\-memset} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a3}
+
+\begin{CompactList}\small\item\em the 686 glibc implementation of memset, alignment preamble is borked\item\end{CompactList}\item 
+\index{i686_memset_fix@{i686\_\-memset\_\-fix}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!i686_memset_fix@{i686\_\-memset\_\-fix}}
+void $\ast$ {\bf i686\_\-memset\_\-fix} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a4}
+
+\begin{CompactList}\small\item\em the 686 glibc implementation of memset, w/ a fix to the alignment preamble\item\end{CompactList}\item 
+\index{lx_memset_zan@{lx\_\-memset\_\-zan}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_zan@{lx\_\-memset\_\-zan}}
+void $\ast$ {\bf lx\_\-memset\_\-zan} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a5}
+
+\begin{CompactList}\small\item\em lx optimization replacing the three conditional jumps of the 686 implementation with a rep; stosb for the unaligned portion\item\end{CompactList}\item 
+\index{lx_memset_simp@{lx\_\-memset\_\-simp}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_simp@{lx\_\-memset\_\-simp}}
+void $\ast$ {\bf lx\_\-memset\_\-simp} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a6}
+
+\begin{CompactList}\small\item\em lx optimization with no alignment correction\item\end{CompactList}\item 
+\index{lx_memset_hyb@{lx\_\-memset\_\-hyb}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_hyb@{lx\_\-memset\_\-hyb}}
+void $\ast$ {\bf lx\_\-memset\_\-hyb} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a7}
+
+\begin{CompactList}\small\item\em lx optimization which combines the \char`\"{}short\char`\"{} and \char`\"{}aligned\char`\"{} tests into a cmovz and a single conditional jump\item\end{CompactList}\item 
+\index{lx_memset_hyb_BA@{lx\_\-memset\_\-hyb\_\-BA}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_hyb_BA@{lx\_\-memset\_\-hyb\_\-BA}}
+void $\ast$ {\bf lx\_\-memset\_\-hyb\_\-BA} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a8}
+
+\begin{CompactList}\small\item\em same as {\bf lx\_\-memset\_\-hyb()} {\rm (p.\,\pageref{memset_2def__test_8h_a7})}, but with quadword alignment logic instead dword alignment logic\item\end{CompactList}\item 
+\index{lx_memset_mmx@{lx\_\-memset\_\-mmx}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_mmx@{lx\_\-memset\_\-mmx}}
+void $\ast$ {\bf lx\_\-memset\_\-mmx} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a9}
+
+\begin{CompactList}\small\item\em lx optimization using a 32 byte unroll loop and movq (slow)\item\end{CompactList}\item 
+\index{lx_memset_mmx64@{lx\_\-memset\_\-mmx64}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_mmx64@{lx\_\-memset\_\-mmx64}}
+void $\ast$ {\bf lx\_\-memset\_\-mmx64} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a10}
+
+\begin{CompactList}\small\item\em lx optimization using a 64 byte unroll loop and movq w/ dword alignment logic (which is a bad idea)\item\end{CompactList}\item 
+\index{lx_memset_mmx64simp@{lx\_\-memset\_\-mmx64simp}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_mmx64simp@{lx\_\-memset\_\-mmx64simp}}
+void $\ast$ {\bf lx\_\-memset\_\-mmx64simp} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a11}
+
+\begin{CompactList}\small\item\em lx optimization using a 64 byte unroll loop and movq but w/ quadword alignment logic\item\end{CompactList}\item 
+\index{lx_memset_mmx64_BA@{lx\_\-memset\_\-mmx64\_\-BA}!memset/def_test.h@{memset/def\_\-test.h}}\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_mmx64_BA@{lx\_\-memset\_\-mmx64\_\-BA}}
+void $\ast$ {\bf lx\_\-memset\_\-mmx64\_\-BA} (void $\ast$dst, int c, size\_\-t n)\label{memset_2def__test_8h_a12}
+
+\begin{CompactList}\small\item\em lx optimization using a 64 byte unroll loop and movq w/ no alignment logic (which is fastest if the dest is quadword aligned)\item\end{CompactList}\item 
+void $\ast$ {\bf lx\_\-memset\_\-mmx64\_\-h2} (void $\ast$dst, int c, size\_\-t n)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+This file defines the functions types and names for the memset performance optimization test. {\bf Memset performance test} {\rm (p.\,\pageref{group__memset__test})}.
+
+
+
+
+
+\subsection{Typedef Documentation}
+\index{memset/def_test.h@{memset/def\_\-test.h}!T_def_Fn@{T\_\-def\_\-Fn}}
+\index{T_def_Fn@{T\_\-def\_\-Fn}!memset/def_test.h@{memset/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef void$\ast$($\ast$ T\_\-def\_\-Fn)(void $\ast$, int , size\_\-t )}\label{memset_2def__test_8h_a0}
+
+
+The function pointer type for the function under test 
+
+\subsection{Function Documentation}
+\index{memset/def_test.h@{memset/def\_\-test.h}!lx_memset_mmx64_h2@{lx\_\-memset\_\-mmx64\_\-h2}}
+\index{lx_memset_mmx64_h2@{lx\_\-memset\_\-mmx64\_\-h2}!memset/def_test.h@{memset/def\_\-test.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ lx\_\-memset\_\-mmx64\_\-h2 (void $\ast$ {\em dst}, int {\em c}, size\_\-t {\em n})}\label{memset_2def__test_8h_a13}
+
+
+skips the mmx loop for $<$ 512 bytes 

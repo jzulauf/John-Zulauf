@@ -1,0 +1,31 @@
+\section{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/zstring.c File Reference}
+\label{zstring_8c}\index{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/zstring.c@{/users/jcrouse/perforce/drivers/projects/geodelx/linux/glibc/candidates/common/utils/zstring.c}}
+Implements a simple string API {\bf \char`\"{}zstring\_\-\char`\"{} Simple string API} {\rm (p.\,\pageref{group__zstring})}. 
+
+
+{\tt \#include \char`\"{}zstring.h\char`\"{}}\par
+{\tt \#include $<$stdlib.h$>$}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+{\bf T\_\-zstring} $\ast$ {\bf zstring\_\-create} (const char $\ast$s)
+\item 
+void {\bf zstring\_\-destroy} ({\bf T\_\-zstring} $\ast$z)
+\item 
+void {\bf zstring\_\-set} ({\bf T\_\-zstring} $\ast$z, const char $\ast$s\_\-arg)
+\item 
+const char $\ast$ {\bf zstring\_\-get} ({\bf T\_\-zstring} $\ast$z)
+\item 
+void {\bf zstring\_\-cat} ({\bf T\_\-zstring} $\ast$z, const char $\ast$s\_\-arg)
+\item 
+size\_\-t {\bf zstring\_\-alloc} ({\bf T\_\-zstring} $\ast$z, size\_\-t len)
+\item 
+void {\bf zstring\_\-pad} ({\bf T\_\-zstring} $\ast$z, int c, size\_\-t len)
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+Implements a simple string API {\bf \char`\"{}zstring\_\-\char`\"{} Simple string API} {\rm (p.\,\pageref{group__zstring})}.
+
+
+
